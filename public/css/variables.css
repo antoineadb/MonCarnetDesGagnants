@@ -1,0 +1,141 @@
+:root{
+
+    --paper:#F6EFD8;
+
+    --paper-dark:#E9DAB5;
+
+    --gold:#D5A539;
+
+    --wood:#7B5535;
+
+    --brown:#5A4027;
+
+    --text:#2F2925;
+
+}
+:root{
+
+    /* Couleurs principales */
+
+    --paper:#F7ECD2;
+    --paper-dark:#EEDDB5;
+
+    --wood:#6B4728;
+    --wood-light:#8C6139;
+
+    --gold:#D7A52E;
+    --gold-dark:#BE8723;
+
+    --brown:#5B3D25;
+
+    --text:#352B24;
+
+    --white:#FFFFFF;
+
+    /* Ombres */
+
+    --shadow-book:0 25px 60px rgba(0,0,0,.35);
+
+    --shadow-button:0 6px 20px rgba(0,0,0,.20);
+
+    /* Rayons */
+
+    --radius:18px;
+
+    /* Espacements */
+
+    --space-xs:8px;
+    --space-sm:16px;
+    --space-md:24px;
+    --space-lg:40px;
+    --space-xl:70px;
+
+}
+/* =====================================================
+   LE CARNET DES GAGNANTS
+   Variables globales
+===================================================== */
+
+:root{
+
+    /* ===== Couleurs ===== */
+
+    --paper: #F7ECD2;
+    --paper-dark: #EFDDB2;
+
+    --wood: #6E4A2E;
+    --wood-dark: #4D321E;
+
+    --gold: #D6A328;
+    --gold-dark: #B98512;
+
+    --orange: #C46A2D;
+
+    --brown: #5A4027;
+
+    --text: #34291F;
+
+    --white: #FFFFFF;
+
+    /* ===== Ombres ===== */
+
+    --shadow-book:
+        0 20px 60px rgba(0,0,0,.35);
+
+    --shadow-soft:
+        0 10px 25px rgba(0,0,0,.15);
+
+    --shadow-button:
+        0 4px 12px rgba(0,0,0,.20);
+
+    /* ===== Coins ===== */
+
+    --radius-small:8px;
+    --radius:18px;
+    --radius-large:28px;
+
+    /* ===== Espacements ===== */
+
+    --space-xs:8px;
+    --space-sm:16px;
+    --space-md:24px;
+    --space-lg:40px;
+    --space-xl:70px;
+
+    /* ===== Animations ===== */
+
+    --transition:.35s ease;
+
+}
+:root{
+
+    /* Couleurs */
+
+    --paper:#F7ECD2;
+    --paper-dark:#EFDDB2;
+
+    --wood:#6F4A2C;
+    --wood-dark:#4A2F1B;
+
+    --gold:#D8A328;
+    --gold-dark:#BE8618;
+
+    --brown:#5A4027;
+
+    --text:#35291F;
+
+    --white:#FFFFFF;
+
+    /* Ombres */
+
+    --shadow-book:
+        0 30px 80px rgba(0,0,0,.35);
+
+    --shadow-soft:
+        0 10px 25px rgba(0,0,0,.15);
+
+    /* Coins */
+
+    --radius:20px;
+
+}
