@@ -3,61 +3,98 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width,initial-scale=1">
+    <title>Le Carnet des Gagnants</title>
 
-<title>Le Carnet des Gagnants</title>
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;600;700&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet" href="../css/variables.css">
-<link rel="stylesheet" href="../css/base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/animations.css">
 
 </head>
 
 <body>
+<div class="background">
 
-<main class="login-screen">
+    <div class="light"></div>
 
-    <section class="book">
+    <main class="book">
 
-        <div class="book-cover">
+        <div class="book-spine"></div>
 
-            <div class="cg-logo">
+        <section class="book-cover">
+
+            <div class="logo">
 
                 CG
 
             </div>
 
-            <h1>
+          <h1 class="book-title">
+    Le Carnet
+    <br>
+    <span>des Gagnants</span>
+</h1>
 
-                Le Carnet
-                <br>
-                des Gagnants
+<div class="separator"></div>
 
-            </h1>
+<p class="book-quote">
+    « Je travaille sur la personne que je veux devenir,
+    plutôt que sur celle que je suis. »
+</p>
+<div class="separator"></div>
+    <form class="login-form">
 
-            <p>
+    <div class="login-field">
 
-                Construis la personne que tu veux devenir.
+        <i class="bi bi-person"></i>
 
-            </p>
+        <input
+            type="text"
+            placeholder="Utilisateur"
+            autocomplete="username">
 
-        </div>
+    </div>
 
-    </section>
+    <div class="login-field">
 
-</main>
+        <i class="bi bi-lock"></i>
+
+        <input
+            type="password"
+            placeholder="Mot de passe"
+            autocomplete="current-password">
+
+    </div>
+
+    <button class="login-button" type="submit">
+
+        Ouvrir mon carnet →
+
+    </button>
+
+</form>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="../js/login.js"></script>
 
 </body>
 
