@@ -8,14 +8,16 @@
 
     <title>Le Carnet des Gagnants</title>
 
-    <!-- Polices -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
@@ -27,66 +29,100 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 </head>
 
 <body>
+
 <div class="background">
 
     <div class="light"></div>
 
     <main class="book">
 
+        <!-- Pages -->
+
+        <div class="book-pages">
+
+            <div class="book-page page-1"></div>
+            <div class="book-page page-2"></div>
+            <div class="book-page page-3"></div>
+
+        </div>
+
+        <!-- Tranche -->
+
         <div class="book-spine"></div>
+
+        <!-- Couverture -->
 
         <section class="book-cover">
 
-           <div class="book-logo">
-            <div class="book-logo__circle">
-                CG
+            <!-- Logo -->
+
+            <div class="book-logo">
+
+                <div class="book-logo__circle">
+                    CG
+                </div>
+
             </div>
-        </div>
 
-          <h1 class="book-title">
-    Le Carnet
-    <br>
-    <span>des Gagnants</span>
-</h1>
+            <!-- Titre -->
 
-<div class="separator"></div>
+            <h1 class="book-title">
 
-<p class="book-quote">
-    « Je travaille sur la personne que je veux devenir,
-    plutôt que sur celle que je suis. »
-</p>
-<div class="separator"></div>
-    <form class="login-form">
+                Le Carnet
+                <br>
+                <span>des Gagnants</span>
 
-    <div class="login-field">
+            </h1>
 
-        <i class="bi bi-person"></i>
+            <div class="separator"></div>
 
-        <input
-            type="text"
-            placeholder="Utilisateur"
-            autocomplete="username">
+            <!-- Citation -->
 
-    </div>
+            <p class="book-quote">
 
-    <div class="login-field">
+                « Je travaille sur la personne que je veux devenir,
+                plutôt que sur celle que je suis. »
 
-        <i class="bi bi-lock"></i>
+            </p>
 
-        <input
-            type="password"
-            placeholder="Mot de passe"
-            autocomplete="current-password">
+            <div class="separator"></div>
 
-    </div>
+            <!-- Formulaire -->
 
-    <button class="login-button" type="submit">
+            <form id="loginForm" class="login-form">
 
-        Ouvrir mon carnet →
+                <div class="login-field">
 
-    </button>
+                    <i class="bi bi-person"></i>
 
-</form>
+                    <input
+                        type="text"
+                        placeholder="Utilisateur"
+                        autocomplete="username">
+
+                </div>
+
+                <div class="login-field">
+
+                    <i class="bi bi-lock"></i>
+
+                    <input
+                        type="password"
+                        placeholder="Mot de passe"
+                        autocomplete="current-password">
+
+                </div>
+
+                <button
+                    id="openBookButton"
+                    class="login-button"
+                    type="submit">
+
+                    Ouvrir mon carnet →
+
+                </button>
+
+            </form>
 
         </section>
 
