@@ -1,0 +1,409 @@
+/* ==========================================================
+   JOURNAL
+========================================================== */
+
+:root{
+
+    --bg:#5a341c;
+    --bg-light:#8a5d38;
+
+    --paper:#faf6ef;
+
+    --gold:#c7a25b;
+    --gold-light:#e7ca90;
+
+    --text:#4b2d1b;
+    --text-light:#7b6f63;
+
+    --radius:18px;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    min-height:100vh;
+
+    padding:40px;
+
+    background:
+        radial-gradient(circle at top,
+        var(--bg-light),
+        var(--bg));
+
+}
+
+.journal-page{
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.journal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.journal-header h1{
+
+    color:white;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:48px;
+
+}
+
+#journalDate{
+
+    margin-top:8px;
+
+    color:#eee;
+
+}
+
+#btnRetour{
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:white;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+#btnRetour:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.journal-card{
+
+    background:linear-gradient(
+        180deg,
+        #fcfaf5,
+        var(--paper)
+    );
+
+    border-radius:18px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+
+        0 10px 25px rgba(0,0,0,.12);
+
+}
+
+.journal-card label{
+
+    display:block;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+input,
+textarea{
+
+    width:100%;
+
+    border:1px solid #d9ccb5;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    font-size:16px;
+
+    font-family:inherit;
+
+}
+
+input:focus,
+textarea:focus{
+
+    outline:none;
+
+    border-color:var(--gold);
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:300px;
+
+    line-height:1.7;
+
+}
+
+
+/* ==========================================================
+   HUMEURS
+========================================================== */
+
+.moods{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.mood{
+
+    width:60px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:28px;
+
+    transition:.25s;
+
+    box-shadow:
+
+        0 5px 15px rgba(0,0,0,.12);
+
+}
+
+.mood:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.mood.selected{
+
+    background:linear-gradient(
+        145deg,
+        var(--gold-light),
+        var(--gold)
+    );
+
+}
+
+
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.journal-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.journal-actions button{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:15px 25px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    background:linear-gradient(
+        145deg,
+        var(--gold-light),
+        var(--gold)
+    );
+
+    transition:.25s;
+
+}
+
+.journal-actions button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   HISTORIQUE
+========================================================== */
+
+#journalHistory{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.history-item{
+
+    background:white;
+
+    border-left:5px solid var(--gold);
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:
+
+        0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.history-item h3{
+
+    margin-bottom:8px;
+
+    font-family:"Cormorant Garamond",serif;
+
+}
+
+.history-item small{
+
+    color:var(--text-light);
+
+}
+
+.history-item p{
+
+    margin-top:10px;
+
+    line-height:1.6;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:900px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    .journal-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .journal-actions{
+
+        flex-direction:column;
+
+    }
+
+    .journal-actions button{
+
+        width:100%;
+
+    }
+
+    .moods{
+
+        flex-wrap:wrap;
+
+    }
+
+}
+.edit-button{
+
+    background:#2b6cb0;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin-right:10px;
+
+    transition:.25s;
+
+}
+
+.edit-button:hover{
+
+    background:#1e4f86;
+
+}

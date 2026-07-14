@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Journal | Le Carnet des Gagnants</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="../css/journal.css">
+
+</head>
+
+<body>
+
+<div class="journal-page">
+
+    <header class="journal-header">
+
+        <button id="btnRetour">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Retour
+
+        </button>
+
+        <div>
+
+            <h1>📓 Mon Journal</h1>
+
+            <p id="journalDate"></p>
+
+        </div>
+
+    </header>
+
+
+    <section class="journal-card">
+
+        <label for="journalTitle">
+
+            Titre de votre journée
+
+        </label>
+
+        <input
+            type="text"
+            id="journalTitle"
+            placeholder="Ex : Une belle journée au Cap Ferret">
+
+    </section>
+
+
+    <section class="journal-card">
+
+        <label>
+
+            Mon humeur aujourd'hui
+
+        </label>
+
+        <div class="moods">
+
+            <button class="mood">😄</button>
+            <button class="mood">😊</button>
+            <button class="mood">😐</button>
+            <button class="mood">😔</button>
+            <button class="mood">😢</button>
+
+        </div>
+
+    </section>
+
+
+    <section class="journal-card">
+
+        <label for="journalContent">
+
+            Mon journal
+
+        </label>
+
+        <textarea
+
+            id="journalContent"
+
+            rows="15"
+
+            placeholder="Aujourd'hui...">
+
+        </textarea>
+
+    </section>
+
+
+    <section class="journal-actions">
+
+        <button id="saveEntry">
+
+            <i class="bi bi-floppy"></i>
+
+            Enregistrer
+
+        </button>
+
+        <button id="historyEntry">
+
+            <i class="bi bi-clock-history"></i>
+
+            Historique
+
+        </button>
+
+    </section>
+
+
+    <section class="journal-card">
+
+        <h2>
+
+            Mes notes
+
+        </h2>
+
+        <div id="journalHistory">
+
+            <p>
+
+                Aucune note enregistrée.
+
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="../js/journal.js"></script>
+
+</body>
+
+</html>

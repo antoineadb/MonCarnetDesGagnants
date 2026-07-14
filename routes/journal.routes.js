@@ -1,0 +1,15 @@
+const express = require("express");
+
+const router = express.Router();
+
+const journal = require("../controllers/journal.controller");
+
+router.get("/", journal.getAll);
+
+router.post("/", journal.create);
+
+router.put("/:id", journal.update);
+
+router.delete("/:id", journal.remove);
+
+module.exports = router;

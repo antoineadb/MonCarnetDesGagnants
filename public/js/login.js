@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("loginForm");
-    const book = document.querySelector(".book");
     const button = document.getElementById("openBookButton");
+    const cover = document.querySelector(".book-cover");
 
-    if (!form || !book || !button) {
-        console.error("Impossible d'initialiser la page de connexion.");
+    if (!form || !button || !cover) {
+        console.error("Impossible d'initialiser le carnet.");
         return;
     }
 
@@ -14,11 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         button.disabled = true;
-        button.textContent = "Ouverture du carnet...";
+        button.innerHTML = "📖 Ouverture du carnet...";
 
-        book.classList.add("book--opening");
+        cover.classList.add("book-cover--open");
 
-        console.log("Animation du carnet lancée");
+        setTimeout(() => {
+
+            window.location.href = "app.html";
+
+        }, 1000);
 
     });
 
