@@ -86,11 +86,32 @@ exports.update = (req, res) => {
 
     );
 
-    res.json({
+   const result = db.prepare(`
+    UPDATE journal
+    SET
+        title = ?,
+        content = ?,
+        mood = ?,
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = ?
+`).run(
+    title,
+    content,
+    mood,
+    id
+);
 
-        message: "Journal modifié."
+if (result.changes === 0) {
 
+    return res.status(404).json({
+        error: "Journal introuvable."
     });
+
+}
+
+res.json({
+    message: "Journal modifié."
+});
 
 };
 
@@ -101,15 +122,21 @@ exports.remove = (req, res) => {
 
     const { id } = req.params;
 
-    db.prepare(`
+    const result = db.prepare(`
         DELETE FROM journal
         WHERE id = ?
     `).run(id);
 
+    if (result.changes === 0) {
+
+        return res.status(404).json({
+            error: "Journal introuvable."
+        });
+
+    }
+
     res.json({
-
         message: "Journal supprimé."
-
     });
 
 };

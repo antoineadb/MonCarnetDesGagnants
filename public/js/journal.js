@@ -29,6 +29,7 @@ function init() {
 
     loadHistory();
 
+    document.getElementById("cancelEdit").style.display = "none";
 }
 
 //==========================================================
@@ -44,6 +45,10 @@ function bindButtons() {
     document
         .getElementById("saveEntry")
         .addEventListener("click", saveEntry);
+
+    document
+        .getElementById("cancelEdit")
+        .addEventListener("click", resetForm);
 
 }
 
@@ -163,7 +168,86 @@ function initMoodSelector() {
 /* ==========================================================
    SAUVEGARDE
 ========================================================== */
+async function saveEntry() {
 
+    const title = document.getElementById("journalTitle");
+    const content = document.getElementById("journalContent");
+
+    if (title.value.trim() === "") {
+
+        showMessage("Veuillez saisir un titre.");
+        return;
+
+    }
+
+    if (content.value.trim() === "") {
+
+        showMessage("Veuillez écrire votre journal.");
+        return;
+
+    }
+
+    const data = {
+
+        title: title.value.trim(),
+        content: content.value.trim(),
+        mood: selectedMood
+
+    };
+
+    const isEdit = editingId !== null;
+
+    const url = isEdit
+        ? `/api/journal/${editingId}`
+        : "/api/journal";
+
+    const method = isEdit
+        ? "PUT"
+        : "POST";
+
+    try {
+
+        const response = await fetch(url, {
+
+            method,
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify(data)
+
+        });
+
+        if (!response.ok) {
+
+            throw new Error();
+
+        }
+
+        showMessage(
+
+            isEdit
+                ? "Journal modifié."
+                : "Journal enregistré."
+
+        );
+
+        resetForm();
+
+        loadHistory();
+
+    }
+
+    catch (error) {
+
+        showMessage("Erreur lors de l'enregistrement.");
+
+    }
+
+}
 //==========================================================
 // HISTORIQUE
 //==========================================================
@@ -216,9 +300,10 @@ async function loadHistory() {
 
         const date = document.createElement("small");
 
-        date.textContent = new Date(entry.created_at)
-            .toLocaleDateString("fr-FR");
-
+       date.innerHTML = `
+        <i class="bi bi-calendar3"></i>
+        ${new Date(entry.created_at).toLocaleDateString("fr-FR")}`;
+        
         article.appendChild(date);
 
         // -----------------------
@@ -245,7 +330,7 @@ async function loadHistory() {
 
         editButton.className = "edit-button";
 
-        editButton.innerHTML = "✏ Modifier";
+        editButton.innerHTML = '<i class="bi bi-pencil-square"></i> Modifier'
 
         editButton.addEventListener("click", () => {
 
@@ -261,7 +346,7 @@ async function loadHistory() {
 
         deleteButton.className = "delete-button";
 
-        deleteButton.innerHTML = "🗑 Supprimer";
+        deleteButton.innerHTML = "<i class='bi bi-trash'></i> Supprimer";
 
         deleteButton.addEventListener("click", () => {
 
@@ -322,6 +407,10 @@ function editEntry(entry) {
 
     });
 
+    //document.getElementById("cancelEdit").style.display = "inline-flex";
+    document.getElementById("cancelEdit").style.display = "inline-block";
+    document.getElementById("saveEntry").innerHTML ="💾 Mettre à jour";
+
 }
 //==========================================================
 // SUPPRESSION
@@ -355,4 +444,34 @@ async function deleteEntry(id) {
 
 }
 
+function resetForm() {
 
+    document.getElementById("journalTitle").value = "";
+
+    document.getElementById("journalContent").value = "";
+
+    selectedMood = "";
+
+    editingId = null;
+
+    document
+        .querySelectorAll(".mood")
+        .forEach(button => {
+
+            button.classList.remove("selected");
+
+        });
+
+    document.getElementById("saveEntry").innerHTML = `
+        <i class="bi bi-save"></i>
+        Enregistrer
+    `;
+
+   
+
+    document.getElementById("journalTitle").focus();
+    document.getElementById("cancelEdit").style.display = "none";
+    document.getElementById("cancelEdit").addEventListener("click", resetForm);
+    
+
+}
