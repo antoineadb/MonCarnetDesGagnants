@@ -51,32 +51,37 @@
 
         <nav class="sidebar-menu">
 
-            <a href="#" class="active">
+            <a href="#" id="menuAccueil" class="active"></a>
                 <i class="bi bi-house-door-fill"></i>
                 <span>Accueil</span>
             </a>
 
-            <a href="#">
+           <a href="#" id="menuObjectifs">
                 <i class="bi bi-bullseye"></i>
                 <span>Objectifs</span>
             </a>
 
-            <a href="#">
+            <a href="#" id="menuJournal">
                 <i class="bi bi-journal-bookmark-fill"></i>
                 <span>Journal</span>
             </a>
 
-            <a href="#">
+            <a href="#" id="menuGratitude">
                 <i class="bi bi-heart-fill"></i>
                 <span>Gratitude</span>
             </a>
 
-            <a href="#">
+            <a href="#" id="menuLecture">
                 <i class="bi bi-book-fill"></i>
                 <span>Lectures</span>
             </a>
+    
+            <a href="#" id="menuProgression">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>Progression</span>
+            </a>
 
-            <a href="#">
+            <a href="#" id="menuParametres">
                 <i class="bi bi-gear-fill"></i>
                 <span>Paramètres</span>
             </a>
@@ -141,7 +146,7 @@
 
         <section class="dashboard-grid">
 
-            <article class="card">
+            <article class="card" id="cardObjectifs">
 
                 <div class="card-header">
 
@@ -159,13 +164,13 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                    <button id="btnObjectifs">Ouvrir</button>
 
                 </div>
 
             </article>
 
-            <article class="card">
+            <article class="card" id="cardJournal">
 
                 <div class="card-header">
 
@@ -183,13 +188,13 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                    <button id="btnJournal">Ouvrir</button>
 
                 </div>
 
             </article>
 
-            <article class="card">
+            <article class="card" id="cardGratitude">
 
                 <div class="card-header">
 
@@ -207,13 +212,13 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                   <button id="btnGratitude">Ouvrir</button>
 
                 </div>
 
             </article>
 
-            <article class="card">
+            <article class="card" id="cardLecture">
 
                 <div class="card-header">
 
@@ -231,13 +236,13 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                    <button id="btnLecture">Ouvrir</button>
 
                 </div>
 
             </article>
 
-            <article class="card">
+            <article class="card" id="cardProgression">
 
                 <div class="card-header">
 
@@ -255,13 +260,13 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                    <button id="btnProgression">Ouvrir</button>
 
                 </div>
 
             </article>
 
-            <article class="card">
+            <article class="card" id="cardParametres">
 
                 <div class="card-header">
 
@@ -279,7 +284,7 @@
 
                 <div class="card-footer">
 
-                    <button>Ouvrir</button>
+                    <button id="btnParametres">Ouvrir</button>
 
                 </div>
 
@@ -290,9 +295,8 @@
     </main>
 
 </div>
-
+<script src="../js/navigation.js"></script>
 <script src="../js/app.js"></script>
-
 </body>
 
 </html>

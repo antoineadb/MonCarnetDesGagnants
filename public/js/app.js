@@ -38,63 +38,23 @@ class Dashboard {
 
     bindEvents() {
 
-        this.cards.forEach(card => {
+        document.getElementById("cardJournal")
+            ?.addEventListener("click", Navigation.journal);
 
-            card.addEventListener("click", () => {
+        document.getElementById("cardObjectifs")
+            ?.addEventListener("click", Navigation.objectifs);
 
-                const title = card.querySelector("h2").textContent;
+        document.getElementById("cardGratitude")
+            ?.addEventListener("click", Navigation.gratitude);
 
-                this.openModule(title);
+        document.getElementById("cardLecture")
+            ?.addEventListener("click", Navigation.lecture);
 
-            });
-
-        });
-
-    }
-
-    openModule(module) {
-
-        switch(module){
-
-            case "Objectifs":
-
-                alert("Module Objectifs (Sprint suivant)");
-
-                break;
-
-            case "Journal":
-
-                alert("Module Journal (Sprint suivant)");
-
-                break;
-
-            case "Gratitude":
-
-                alert("Module Gratitude (Sprint suivant)");
-
-                break;
-
-            case "Lecture":
-
-            case "Lectures":
-
-                alert("Module Lecture (Sprint suivant)");
-
-                break;
-
-            case "Paramètres":
-
-                alert("Module Paramètres");
-
-                break;
-
-            default:
-
-                console.log(module);
-
-        }
+        document.getElementById("cardParametres")
+            ?.addEventListener("click", Navigation.parametres);
 
     }
+
 
 }
 
@@ -105,3 +65,55 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboard.init();
 
 });
+
+document.getElementById("cardProgression")
+    ?.addEventListener("click", Navigation.progression);
+
+document.getElementById("menuProgression")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.progression();
+
+    });
+document.getElementById("menuLecture")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.lecture();
+
+    });
+document.getElementById("menuJournal")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.journal();
+
+    });
+document.getElementById("menuGratitude")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.gratitude();
+
+    });
+document.getElementById("menuObjectifs")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.objectifs();
+
+    });
+document.getElementById("menuParametres")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.parametres();
+
+    });

@@ -407,8 +407,7 @@ function editEntry(entry) {
 
     });
 
-    //document.getElementById("cancelEdit").style.display = "inline-flex";
-    document.getElementById("cancelEdit").style.display = "inline-block";
+    document.getElementById("cancelEdit").style.display = "inline-flex";
     document.getElementById("saveEntry").innerHTML ="💾 Mettre à jour";
 
 }
@@ -472,6 +471,6 @@ function resetForm() {
     document.getElementById("journalTitle").focus();
     document.getElementById("cancelEdit").style.display = "none";
     document.getElementById("cancelEdit").addEventListener("click", resetForm);
-    
+
 
 }

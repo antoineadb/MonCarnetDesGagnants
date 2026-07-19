@@ -1,0 +1,163 @@
+/* ==========================================================
+   PAGE
+========================================================== */
+
+body{
+
+    margin:0;
+
+    font-family:"Inter",sans-serif;
+
+    background:linear-gradient(135deg,#5d3b1f,#8b5e34);
+
+    color:white;
+
+}
+
+.progression-page{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:40px;
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+header h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:52px;
+
+    margin-bottom:10px;
+
+}
+
+header p{
+
+    opacity:.85;
+
+    font-size:18px;
+
+}
+/* ==========================================================
+   GRAPHIQUE
+========================================================== */
+
+.graph-container{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+}
+
+#graph{
+
+    width:100%;
+
+    height:650px;
+
+}
+
+.axis{
+
+    stroke:#666;
+
+    stroke-width:2;
+
+}
+/* ==========================================================
+   COURBE
+========================================================== */
+
+#progressCurve{
+
+    fill:none;
+
+    stroke:#d4af37;
+
+    stroke-width:8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+}
+
+#todayPoint{
+
+    fill:#2ecc71;
+
+    stroke:white;
+
+    stroke-width:4;
+
+}
+/* ==========================================================
+   RITUELS
+========================================================== */
+
+.rituels{
+
+    margin-top:35px;
+
+    background:white;
+
+    color:#4b2d1b;
+
+    padding:25px;
+
+    border-radius:20px;
+
+}
+
+.rituels h2{
+
+    margin-top:0;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:34px;
+
+}
+
+.rituel{
+
+    padding:15px 0;
+
+    border-bottom:1px solid #ececec;
+
+    font-size:18px;
+
+}
+#progressCanvas{
+
+    width:100%;
+
+    height:650px;
+
+    display:block;
+
+    border-radius:18px;
+
+    background:white;
+
+}
