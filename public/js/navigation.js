@@ -7,50 +7,31 @@
 const Navigation = {
 
     go(page) {
-
-        window.location.href = page;
-
-    },
-
-    journal() {
-
-        Navigation.go("journal.html");
-
-    },
-
-    journalHistory() {
-
-        Navigation.go("journal-history.html");
-
+        window.location.href = "/pages/" + page;
     },
 
     objectifs() {
-
         Navigation.go("objectifs.html");
+    },
 
+    journal() {
+        Navigation.go("journal.html");
     },
 
     gratitude() {
-
         Navigation.go("gratitude.html");
-
     },
 
     lecture() {
-
         Navigation.go("lecture.html");
-
-    },
-
-    parametres() {
-
-        Navigation.go("parametres.html");
-
     },
 
     progression() {
-
         Navigation.go("progression.html");
-
     },
+
+    parametres() {
+        Navigation.go("parametres.html");
+    }
+
 };

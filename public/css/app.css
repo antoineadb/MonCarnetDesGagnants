@@ -959,3 +959,32 @@ body{
     margin-bottom:20px;
 
 }
+
+.profile-photo{
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #c7a25b;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+
+    transition:.30s;
+
+    cursor:pointer;
+
+}
+
+.profile-photo:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.25);
+
+}

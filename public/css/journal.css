@@ -593,3 +593,40 @@ textarea{
     background:#555;
 
 }
+/* ===========================
+   Pied de page
+=========================== */
+
+.chapter-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:80px;
+
+    padding-top:20px;
+
+    border-top:1px solid #d8c6a5;
+
+    color:#8b6d4b;
+
+    font-size:16px;
+
+    letter-spacing:1px;
+
+}
+
+.chapter-book{
+
+    font-style:italic;
+
+}
+
+.chapter-page-number{
+
+    font-weight:600;
+
+}
