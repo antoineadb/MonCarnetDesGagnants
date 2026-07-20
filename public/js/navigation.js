@@ -26,7 +26,7 @@ const Navigation = {
 
     objectifs() {
 
-        Navigation.go("goals.html");
+        Navigation.go("objectifs.html");
 
     },
 
@@ -38,13 +38,13 @@ const Navigation = {
 
     lecture() {
 
-        Navigation.go("reading.html");
+        Navigation.go("lecture.html");
 
     },
 
     parametres() {
 
-        Navigation.go("settings.html");
+        Navigation.go("parametres.html");
 
     },
 

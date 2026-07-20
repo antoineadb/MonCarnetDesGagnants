@@ -1,0 +1,184 @@
+.chapter-page{
+
+    max-width:950px;
+
+    margin:40px auto;
+
+    padding:60px;
+
+    background:#f8f3e8;
+
+    border:1px solid #d8c6a5;
+
+    border-radius:8px;
+
+    box-shadow:
+
+        0 8px 25px rgba(0,0,0,.12);
+
+}
+.chapter-title{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:60px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    color:#5b3b1b;
+
+    margin:10px 0;
+
+}
+.chapter-number{
+
+    text-align:center;
+
+    text-transform:uppercase;
+
+    letter-spacing:5px;
+
+    color:#8b6d4b;
+
+    font-size:14px;
+
+}
+.chapter-line{
+
+    width:180px;
+
+    height:1px;
+
+    margin:25px auto;
+
+    background:#b99667;
+
+}
+.chapter-quote{
+
+    text-align:center;
+
+    font-style:italic;
+
+    font-size:22px;
+
+    color:#8b6d4b;
+
+    margin-bottom:45px;
+
+    margin-top:30px;
+
+}
+
+.chapter-text{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:28px;
+
+    line-height:1.8;
+
+    color:#43311d;
+
+}
+
+.chapter-text p{
+
+    margin-bottom:28px;
+
+    text-align:justify;
+
+    text-indent:35px;
+}
+
+/* ===========================
+   Pied de page
+=========================== */
+
+.chapter-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:80px;
+
+    padding-top:20px;
+
+    border-top:1px solid #d8c6a5;
+
+    color:#8b6d4b;
+
+    font-size:16px;
+
+    letter-spacing:1px;
+
+}
+
+.chapter-book{
+
+    font-style:italic;
+
+}
+
+.chapter-page-number{
+
+    font-weight:600;
+
+}
+.back-button{
+
+    width:900px;
+
+    margin:30px auto 10px;
+
+}
+
+.back-button a{
+
+    text-decoration:none;
+
+    color:#f3e7d0;
+
+    font-size:18px;
+
+    font-family:"Inter",sans-serif;
+
+    transition:.25s;
+
+}
+
+.back-button a:hover{
+
+    color:#ffffff;
+
+}
+.coming-soon{
+
+    width:max-content;
+
+    margin:60px auto 0;
+
+    padding:10px 22px;
+
+    background:#f6e7c8;
+
+    border:1px solid #d6b37c;
+
+    border-radius:30px;
+
+    color:#8b5e2d;
+
+    font-family:"Inter",sans-serif;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+}
