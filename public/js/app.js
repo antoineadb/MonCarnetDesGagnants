@@ -117,3 +117,15 @@ document.getElementById("menuParametres")
         Navigation.parametres();
 
     });
+
+    document
+    .getElementById("btnLogout")
+    .addEventListener("click", () => {
+
+        if (confirm("Voulez-vous vous déconnecter ?")) {
+
+            window.location.href = "../index.html";
+
+        }
+
+    });

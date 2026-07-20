@@ -988,3 +988,40 @@ body{
         0 12px 28px rgba(0,0,0,.25);
 
 }
+/* ==========================================================
+   DECONNEXION
+========================================================== */
+
+.logout-button{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 18px;
+
+    border:none;
+    border-radius:12px;
+
+    background:linear-gradient(
+        145deg,
+        #c7a25b,
+        #9a6c32
+    );
+
+    color:white;
+
+    font-weight:600;
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.logout-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+
+}
