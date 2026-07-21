@@ -4,6 +4,8 @@ const router = express.Router();
 
 const journal = require("../controllers/journal.controller");
 
+router.get("/history", journal.getHistory);
+
 router.get("/", journal.getAll);
 
 router.post("/", journal.create);

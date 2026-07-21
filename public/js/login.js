@@ -66,13 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             sessionStorage.setItem("user", JSON.stringify(result.user));
 
-            cover.classList.add("book-cover--open");
+            cover.addEventListener("transitionend", () => {
 
-            setTimeout(() => {
+            window.location.href = "app.html";
 
-                window.location.href = "app.html";
-
-            },1000);
+            }, { once: true });
 
         }
 

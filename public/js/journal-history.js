@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", init);
 
 let entries = [];
 
+let selectedEntry = null;
+
 async function init() {
 
     document
@@ -28,7 +30,7 @@ async function loadEntries() {
 
     try {
 
-        const response = await fetch("/api/journal");
+        const response = await fetch("/api/journal/history");
 
         entries = await response.json();
 
@@ -135,6 +137,38 @@ function displayEntries() {
 
         container.appendChild(card);
 
+        card
+        .querySelector(".read-button")
+        .addEventListener("click", () => {
+
+            openModal(entry);
+
+        });
+
     });
 
+
+    function openModal(entry) {
+
+        selectedEntry = entry;
+
+        document.getElementById("modalTitle").textContent =
+            `${entry.mood || ""} ${entry.title}`;
+
+        document.getElementById("modalDate").innerHTML =
+            `<i class="bi bi-calendar3"></i>
+            ${new Date(entry.created_at).toLocaleDateString("fr-FR")}`;
+
+        document.getElementById("modalContent").textContent =
+            entry.content;
+
+        document.getElementById("noteModal").style.display = "flex";
+
+    }
+
+        document.getElementById("closeModal").addEventListener("click", () => {
+
+        document.getElementById("noteModal").style.display = "none";
+
+    });
 }

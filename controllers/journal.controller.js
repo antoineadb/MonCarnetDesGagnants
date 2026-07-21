@@ -9,6 +9,19 @@ exports.getAll = (req, res) => {
         SELECT *
         FROM journal
         ORDER BY created_at DESC
+        LIMIT 3
+    `).all();
+
+    res.json(rows);
+
+};
+
+exports.getHistory = (req, res) => {
+
+    const rows = db.prepare(`
+        SELECT *
+        FROM journal
+        ORDER BY created_at DESC
     `).all();
 
     res.json(rows);
@@ -68,23 +81,6 @@ exports.update = (req, res) => {
     const { id } = req.params;
 
     const { title, content, mood } = req.body;
-
-    db.prepare(`
-        UPDATE journal
-        SET
-            title = ?,
-            content = ?,
-            mood = ?,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-    `).run(
-
-        title,
-        content,
-        mood,
-        id
-
-    );
 
    const result = db.prepare(`
     UPDATE journal

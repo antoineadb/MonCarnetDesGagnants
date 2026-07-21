@@ -50,24 +50,14 @@ function bindButtons() {
         .getElementById("cancelEdit")
         .addEventListener("click", resetForm);
 
+    document
+    .getElementById("historyEntry")
+    .addEventListener("click", openHistory);
+
 }
+function openHistory() {
 
-//==========================================================
-// DATE
-//==========================================================
-
-function displayDate() {
-
-    const element = document.getElementById("journalDate");
-
-    element.textContent = new Date().toLocaleDateString("fr-FR", {
-
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-
-    });
+    window.location.href = "journal-history.html";
 
 }
 
