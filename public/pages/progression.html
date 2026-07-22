@@ -52,49 +52,84 @@
         </p>
 
     </header>
-
     <section class="graph-container">
 
-        <section class="graph-container">
-
-    <canvas id="progressCanvas"
+        <canvas
+            id="progressCanvas"
             width="1200"
             height="650">
-    </canvas>
-    <div id="rotate-device">
+        </canvas>
 
-        <i class="bi bi-phone-landscape rotate-icon"></i>
+        <div id="rotate-device">
 
-        <h2>Tournez votre téléphone</h2>
+            <i class="bi bi-phone-landscape rotate-icon"></i>
 
-        <p>
-            La visualisation de votre progression est optimisée
-            pour le mode paysage.
-        </p>
+            <h2>Tournez votre téléphone</h2>
 
-    </div>
-    <div class="progression-container">
+            <p>
+                La visualisation de votre progression est optimisée
+                pour le mode paysage.
+            </p>
 
-    <canvas id="progressCanvas"></canvas>
-
-    <div id="rotate-device">
-
-        <div class="rotate-icon">📱↻</div>
-
-        <h2>Tournez votre téléphone</h2>
-
-        <p>
-            La visualisation de votre progression est optimisée
-            pour le mode paysage.
-        </p>
-
-    </div>
-
-</div>
-
-</section>
+        </div>
 
     </section>
+
+    <section
+        id="progression-editor"
+        class="progression-editor hidden">
+
+        <div class="editor-header">
+
+            <div id="editor-icon">
+                🍎
+            </div>
+
+            <div class="editor-title">
+
+                <h2 id="editor-title">
+                    Santé
+                </h2>
+
+                <p id="editor-description">
+                    Description...
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="editor-score">
+
+            <span>
+                Score actuel
+            </span>
+
+            <strong id="editor-value">
+                72%
+            </strong>
+
+        </div>
+
+        <input
+            id="editor-slider"
+            type="range"
+            min="0"
+            max="100"
+            value="72">
+
+        <div class="editor-actions">
+
+            <button id="editor-save">
+
+                💾 Enregistrer
+
+            </button>
+
+        </div>
+
+    </section>
+
     <footer class="chapter-footer">
 
         <span class="chapter-book">

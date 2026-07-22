@@ -41,6 +41,8 @@ class Progression {
             this.marginTop -
             this.marginBottom;
 
+        this.selectedMilestone = null;
+
         // Courbe
 
         this.curvePower = 4.5;
@@ -49,12 +51,12 @@ class Progression {
         // Progression du jour (0 → 1)
 
         // TODO : sera remplacé par ProgressionModel
-
+console.log(document.getElementById("progression-editor"));
         // Animation
 
         this.milestones = [
 
-        {
+            {
 
                 t: 0.08,
 
@@ -152,18 +154,20 @@ class Progression {
 
         if (!milestone) {
 
+            this.selectedMilestone = null;
+
+            this.draw();
+
             return;
 
         }
 
-        this.editor.open(
+        this.selectedMilestone = milestone;
 
-            milestone
-
-        );
+        this.editor.open(milestone);
 
         this.draw();
-        
+
 
     }
 
@@ -212,9 +216,7 @@ class Progression {
             () => this.resize()
 
         );
-
     }
-
 
     /**
      * ======================================================
@@ -284,20 +286,12 @@ class Progression {
 
         this.drawQuote();
 
-        if (this.editMode && this.selectedMilestone) {
-
-            this.drawEditor();
-
-        }
-
-        this.editor.draw();
-
     }
-        /**
-     * ======================================================
-     * Effacement
-     * ======================================================
-     */
+    /**
+ * ======================================================
+ * Effacement
+ * ======================================================
+ */
 
     clear() {
 
@@ -558,11 +552,11 @@ class Progression {
         };
 
     }
-        /**
-     * ======================================================
-     * Dégradé de la courbe
-     * ======================================================
-     */
+    /**
+ * ======================================================
+ * Dégradé de la courbe
+ * ======================================================
+ */
 
     getCurveGradient() {
 
@@ -709,11 +703,11 @@ class Progression {
         requestAnimationFrame(step);
 
     }
-        /**
-     * ======================================================
-     * Jalons
-     * ======================================================
-     */
+    /**
+ * ======================================================
+ * Jalons
+ * ======================================================
+ */
 
     drawMilestones() {
 
@@ -721,8 +715,8 @@ class Progression {
 
         ctx.save();
 
-      const milestones = this.model ? this.model.getMilestones() : this.milestones;
-      const isMobile = this.width < 900;
+        const milestones = this.model ? this.model.getMilestones() : this.milestones;
+        const isMobile = this.width < 900;
 
         milestones.forEach(milestone => {
 
@@ -730,24 +724,25 @@ class Progression {
             const point = this.getCurvePoint(t);
 
             // Petit cercle sur la courbe
+            const selected = this.selectedMilestone === milestone;
 
             ctx.beginPath();
 
             ctx.arc(
                 point.x,
                 point.y,
-                7,
+                selected ? 10 : 7,
                 0,
                 Math.PI * 2
             );
-
+            
             ctx.fillStyle = "#ffffff";
 
             ctx.fill();
 
-            ctx.lineWidth = 3;
+            ctx.lineWidth = selected ? 5 : 3;
 
-            ctx.strokeStyle = "#d4af37";
+            ctx.strokeStyle = selected ? "#2fbf71" : "#d4af37";
 
             ctx.stroke();
 
@@ -755,7 +750,7 @@ class Progression {
 
             ctx.beginPath();
 
-            ctx.setLineDash([5,5]);
+            ctx.setLineDash([5, 5]);
 
             ctx.lineWidth = 1;
 
@@ -778,12 +773,12 @@ class Progression {
             // Icône
 
             const title = milestone.getTitle
-            ? milestone.getTitle()
-            : milestone.title;
+                ? milestone.getTitle()
+                : milestone.title;
 
             const icon = milestone.getIcon
-            ? milestone.getIcon()
-            : milestone.icon;
+                ? milestone.getIcon()
+                : milestone.icon;
             ctx.font = "28px serif";
             ctx.textAlign = "center";
             ctx.fillStyle = this.colors.text;
@@ -794,57 +789,59 @@ class Progression {
                 point.y + 8
             );
 
-// Titre
+            // Titre
 
-const isMobile = this.width < 900;
+            const isMobile = this.width < 900;
 
-    ctx.font = isMobile ? "13px Inter" : "16px Inter";
-    ctx.fillStyle = "#4b4036";
-    ctx.textAlign = "center";
+            ctx.font = isMobile ? "13px Inter" : "16px Inter";
+            ctx.fillStyle = "#4b4036";
+            ctx.textAlign = "center";
 
-    const titleY = this.height - this.marginBottom + (isMobile ? 75 : 85);
+            const titleY = this.height - this.marginBottom + (isMobile ? 75 : 85);
 
-    switch (title) {
+            switch (title) {
 
-        case "Miracle Morning":
+                case "Miracle Morning":
 
-            if (isMobile) {
+                    if (isMobile) {
 
-                ctx.fillText("Miracle", point.x, titleY -10);
-                ctx.fillText("Morning", point.x, titleY + 10);
+                        ctx.fillText("Miracle", point.x, titleY - 10);
+                        ctx.fillText("Morning", point.x, titleY + 10);
 
-            } else {
+                    } else {
 
-                ctx.fillText(title, point.x, titleY);
+                        ctx.fillText(title, point.x, titleY);
+
+                    }
+
+                    break;
+
+                case "Action Massive":
+
+                    if (isMobile) {
+
+                        ctx.fillText("Action", point.x, titleY - 10);
+                        ctx.fillText("Massive", point.x, titleY + 10);
+
+                    } else {
+
+                        ctx.fillText(title, point.x, titleY);
+
+                    }
+
+                    break;
+
+                default:
+
+                    ctx.fillText(title, point.x, titleY);
 
             }
 
-            break;
 
-        case "Action Massive":
 
-            if (isMobile) {
-
-                ctx.fillText("Action", point.x, titleY -10);
-                ctx.fillText("Massive", point.x, titleY + 10);
-
-            } else {
-
-                ctx.fillText(title, point.x, titleY);
-
-            }
-
-            break;
-
-        default:
-
-            ctx.fillText(title, point.x, titleY);
-
-    }
-
-            
         });
 
+        
 
         ctx.restore();
 
@@ -870,11 +867,9 @@ const isMobile = this.width < 900;
 
         ctx.beginPath();
 
-        ctx.setLineDash([8,8]);
+        ctx.setLineDash([8, 8]);
 
         ctx.lineWidth = 2;
-
-        ctx.strokeStyle = "#3cb371";
 
         ctx.moveTo(
 
@@ -901,27 +896,17 @@ const isMobile = this.width < 900;
         ctx.beginPath();
 
         ctx.arc(
-
             point.x,
-
             point.y,
-
-            10,
-
+            7,
             0,
-
             Math.PI * 2
-
         );
 
-        ctx.fillStyle = this.colors.today;
-
-        ctx.fill();
-
         ctx.lineWidth = 4;
-
+        ctx.fillStyle = this.colors.today;
+        ctx.fill();
         ctx.strokeStyle = "#ffffff";
-
         ctx.stroke();
 
         // Texte
@@ -959,7 +944,7 @@ const isMobile = this.width < 900;
         ctx.restore();
 
     }
-       
+
     /**
      * ======================================================
      * Citation
@@ -995,11 +980,11 @@ const isMobile = this.width < 900;
         ctx.restore();
 
     }
-        /**
-     * ======================================================
-     * Halo du point Aujourd'hui
-     * ======================================================
-     */
+    /**
+ * ======================================================
+ * Halo du point Aujourd'hui
+ * ======================================================
+ */
 
     drawTodayGlow() {
 
@@ -1066,17 +1051,17 @@ const isMobile = this.width < 900;
     drawInfoCard() {
 
         const ctx = this.ctx;
-        
+
         const w = 240;
         const h = 100;
-        
+
         const progress = this.model
             ? this.model.getProgress()
             : this.today;
 
         const point = this.getCurvePoint(progress);
 
-   
+
 
         // Position au-dessus de la courbe
 
@@ -1087,11 +1072,11 @@ const isMobile = this.width < 900;
 
         // Empêche de sortir du canvas
 
-        x = Math.min(x,this.width - w - 30);
+        x = Math.min(x, this.width - w - 30);
 
-        x = Math.max(x,30);
+        x = Math.max(x, 30);
 
-        y = Math.max(y,40);
+        y = Math.max(y, 40);
 
         ctx.save();
 
@@ -1185,7 +1170,7 @@ const isMobile = this.width < 900;
         ctx.restore();
 
     }
- 
+
     /**
  * ======================================================
  * Chargement du parcours
@@ -1204,7 +1189,7 @@ const isMobile = this.width < 900;
 
         }
 
-        catch(error){
+        catch (error) {
 
             console.error(error);
 
@@ -1226,39 +1211,39 @@ const isMobile = this.width < 900;
 
     drawEditor() {
 
-    const ctx = this.ctx;
+        const ctx = this.ctx;
 
-    const milestone = this.selectedMilestone;
+        const milestone = this.selectedMilestone;
 
-    ctx.save();
+        ctx.save();
 
-    const x = this.width - 320;
+        const x = this.width - 320;
 
-    const y = 120;
+        const y = 120;
 
-    const w = 260;
+        const w = 260;
 
-    const h = 180;
+        const h = 180;
 
-    ctx.fillStyle = "#fffdf7";
+        ctx.fillStyle = "#fffdf7";
 
-    ctx.strokeStyle = "#d4af37";
+        ctx.strokeStyle = "#d4af37";
 
-    ctx.lineWidth = 2;
+        ctx.lineWidth = 2;
 
-    ctx.beginPath();
+        ctx.beginPath();
 
-    ctx.roundRect(x, y, w, h, 12);
+        ctx.roundRect(x, y, w, h, 12);
 
-    ctx.fill();
+        ctx.fill();
 
-    ctx.stroke();
+        ctx.stroke();
 
-    ctx.fillStyle = "#4a3b2d";
+        ctx.fillStyle = "#4a3b2d";
 
-    ctx.font = "bold 22px Cormorant Garamond";
+        ctx.font = "bold 22px Cormorant Garamond";
 
-    ctx.fillText(
+        ctx.fillText(
 
             milestone.getIcon() + " " + milestone.getTitle(),
 

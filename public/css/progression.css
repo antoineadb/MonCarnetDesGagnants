@@ -332,3 +332,130 @@ header p{
     }
 
 }
+.rotate-icon{
+
+    font-size:72px;
+    color:#8d6b2b;
+
+}
+.progression-editor{
+
+    margin:40px auto;
+
+    max-width:900px;
+
+    background:#fffdf7;
+
+    border:2px solid #d4af37;
+
+    border-radius:16px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.editor-header{
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:center;
+
+}
+
+#editor-icon{
+
+    font-size:48px;
+
+}
+
+.editor-title h2{
+
+    color:#3f3125;
+
+    font-size:34px;
+
+    margin-bottom:6px;
+
+}
+
+.editor-title p{
+
+    color:#776553;
+
+    font-size:18px;
+
+}
+#editor-save:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.editor-score{
+
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color: #4b3a2f;
+}
+
+#editor-score-value{
+
+    font-size:28px;
+
+    color: #4b3a2f;
+
+}
+
+#editor-slider{
+
+    width:100%;
+
+    margin:30px 0;
+
+}
+
+.editor-actions{
+
+    text-align:right;
+
+}
+
+#editor-save{
+
+    background:#d4af37;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 24px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+#editor-save:hover{
+
+    background:#c1972f;
+
+}
