@@ -251,3 +251,84 @@ header p{
     box-shadow:0 3px 10px rgba(0,0,0,.08);
 
 }
+
+/* =====================================================
+   Rotation téléphone
+===================================================== */
+
+#rotate-device{
+
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    background:#f8f3e8;
+
+    z-index:99999;
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+#rotate-device h2{
+
+    margin-top:20px;
+    font-size:2rem;
+    color:#5a4635;
+
+}
+
+#rotate-device p{
+
+    margin-top:15px;
+    max-width:320px;
+
+    color:#6d5a4b;
+
+    font-size:1.1rem;
+
+}
+
+.rotate-icon{
+
+    font-size:70px;
+
+    animation:rotatePhone 2s infinite ease-in-out;
+
+}
+
+@keyframes rotatePhone{
+
+    0%{transform:rotate(0deg);}
+    25%{transform:rotate(90deg);}
+    50%{transform:rotate(90deg);}
+    100%{transform:rotate(0deg);}
+
+}
+
+@media (orientation:portrait) and (max-width:900px){
+
+    #rotate-device{
+
+        display:flex;
+
+    }
+
+}
+
+@media (orientation:landscape){
+
+    #rotate-device{
+
+        display:none;
+
+    }
+
+}

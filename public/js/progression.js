@@ -280,6 +280,8 @@ class Progression {
 
         this.drawInfoCard();
 
+        this.drawPotentialLabel();
+
         this.drawQuote();
 
         if (this.editMode && this.selectedMilestone) {
@@ -720,7 +722,8 @@ class Progression {
         ctx.save();
 
       const milestones = this.model ? this.model.getMilestones() : this.milestones;
-    
+      const isMobile = this.width < 900;
+
         milestones.forEach(milestone => {
 
             const t = milestone.getPosition ? milestone.getPosition() : milestone.curve_position;
@@ -774,60 +777,72 @@ class Progression {
 
             // Icône
 
-            ctx.font = "24px Inter";
+            const title = milestone.getTitle
+            ? milestone.getTitle()
+            : milestone.title;
 
+            const icon = milestone.getIcon
+            ? milestone.getIcon()
+            : milestone.icon;
+            ctx.font = "28px serif";
             ctx.textAlign = "center";
-
             ctx.fillStyle = this.colors.text;
 
-            ctx.font = "28px serif";
-
-            const icon = milestone.getIcon ? milestone.getIcon() : milestone.icon;
-            
             ctx.fillText(
-
                 icon,
-
                 point.x - 35,
-
                 point.y + 8
-
-            );
-            // Titre
-
-            ctx.font = "16px Inter";
-
-            const title = milestone.getTitle ? milestone.getTitle() : milestone.title;
-            ctx.fillText(
-
-                title,
-
-                point.x,
-
-                this.height - this.marginBottom + 85
-
             );
 
-            if (milestone.title === "Potentiel") {
+// Titre
 
-                ctx.font = "bold 26px Cormorant Garamond";
+const isMobile = this.width < 900;
 
-                ctx.fillStyle = "#5a4635";
+    ctx.font = isMobile ? "13px Inter" : "16px Inter";
+    ctx.fillStyle = "#4b4036";
+    ctx.textAlign = "center";
 
-                ctx.textAlign = "left";
+    const titleY = this.height - this.marginBottom + (isMobile ? 75 : 85);
 
-                ctx.fillText(
+    switch (title) {
 
-                    "Ton potentiel",
+        case "Miracle Morning":
 
-                    point.x + 25,
+            if (isMobile) {
 
-                    point.y - 10
+                ctx.fillText("Miracle", point.x, titleY -10);
+                ctx.fillText("Morning", point.x, titleY + 10);
 
-                );
+            } else {
+
+                ctx.fillText(title, point.x, titleY);
 
             }
 
+            break;
+
+        case "Action Massive":
+
+            if (isMobile) {
+
+                ctx.fillText("Action", point.x, titleY -10);
+                ctx.fillText("Massive", point.x, titleY + 10);
+
+            } else {
+
+                ctx.fillText(title, point.x, titleY);
+
+            }
+
+            break;
+
+        default:
+
+            ctx.fillText(title, point.x, titleY);
+
+    }
+
+            
         });
 
 
@@ -911,73 +926,40 @@ class Progression {
 
         // Texte
 
-        ctx.textAlign = "left";
+        // Flèche
 
+        ctx.strokeStyle = this.colors.today;
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.moveTo(point.x, point.y - 92);
+        ctx.lineTo(point.x, point.y - 42);
+        ctx.stroke();
+
+        // Pointe de flèche
+
+        ctx.beginPath();
+        ctx.moveTo(point.x - 6, point.y - 48);
+        ctx.lineTo(point.x, point.y - 38);
+        ctx.lineTo(point.x + 6, point.y - 48);
+        ctx.stroke();
+
+        // Texte
+
+        ctx.textAlign = "center";
         ctx.fillStyle = this.colors.today;
-
-        ctx.font = "bold 18px Inter";
+        ctx.font = "bold 22px Inter";
 
         ctx.fillText(
-
             "Aujourd'hui",
-
-            point.x + 18,
-
-            point.y - 10
-
-        );
-
-        ctx.font = "15px Inter";
-
-        ctx.fillStyle = "#555";
-
-        ctx.fillText(
-
-            "Niveau : Croissance",
-
-            point.x + 18,
-
-            point.y + 15
-
+            point.x,
+            point.y - 105
         );
 
         ctx.restore();
 
     }
-
-    /**
-     * ======================================================
-     * Titres
-     * ======================================================
-     */
-
-    /*drawLegend()  {
-
-        const ctx = this.ctx;
-
-        ctx.save();
-
-        ctx.fillStyle = this.colors.text;
-
-        ctx.textAlign = "center";
-
-        ctx.font = "bold 30px Cormorant Garamond";
-
-        ctx.fillText(
-
-            "⭐ Ton potentiel",
-
-            this.width - 180,
-
-            this.marginTop - 20
-
-        );
-
-        ctx.restore();
-
-    }*/
-
-        
+       
     /**
      * ======================================================
      * Citation
@@ -993,17 +975,21 @@ class Progression {
         ctx.fillStyle = "#7b6855";
 
         ctx.textAlign = "center";
+        ctx.font = "italic 18px Cormorant Garamond";
+        ctx.fillStyle = "#6b5b4b";
 
-        ctx.font = "italic 18px Georgia";
+        const quoteY = this.height - 50;
 
         ctx.fillText(
-
-            "Les habitudes quotidiennes créent une dynamique qui révèle progressivement ton potentiel.",
-
+            "Les habitudes quotidiennes créent une dynamique",
             this.width / 2,
+            quoteY
+        );
 
-            this.height - 35
-
+        ctx.fillText(
+            "qui révèle progressivement ton potentiel.",
+            this.width / 2,
+            quoteY + 30
         );
 
         ctx.restore();
@@ -1080,14 +1066,32 @@ class Progression {
     drawInfoCard() {
 
         const ctx = this.ctx;
+        
+        const w = 240;
+        const h = 100;
+        
+        const progress = this.model
+            ? this.model.getProgress()
+            : this.today;
 
-        const x = this.width - 290;
+        const point = this.getCurvePoint(progress);
 
-        const y = 95;
+   
 
-        const w = 220;
+        // Position au-dessus de la courbe
 
-        const h = 95;
+        const centerX = this.width / 2;
+
+        let x = centerX - (w / 2);
+        let y = this.marginTop + 40;
+
+        // Empêche de sortir du canvas
+
+        x = Math.min(x,this.width - w - 30);
+
+        x = Math.max(x,30);
+
+        y = Math.max(y,40);
 
         ctx.save();
 
@@ -1131,8 +1135,6 @@ class Progression {
 
         );
 
-        const progress = this.model ? this.model.getProgress() : this.today;
-
         const percent = Math.round(progress * 100);
 
         ctx.fillText(
@@ -1143,6 +1145,41 @@ class Progression {
 
             y + 78
 
+        );
+
+        ctx.restore();
+
+    }
+
+    drawPotentialLabel() {
+
+        const ctx = this.ctx;
+
+        const milestone = this.model
+            ? this.model.getMilestones().find(m => m.getTitle() === "Potentiel")
+            : this.milestones.find(m => m.title === "Potentiel");
+
+        if (!milestone) {
+            return;
+        }
+
+        const point = this.getCurvePoint(
+            milestone.getPosition
+                ? milestone.getPosition()
+                : milestone.t
+        );
+
+        ctx.save();
+
+        ctx.font = "bold 28px Cormorant Garamond";
+        ctx.fillStyle = "#5a4635";
+
+        ctx.textAlign = "right";
+
+        ctx.fillText(
+            "Ton potentiel",
+            point.x - 60,
+            point.y - 80
         );
 
         ctx.restore();
