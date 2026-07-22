@@ -8,6 +8,8 @@ router.get("/history", journal.getHistory);
 
 router.get("/", journal.getAll);
 
+router.get("/:id", journal.getOne);
+
 router.post("/", journal.create);
 
 router.put("/:id", journal.update);

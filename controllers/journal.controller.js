@@ -8,7 +8,7 @@ exports.getAll = (req, res) => {
     const rows = db.prepare(`
         SELECT *
         FROM journal
-        ORDER BY created_at DESC
+        ORDER BY updated_at DESC
         LIMIT 3
     `).all();
 
@@ -21,7 +21,7 @@ exports.getHistory = (req, res) => {
     const rows = db.prepare(`
         SELECT *
         FROM journal
-        ORDER BY created_at DESC
+        ORDER BY  updated_at DESC
     `).all();
 
     res.json(rows);
@@ -134,5 +134,27 @@ exports.remove = (req, res) => {
     res.json({
         message: "Journal supprimé."
     });
+
+};
+
+exports.getOne = (req, res) => {
+
+    const { id } = req.params;
+
+    const row = db.prepare(`
+        SELECT *
+        FROM journal
+        WHERE id = ?
+    `).get(id);
+
+    if (!row) {
+
+        return res.status(404).json({
+            error: "Journal introuvable."
+        });
+
+    }
+
+    res.json(row);
 
 };

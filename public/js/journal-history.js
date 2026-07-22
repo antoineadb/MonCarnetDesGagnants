@@ -190,8 +190,71 @@ function bindModal() {
         }
 
     });
+    document
+    .getElementById("deleteNote")
+    .addEventListener("click", deleteSelectedEntry);
+
+    document
+    .getElementById("editNote")
+    .addEventListener("click", editSelectedEntry);
 
 }
+
+function editSelectedEntry() {
+
+    if (!selectedEntry) {
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "journalToEdit",
+        selectedEntry.id
+    );
+
+    window.location.href = "journal.html";
+
+}
+
+async function deleteSelectedEntry() {
+
+    if (!selectedEntry) {
+        return;
+    }
+
+    if (!confirm("Voulez-vous vraiment supprimer ce journal ?")) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`/api/journal/${selectedEntry.id}`, {
+
+            method: "DELETE"
+
+        });
+
+        if (!response.ok) {
+
+            throw new Error();
+
+        }
+
+        closeModal();
+
+        await loadEntries();
+
+    }
+
+    catch (error) {
+
+        alert("Impossible de supprimer le journal.");
+
+    }
+
+}
+
 function closeModal() {
 
     document.getElementById("noteModal").style.display = "none";

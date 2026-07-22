@@ -29,6 +29,8 @@ function init() {
 
     loadHistory();
 
+    loadJournalToEdit();
+
     document.getElementById("cancelEdit").style.display = "none";
 }
 
@@ -228,6 +230,14 @@ async function saveEntry() {
         resetForm();
 
         loadHistory();
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
 
     }
 
@@ -430,6 +440,38 @@ async function deleteEntry(id) {
     showMessage("Journal supprimé.");
 
     loadHistory();
+
+}
+
+async function loadJournalToEdit() {
+
+    const id = localStorage.getItem("journalToEdit");
+
+    if (!id) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`/api/journal/${id}`);
+
+        if (!response.ok) {
+            throw new Error();
+        }
+
+        const entry = await response.json();
+
+        editEntry(entry);
+
+        localStorage.removeItem("journalToEdit");
+
+    }
+
+    catch (error) {
+
+        showMessage("Impossible de charger le journal.");
+
+    }
 
 }
 
