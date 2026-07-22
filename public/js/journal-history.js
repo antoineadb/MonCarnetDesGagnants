@@ -24,6 +24,8 @@ async function init() {
 
     await loadEntries();
 
+    bindModal();
+
 }
 
 async function loadEntries() {
@@ -172,3 +174,47 @@ function displayEntries() {
 
     });
 }
+
+function bindModal() {
+
+    document
+        .getElementById("closeModal")
+        .addEventListener("click", closeModal);
+
+    window.addEventListener("click", (event) => {
+
+        if (event.target.id === "noteModal") {
+
+            closeModal();
+
+        }
+
+    });
+
+}
+function closeModal() {
+
+    document.getElementById("noteModal").style.display = "none";
+
+    selectedEntry = null;
+
+}
+
+function openModal(entry) {
+
+    selectedEntry = entry;
+
+    document.getElementById("modalTitle").textContent =
+        `${entry.mood || ""} ${entry.title}`;
+
+    document.getElementById("modalDate").innerHTML =
+        `<i class="bi bi-calendar3"></i>
+        ${new Date(entry.created_at).toLocaleDateString("fr-FR")}`;
+
+    document.getElementById("modalContent").textContent =
+        entry.content;
+
+    document.getElementById("noteModal").style.display = "flex";
+
+}
+

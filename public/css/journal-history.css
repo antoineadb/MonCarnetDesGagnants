@@ -255,7 +255,8 @@ body{
 
 .delete-button{
 
-    background:#b83b3b;
+    background:#5f4030;
+    color:white;
 
 }
 
@@ -296,24 +297,21 @@ body{
 }
 
 #editNote {
-    background: #d4a373;
+
+    background: linear-gradient(135deg,#c28a56,#9b6b3d);
+
     color: white;
+
 }
 
 #editNote:hover {
-    background: #bc8a5b;
+
     transform: translateY(-2px);
+
+    box-shadow: 0 10px 22px rgba(0,0,0,.25);
+
 }
 
-#deleteNote {
-    background: #b23a48;
-    color: white;
-}
-
-#deleteNote:hover {
-    background: #912f3c;
-    transform: translateY(-2px);
-}
 
 .history-actions button {
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
@@ -382,17 +380,19 @@ body{
     color: #3f2b1f;
 
 }
+
 .modal-actions {
 
     display: flex;
 
-    justify-content: flex-end;
+    justify-content: center;
 
-    gap: 12px;
+    gap: 20px;
 
-    margin-top: 30px;
+    margin-top: 40px;
 
 }
+
 #modalContent {
 
     margin-top: 20px;
@@ -400,5 +400,43 @@ body{
     line-height: 1.8;
 
     white-space: pre-wrap;
+
+}
+.modal-actions button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,.15);
+
+}
+
+#modalContent{
+
+    line-height:1.9;
+
+    font-size:1.08rem;
+
+}
+.modal-actions button:active{
+
+    transform:scale(.97);
 
 }
