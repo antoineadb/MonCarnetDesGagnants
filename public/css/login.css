@@ -92,10 +92,13 @@ body{
 
 .book{
 
-   position:relative;
+    position:relative;
 
-    width:500px;
-    height:760px;
+    width:min(500px,90vw);
+
+    aspect-ratio:500 / 760;
+
+    height:auto;
 
     perspective:2200px;
 
@@ -709,37 +712,44 @@ body{
 
 .login-button{
 
-    position: relative;
-    width: 100%;
-    padding: 18px 24px;
-    cursor: pointer;
-    overflow: hidden;
-    font-family: "Inter", sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color:#f3e5c8;
-    letter-spacing: .4px;
-    border:1px solid #4d2f12;
-    box-shadow:
-    inset 0 0 0 2px rgba(255,235,200,.15),
-    inset 0 0 0 8px rgba(70,40,10,.18),
-    inset 0 2px 3px rgba(255,255,255,.10),
-    0 12px 25px rgba(0,0,0,.45);
+    position:relative;
+    width:100%;
+    padding:clamp(14px,2vw,18px) 24px;
 
-    border-radius: 12px;
-    margin-top: 0;
-    transition: transform .25s, box-shadow .25s;
-    
+    cursor:pointer;
+    overflow:hidden;
+
+    font-family:"Inter",sans-serif;
+    font-size:clamp(18px,2.8vw,22px);
+    font-weight:700;
+
+    white-space:nowrap;
+
+    color:#f3e5c8;
+
+    letter-spacing:.4px;
+
+    border:1px solid #4d2f12;
+
+    border-radius:12px;
+
     background-image:
-    linear-gradient(
-        rgba(255,255,255,.05),
-        rgba(0,0,0,.08)
-    ),
-    url("../assets/textures/leather.jpg");
+        linear-gradient(
+            rgba(255,255,255,.05),
+            rgba(0,0,0,.08)
+        ),
+        url("../assets/textures/leather.jpg");
+
     background-size:cover;
 
-}
+    box-shadow:
+        inset 0 0 0 2px rgba(255,235,200,.15),
+        inset 0 0 0 8px rgba(70,40,10,.18),
+        inset 0 2px 3px rgba(255,255,255,.10),
+        0 12px 25px rgba(0,0,0,.45);
 
+    transition:transform .25s, box-shadow .25s;
+}
 
 .login-button:hover{
 
@@ -930,6 +940,21 @@ body{
 
 }
 
+
+@media (max-width: 480px){
+
+    .book{
+        width:92vw;
+        height:auto;
+        aspect-ratio:500/760;
+    }
+
+    .login-button{
+        font-size:18px;
+        padding:14px 20px;
+    }
+
+}
 .book-content{
 
     position:absolute;
@@ -943,6 +968,21 @@ body{
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
+
+}
+@media (max-width:480px){
+
+    .login-input{
+        font-size:18px;
+    }
+
+    .book-title{
+        font-size:56px;
+    }
+
+    .book-quote{
+        font-size:18px;
+    }
 
 }
 
