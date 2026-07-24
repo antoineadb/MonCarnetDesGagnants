@@ -53,82 +53,69 @@
         <!-- Couverture -->
 
         <section class="book-cover">
-            <div class="cover-content">
+                <!-- Logo -->
+                <div class="cover-header">               
 
-            <!-- Logo -->
+                    <!-- Titre -->
 
-            <div class="book-logo">
+                    <h1 class="book-title">
 
-                <div class="book-logo__circle">
-                    CG
+                        <span>Le Carnet</span>
+                        <span>des Gagnants</span>
+
+                    </h1>            
+
+                    <div class="separator"></div>
                 </div>
+                <div class="separator"></div>
 
-            </div>
+                <!-- Formulaire -->
 
-            <!-- Titre -->
+                <form id="loginForm" class="login-form">
+                    <div class="login-fields">
+                        <div class="login-field">
 
-            <h1 class="book-title">
+                            <i class="bi bi-person"></i>
 
-                Le Carnet
-                <br>
-                <span>des Gagnants</span>
+                            <input
+                                id="username"
+                                type="text"
+                                placeholder="Utilisateur"
+                                autocomplete="username">
 
-            </h1>
+                        </div>
 
-            <div class="separator"></div>
+                        <div class="login-field">
 
-            <!-- Citation -->
+                            <i class="bi bi-lock"></i>
 
-            <p class="book-quote">
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Mot de passe"
+                                autocomplete="current-password">
 
-                « Je travaille sur la personne que je veux devenir,
-                plutôt que sur celle que je suis. »
+                        </div>
+                    </div>
+                    <div id="loginMessage" class="login-message"></div>
+                    <!-- Citation -->
 
-            </p>
+                    <p class="book-quote">
 
-            <div class="separator"></div>
+                        « Je travaille sur la personne que je veux devenir,
+                        plutôt que sur celle que je suis. »
 
-            <!-- Formulaire -->
+                    </p>
+                    <button
+                        id="openBookButton"
+                        class="login-button"
+                        type="submit">
 
-            <form id="loginForm" class="login-form">
+                        Ouvrir le carnet
 
-                <div class="login-field">
+                    </button>
 
-                    <i class="bi bi-person"></i>
-
-                    <input
-                        id="username"
-                        type="text"
-                        placeholder="Utilisateur"
-                        autocomplete="username">
-
-                </div>
-
-                <div class="login-field">
-
-                    <i class="bi bi-lock"></i>
-
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="Mot de passe"
-                        autocomplete="current-password">
-
-                </div>
-
-                <div id="loginMessage" class="login-message"></div>
-
-                <button
-                    id="openBookButton"
-                    class="login-button"
-                    type="submit">
-
-                    Ouvrir mon carnet →
-
-                </button>
-
-            </form>
-            </div>
+                </form>            
         </section>
 
     </main>

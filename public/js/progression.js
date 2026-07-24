@@ -31,7 +31,14 @@ class Progression {
 
         this.marginBottom = 180;
 
+        this.curveSteepness = 6,2;
+
+        this.arrowImage = new Image();
+        
+        this.arrowImage.src = "../images/arrow.svg";
+
         this.graphWidth =
+
             this.width -
             this.marginLeft -
             this.marginRight;
@@ -51,62 +58,28 @@ class Progression {
         // Progression du jour (0 → 1)
 
         // TODO : sera remplacé par ProgressionModel
-console.log(document.getElementById("progression-editor"));
         // Animation
 
         this.milestones = [
 
-            {
+            { t: 0.08, y: 0.02, icon: "🍎", title: "Santé" },
 
-                t: 0.08,
+            { t: 0.22, y: 0.05, icon: "😴", title: "Sommeil" },
 
-                icon: "🍎",
+            { t: 0.38, y: 0.12, icon: "🌅", title: "Miracle Morning" },
 
-                title: "Santé"
+            // Point de contrôle
+            { t: 0.52, y: 0.28, hidden: true },
 
-            },
+            { t: 0.68, y: 0.58, icon: "🚀", title: "Action Massive" },
 
-            {
+            // Point de contrôle
+            { t: 0.82, y: 0.82, hidden: true },
 
-                t: 0.22,
-
-                icon: "😴",
-
-                title: "Sommeil"
-
-            },
-
-            {
-
-                t: 0.38,
-
-                icon: "🌅",
-
-                title: "Miracle Morning"
-
-            },
-
-            {
-
-                t: 0.68,
-
-                icon: "🚀",
-
-                title: "Action Massive"
-
-            },
-
-            {
-
-                t: 0.96,
-
-                icon: "⭐",
-
-                title: "Potentiel"
-
-            }
+            { t: 0.96, y: 0.95, icon: "⭐", title: "Potentiel" }
 
         ];
+
         this.animation = 0;
 
         // Couleurs
@@ -519,40 +492,39 @@ console.log(document.getElementById("progression-editor"));
      * ======================================================
      */
 
-    getCurvePoint(t) {
+    getCurveY(t) {
 
-        const x =
+        const k = this.curveSteepness;
 
-            this.marginLeft +
+        return (Math.exp(k * t) - 1) /
+            (Math.exp(k) - 1);
 
-            t * this.graphWidth;
+    }
 
-        const e =
+    getCurvePoint(value) {
 
-            (Math.exp(this.curvePower * t) - 1)
+        const t = typeof value === "number"
+            ? value
+            : value.t;
 
-            /
-
-            (Math.exp(this.curvePower) - 1);
-
-        const y =
-
-            this.height -
-
-            this.marginBottom -
-
-            e * this.graphHeight;
+        const y = this.getCurveY(t);
 
         return {
 
-            x,
+            x:
+                this.marginLeft +
+                t * this.graphWidth,
 
-            y
+            y:
+                this.height -
+                this.marginBottom -
+                y * this.graphHeight
 
         };
 
     }
-    /**
+
+/**
  * ======================================================
  * Dégradé de la courbe
  * ======================================================
@@ -600,63 +572,62 @@ console.log(document.getElementById("progression-editor"));
 
         const start = this.getCurvePoint(0);
 
-        ctx.moveTo(
+        ctx.moveTo(start.x, start.y);
 
-            start.x,
+        const lastT = 0.96;
 
-            start.y
+        const max = Math.floor(lastT *400 * this.animation);
 
-        );
+        for (let i = 1; i <= max; i++) {
 
-        const animationLimit = Math.max(
+            const point = this.getCurvePoint(i / 400);
 
-            2,
-
-            Math.floor(320 * this.animation)
-
-        );
-
-        for (
-
-            let i = 1;
-
-            i <= animationLimit;
-
-            i++
-
-        ) {
-
-            const point = this.getCurvePoint(i / 320);
-
-            ctx.lineTo(
-
-                point.x,
-
-                point.y
-
-            );
+            ctx.lineTo(point.x, point.y);
 
         }
 
         ctx.strokeStyle = this.getCurveGradient();
-
         ctx.lineWidth = 6;
-
         ctx.lineCap = "round";
-
         ctx.lineJoin = "round";
-
         ctx.stroke();
-
-        // Halo lumineux
 
         ctx.globalAlpha = .18;
-
         ctx.strokeStyle = "#ffd86b";
-
         ctx.lineWidth = 14;
-
         ctx.stroke();
+
+        // Flèche finale
+
+        const end = this.getCurvePoint(0.96);
+
+        const angle = Math.atan2(-1.4, 1);
+
+        const arrowLength = 65;
+
+        const x2 = end.x + Math.cos(angle) * arrowLength;
+        const y2 = end.y + Math.sin(angle) * arrowLength;
+
+        // Pointe
+        const head = 22;
+
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+
+        ctx.lineTo(
+            x2 - head * Math.cos(angle - Math.PI / 6),
+            y2 - head * Math.sin(angle - Math.PI / 6)
+        );
+
+        ctx.lineTo(
+            x2 - head * Math.cos(angle + Math.PI / 6),
+            y2 - head * Math.sin(angle + Math.PI / 6)
+        );
+
+        ctx.closePath();
+        ctx.fill();
+
+       
 
         ctx.restore();
 
@@ -719,7 +690,7 @@ console.log(document.getElementById("progression-editor"));
         const isMobile = this.width < 900;
 
         milestones.forEach(milestone => {
-
+            if (milestone.hidden) return;
             const t = milestone.getPosition ? milestone.getPosition() : milestone.curve_position;
             const point = this.getCurvePoint(t);
 
@@ -785,8 +756,8 @@ console.log(document.getElementById("progression-editor"));
 
             ctx.fillText(
                 icon,
-                point.x - 35,
-                point.y + 8
+                point.x - 25,
+                point.y - 10
             );
 
             // Titre
@@ -841,7 +812,15 @@ console.log(document.getElementById("progression-editor"));
 
         });
 
-        
+        const end = this.getCurvePoint(0.96);
+
+        ctx.drawImage(
+            this.arrowImage,
+            end.x - 16,
+            end.y - 24,
+            40,
+            40
+        );
 
         ctx.restore();
 
@@ -913,7 +892,7 @@ console.log(document.getElementById("progression-editor"));
 
         // Flèche
 
-        ctx.strokeStyle = this.colors.today;
+       ctx.strokeStyle = this.colors.today;
         ctx.lineWidth = 2;
 
         ctx.beginPath();
@@ -1274,7 +1253,6 @@ console.log(document.getElementById("progression-editor"));
         ctx.restore();
 
     }
-
 }
 
 /**
