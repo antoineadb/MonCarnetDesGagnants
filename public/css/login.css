@@ -504,7 +504,7 @@ body{
     font-weight: 600;
     font-style: normal;
     letter-spacing: 1px;
-    transform: translateY(40px);
+    transform:translateY(55px);
     font-family: cursive;
     color:#f7ebc8;
 
@@ -555,8 +555,8 @@ body{
 
    margin-top: -56px;
     margin-bottom: 5px;
-    font-size: 18px;
-    line-height: 1.35;
+    font-size:17px;
+    line-height:1.45;
     text-align: center;
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
@@ -591,10 +591,9 @@ body{
     display:flex;
     flex-direction:column;
 
-    margin-top:170px;
-    gap:12px;
-   height:100%;
+    margin-top:clamp(60px,12vw,170px);
 
+    gap:12px;
 }
 
 
@@ -803,8 +802,6 @@ body{
 
     width:60%;
 
-    height:100%;
-
     background:
 
         linear-gradient(
@@ -910,48 +907,24 @@ body{
    RESPONSIVE
 ==========================================================*/
 
-@media (max-width:900px){
 
-    .book{
-
-        transform:scale(.90);
-
-    }
-
-}
-
-@media (max-width:700px){
-
-    .book{
-
-        transform:scale(.78);
-
-    }
-
-}
-
-@media (max-width:520px){
-
-    .book{
-
-        transform:scale(.65);
-
-    }
-
-}
-
-
-@media (max-width: 480px){
+@media (max-width:480px){
 
     .book{
         width:92vw;
-        height:auto;
-        aspect-ratio:500/760;
+        max-width:360px;
     }
 
-    .login-button{
-        font-size:18px;
-        padding:14px 20px;
+    .book-title{
+        font-size:38px;
+    }
+
+    .login-form{
+        margin-top:150px;
+    }
+
+    .book-quote{
+        font-size:16px;
     }
 
 }
@@ -972,18 +945,24 @@ body{
 }
 @media (max-width:480px){
 
-    .login-input{
-        font-size:18px;
-    }
-
     .book-title{
-        font-size:56px;
+        font-size:40px;
     }
 
     .book-quote{
-        font-size:18px;
+        font-size:16px;
     }
 
+    .login-input{
+        font-size:16px;
+    }
+    .book{
+        width:340px;
+        height:auto;
+    }
+    .login-form{
+        margin-top:190px;
+    }
 }
 
 /* ==========================================================
