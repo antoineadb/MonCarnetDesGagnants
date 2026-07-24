@@ -459,3 +459,188 @@ header p{
     background:#c1972f;
 
 }
+
+/*==================================================
+    FENÊTRE D'INSCRIPTION
+==================================================*/
+
+.save-modal{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(6px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.30s;
+
+    z-index:9999;
+
+}
+
+.save-modal.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+.save-dialog{
+
+    width:min(500px,90vw);
+
+    background:#faf7ef;
+
+    border:2px solid #c9a63d;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35);
+
+    animation:modalAppear .30s ease;
+
+}
+
+@keyframes modalAppear{
+
+    from{
+
+        opacity:0;
+        transform:translateY(25px) scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+.save-dialog h2{
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    font-size:24px;
+
+    color:#4c3527;
+
+}
+
+.save-text{
+
+    text-align:center;
+
+    font-size:20px;
+
+    line-height:1.5;
+
+    color:#5b4638;
+
+    margin-bottom:25px;
+
+}
+
+.save-score{
+
+    background:#fffdf8;
+
+    border:1px solid #e3d4b2;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    margin-bottom:30px;
+
+}
+
+.save-score h3{
+
+    margin:0 0 18px;
+
+    font-size:26px;
+
+}
+
+.save-score p{
+
+    margin:10px 0;
+
+    font-size:20px;
+
+}
+
+.gain{
+
+    font-weight:bold;
+
+    color:#1d8b42;
+
+}
+
+.save-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+}
+
+.save-buttons button{
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:14px 28px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.25s;
+
+}
+
+#cancelSave{
+
+    background:#d7d7d7;
+
+}
+
+#cancelSave:hover{
+
+    background:#c5c5c5;
+
+}
+
+#confirmSave{
+
+    background:#b97d19;
+
+    color:white;
+
+}
+
+#confirmSave:hover{
+
+    background:#9f680d;
+
+}

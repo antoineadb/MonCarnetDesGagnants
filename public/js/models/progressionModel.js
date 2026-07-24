@@ -19,7 +19,8 @@ class ProgressionModel {
 
     getProgress() {
 
-        return this.progress.progress;
+        return this.progress?.progress ?? 0;
+
 
     }
 
@@ -44,13 +45,20 @@ class ProgressionModel {
         );
 
     }
+
+    getMilestoneByCode(code) {
+        return this.milestones.find(
+            milestone => milestone.getCode() === code
+        );
+    }
+
     updateMilestones(id,data){
 
-        const milestones =
+        const milestone =
 
-            this.getMilestones(id);
+            this.getMilestone(id);
 
-        if(!milestones){
+        if(!milestone){
 
             return;
 
@@ -58,7 +66,7 @@ class ProgressionModel {
 
         Object.assign(
 
-            milestones,
+            milestone,
 
             data
 
@@ -68,17 +76,17 @@ class ProgressionModel {
 
     moveMilestone(id,newPosition){
 
-        const milestones =
+        const milestone =
 
-            this.getMilestones(id);
+            this.getMilestone(id);
 
-        if(!milestones){
+        if(!milestone){
 
             return;
 
         }
 
-        milestones.curve_position =
+        milestone.curve_position =
 
             newPosition;
 

@@ -60,4 +60,34 @@ class ProgressionService {
 
     }
 
+    static async saveProgression(progression){
+
+        const response = await fetch(
+
+            "/api/progression/save",
+
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(progression)
+            }
+
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Impossible d'enregistrer la progression."
+            );
+
+        }
+
+        return await response.json();
+
+    }
+
 }

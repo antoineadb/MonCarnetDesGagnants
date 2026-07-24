@@ -97,35 +97,25 @@ CREATE TABLE IF NOT EXISTS users (
 
 db.exec(`
 
-CREATE TABLE IF NOT EXISTS progression_milestones (
+    CREATE TABLE IF NOT EXISTS progression_milestones (
 
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        path_id INTEGER NOT NULL,
+        step_order INTEGER NOT NULL,
+        code TEXT NOT NULL UNIQUE,
+        title TEXT NOT NULL,
+        icon TEXT,        
+        description TEXT,
+        citation TEXT,
+        color TEXT,
+        curve_position REAL NOT NULL,
+        is_visible INTEGER DEFAULT 1,
+        editable INTEGER DEFAULT 1,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(path_id)
+            REFERENCES progression_paths(id)
 
-    path_id INTEGER NOT NULL,
-
-    step_order INTEGER NOT NULL,
-
-    title TEXT NOT NULL,
-
-    icon TEXT,
-
-    description TEXT,
-
-    color TEXT,
-
-    curve_position REAL NOT NULL,
-
-    is_visible INTEGER DEFAULT 1,
-
-    editable INTEGER DEFAULT 1,
-
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY(path_id)
-
-        REFERENCES progression_paths(id)
-
-);
+    );
 
 `);
 
@@ -157,13 +147,49 @@ console.log("✔ Table journal prête");
 console.log("✔ Tables progression prêtes");
 
 // ======================================================
+// TABLE PROGRESSION HISTORY
+// ======================================================
+
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS progression_history (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    path_id INTEGER NOT NULL,
+
+    milestone_id INTEGER NOT NULL,
+
+    old_score INTEGER NOT NULL,
+
+    new_score INTEGER NOT NULL,
+
+    variation INTEGER NOT NULL,
+
+    note TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(path_id)
+        REFERENCES progression_paths(id),
+
+    FOREIGN KEY(milestone_id)
+        REFERENCES progression_milestones(id)
+    );
+`).run();
+
+// ======================================================
 // DONNÉES PAR DÉFAUT
 // ======================================================
+
 
 const pathCount = db.prepare(`
     SELECT COUNT(*) AS total
     FROM progression_paths
 `).get();
+
+console.log("=== Initialisation progression ===");
+
+console.log("pathCount =", pathCount);
 
 if (pathCount.total === 0) {
 
@@ -192,24 +218,17 @@ if (pathCount.total === 0) {
     const insertMilestone = db.prepare(`
 
         INSERT INTO progression_milestones (
-
             path_id,
-
             step_order,
-
+            code,
             title,
-
             icon,
-
             description,
-
+            citation,
             color,
-
             curve_position
-
         )
-
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 
     `);
         insertMilestone.run(
@@ -218,11 +237,15 @@ if (pathCount.total === 0) {
 
         1,
 
+        "sante",
+
         "Santé",
 
         "🍎",
 
         "Prendre soin de son corps.",
+
+        "Votre santé est le premier capital de votre réussite.",
 
         "#4CAF50",
 
@@ -236,11 +259,15 @@ if (pathCount.total === 0) {
 
         2,
 
+        "sommeil",
+
         "Sommeil",
 
         "😴",
 
         "Retrouver une énergie durable.",
+
+        "Chaque nuit de qualité prépare les victoires de demain.",
 
         "#4A90E2",
 
@@ -254,11 +281,16 @@ if (pathCount.total === 0) {
 
         3,
 
-        "Miracle Morning",
+        "miracleMorning",
+
+         "Miracle Morning",
+
 
         "🌅",
 
         "Créer une routine puissante.",
+
+        "Chaque matin est une nouvelle occasion de devenir meilleur.",
 
         "#F5A623",
 
@@ -272,11 +304,15 @@ if (pathCount.total === 0) {
 
         4,
 
+        "actionMassive",
+
         "Action Massive",
 
         "🚀",
 
         "Passer massivement à l'action.",
+
+        "Les résultats viennent de l'action, jamais de l'intention.",
 
         "#E74C3C",
 
@@ -290,11 +326,14 @@ if (pathCount.total === 0) {
 
         5,
 
+        "potentiel",
+
         "Potentiel",
 
         "⭐",
-
         "Devenir la meilleure version de soi.",
+
+        "Ton potentiel est bien plus grand que tes limites d'aujourd'hui.",
 
         "#D4AF37",
 

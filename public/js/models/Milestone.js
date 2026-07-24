@@ -7,27 +7,25 @@
 
 class Milestone {
 
-    constructor(data = {}) {
+    constructor(data) {
 
-        this.id = data.id ?? null;
+        this.id = data.id;
+        this.pathId = data.path_id;
+        this.stepOrder = data.step_order;
 
-        this.pathId = data.path_id ?? null;
+        this.code = data.code;
+        this.title = data.title;
 
-        this.order = data.step_order ?? 0;
+        this.icon = data.icon;
+        this.description = data.description;
+        this.color = data.color;
 
-        this.title = data.title ?? "";
+        this.position = data.curve_position;
 
-        this.icon = data.icon ?? "⭐";
+        this.visible = data.is_visible;
+        this.editable = data.editable;
 
-        this.description = data.description ?? "";
-
-        this.color = data.color ?? "#D4AF37";
-
-        this.position = data.curve_position ?? 0;
-
-        this.visible = Boolean(data.is_visible ?? true);
-
-        this.editable = Boolean(data.editable ?? true);
+        this.citation = data.citation;
 
     }
 
@@ -38,23 +36,25 @@ class Milestone {
 
     }
 
+    getCode() {
+        return this.code;
+    }
+
     getDescription() {
 
         return this.description;
-
     }
 
     getColor() {
-
         return this.color;
-
     }
+
     getPosition() {
 
     return this.position;
 
     }
-
+  
     getTitle() {
 
         return this.title;
@@ -82,6 +82,12 @@ class Milestone {
         setTitle(title) {
 
         this.title = title;
+
+    }
+
+    getCitation() {
+
+        return this.citation;
 
     }
 
@@ -145,6 +151,10 @@ class Milestone {
 
     }
 
+    getPathId() {
+        return this.pathId;
+    }
+
         toJSON() {
 
         return {
@@ -153,7 +163,9 @@ class Milestone {
 
             path_id: this.pathId,
 
-            step_order: this.order,
+            step_order: this.stepOrder,
+
+            code: this.code,
 
             title: this.title,
 
@@ -166,6 +178,8 @@ class Milestone {
             curve_position: this.position,
 
             is_visible: this.visible,
+
+            citation: this.citation,
 
             editable: this.editable
 

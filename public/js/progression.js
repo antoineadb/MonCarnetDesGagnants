@@ -50,6 +50,26 @@ class Progression {
 
         this.selectedMilestone = null;
 
+        this.progressionEnCours = null;
+
+        this.modal = {
+
+            container: document.getElementById("saveModal"),
+
+            title: document.getElementById("modalTitle"),
+
+            description: document.getElementById("modalDescription"),
+
+            citation: document.getElementById("modalCitation"),
+
+            oldValue: document.getElementById("oldValue"),
+
+            newValue: document.getElementById("newValue"),
+
+            gain: document.getElementById("gainValue")
+
+        };
+
         // Courbe
 
         this.curvePower = 4.5;
@@ -112,7 +132,6 @@ class Progression {
         this.editMode = false;
 
         this.editor = new ProgressionEditor(this);
-
     }
 
     onClick(event) {
@@ -166,7 +185,7 @@ class Progression {
 
     }
 
-    /**
+/**
  * ======================================================
  * Initialisation
  * ======================================================
@@ -175,20 +194,13 @@ class Progression {
     async init() {
 
         await this.load();
-
         this.resize();
-
         this.bindEvents();
-
         this.animate();
+        window.addEventListener("resize",() => this.resize());
+        document.getElementById("cancelSave").addEventListener("click",() => this.fermerFenetre());
+        document.getElementById("confirmSave").addEventListener("click",() => this.validerProgression());
 
-        window.addEventListener(
-
-            "resize",
-
-            () => this.resize()
-
-        );
     }
 
     /**
@@ -1253,6 +1265,71 @@ class Progression {
         ctx.restore();
 
     }
+
+    ouvrirFenetre(milestone, ancienScore, nouveauScore) {
+
+        this.progressionEnCours = {
+
+            pathId: milestone.getPathId(),
+            milestoneId: milestone.getId(),
+            code: milestone.getCode(),
+            title: milestone.getTitle(),
+            ancienScore,
+            nouveauScore,
+            variation: nouveauScore - ancienScore
+        };
+
+        const data = this.domaines[milestone.getCode() ];
+            this.modal.title.textContent = `${data.icon} ${data.titre}`;
+            this.modal.description.textContent = data.description;
+            this.modal.citation.textContent = data.citation;
+            this.modal.oldValue.textContent = ancienScore + " %";
+            this.modal.newValue.textContent = nouveauScore + " %";
+            this.modal.gain.textContent =
+                (this.progressionEnCours.variation >= 0 ? "+" : "")
+                + this.progressionEnCours.variation
+                + " %";
+            this.modal.container.classList.add("show");
+        }
+
+    fermerFenetre(){
+        this.modal.container.classList.remove("show");
+        this.progressionEnCours = null;
+    }
+
+    async validerProgression(){
+
+        if(!this.progressionEnCours){
+            return;
+        }
+
+        try{
+
+            await ProgressionService.saveProgression(
+                this.progressionEnCours
+            );
+
+            await this.load();
+
+            this.draw();
+
+            this.fermerFenetre();
+
+            console.log("✔ Progression enregistrée");
+
+        }
+        catch(error){
+
+            console.error(error);
+
+            alert(
+                "Impossible d'enregistrer la progression."
+            );
+
+        }
+
+    }
+    
 }
 
 /**
@@ -1274,4 +1351,5 @@ document.addEventListener(
     }
 
 );
+
 

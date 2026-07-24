@@ -165,6 +165,44 @@
 
 <script src="../js/progression.js"></script>
 
+<!-- Fenêtre d'inscription -->
+<div id="saveModal" class="save-modal hide">
+
+    <div class="save-dialog">
+
+        <h2>📖 Le Carnet des Gagnants</h2>
+
+        <p class="save-text">
+            Vous êtes sur le point d'inscrire cette progression dans votre carnet.
+        </p>
+
+        <div class="save-score">
+            <span id="oldValue">63 %</span>
+            ➜
+            <span id="newValue">67 %</span>
+        </div>
+        <div class="score-gain">
+            <span id="gainValue">+4 %</span>
+        </div>
+        <p class="modalCitation" id="modalCitation"></p>
+        </div>
+
+        <div class="save-buttons">
+
+            <button id="cancelSave">
+                Annuler
+            </button>
+
+            <button id="confirmSave">
+                ✍️ Inscrire
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 
 </html>
