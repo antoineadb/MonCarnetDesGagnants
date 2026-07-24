@@ -178,6 +178,70 @@ db.prepare(`
 `).run();
 
 // ======================================================
+// TABLE GRATITUDE
+// ======================================================
+    db.prepare(`
+        CREATE TABLE IF NOT EXISTS gratitude_cards (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            title TEXT NOT NULL,
+            message TEXT NOT NULL,
+
+            image TEXT,
+            
+            image_type TEXT DEFAULT 'photo',
+
+            location TEXT,
+
+            theme TEXT DEFAULT 'Nature',
+
+            emotion TEXT,
+
+            favorite INTEGER DEFAULT 0,
+
+            send_date TEXT,
+
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+        `).run();
+
+        console.log("✔ Table gratitude_cards prête");
+
+// ======================================================
+// TABLE GRATITUDE_CARDS
+// ======================================================
+    db.prepare(`   
+        CREATE TABLE IF NOT EXISTS gratitude_cards (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        title TEXT NOT NULL,
+
+        message TEXT NOT NULL,
+
+        image TEXT,
+
+        image_type TEXT DEFAULT 'photo',
+
+        location TEXT,
+
+        theme TEXT DEFAULT 'Nature',
+
+        emotion TEXT,
+
+        favorite INTEGER DEFAULT 0,
+
+        send_date TEXT,
+
+        deleted INTEGER DEFAULT 0,
+
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+    );
+    `).run();     
+// ======================================================
 // DONNÉES PAR DÉFAUT
 // ======================================================
 

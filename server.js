@@ -7,6 +7,7 @@ const PORT = 3000;
 const authRoutes = require("./routes/auth.routes");
 const journalRoutes = require("./routes/journal.routes");
 const progressionRoutes = require("./routes/progression.routes");
+const gratitudeRoutes = require("./routes/gratitude.routes")(db);
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/progression", progressionRoutes);
-
+app.use("/api/gratitude", gratitudeRoutes);
 // Démarrage du serveur
 app.listen(PORT, () => {
     console.log("🚀 Le Carnet des Gagnants est lancé !");

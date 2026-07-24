@@ -1,101 +1,447 @@
-.chapter-page{
+/* ===========================================================
+   LE COFFRE DE GRATITUDE
+   =========================================================== */
 
-    max-width:760px;
+:root{
 
-    margin:40px auto;
+    --paper:#f8f3e7;
+    --paper-border:#d7c8a8;
 
-    padding:60px;
+    --wood:#5c4033;
 
-    background:#f8f3e8;
+    --text:#4d3b2d;
 
-    border:1px solid #d8c6a5;
+    --shadow:rgba(0,0,0,.18);
+
+    --gold:#b78b2d;
+
+}
+
+/* ===========================================================
+   PAGE
+   =========================================================== */
+
+.gratitude-page{
+
+    width:100%;
+    height:100%;
+
+    padding:40px;
+
+    background:#efe8d7;
+
+    overflow:auto;
+
+}
+
+.gratitude-page h1{
+
+    text-align:center;
+
+    color:var(--wood);
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+}
+
+.gratitude-page h2{
+
+    text-align:center;
+
+    color:#7d6d5d;
+
+    font-weight:normal;
+
+    margin-bottom:40px;
+
+}
+
+/* ===========================================================
+   BOUTON
+   =========================================================== */
+
+#btnNewCard{
+
+    display:block;
+
+    margin:0 auto 40px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--wood);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#btnNewCard:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.20);
+
+}
+
+/* ===========================================================
+   CONTENEUR
+   =========================================================== */
+
+#gratitudeCards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+
+    gap:40px;
+
+}
+
+/* ===========================================================
+   CARTE POSTALE
+   =========================================================== */
+
+.postcard{
+
+    background:var(--paper);
+
+    border:1px solid var(--paper-border);
 
     border-radius:8px;
 
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.35s;
+
     box-shadow:
 
-        0 8px 25px rgba(0,0,0,.12);
+        0 6px 14px var(--shadow);
 
 }
-.chapter-title{
 
-    font-family:"Cormorant Garamond",serif;
+.postcard:hover{
 
-    font-size:60px;
+    transform:
 
-    font-weight:600;
+        translateY(-8px)
+
+        rotate(-1deg);
+
+    box-shadow:
+
+        0 18px 35px rgba(0,0,0,.25);
+
+}
+
+/* ===========================================================
+   PHOTO
+   =========================================================== */
+
+.postcard-image{
+
+    height:220px;
+
+    background:#ddd;
+
+    overflow:hidden;
+
+}
+
+.postcard-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.postcard-placeholder{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:80px;
+
+    color:#bbb;
+
+}
+
+/* ===========================================================
+   BAS DE CARTE
+   =========================================================== */
+
+.postcard-footer{
+
+    padding:18px;
+
+}
+
+.postcard-footer h3{
+
+    margin:0;
+
+    color:var(--text);
+
+    font-size:22px;
+
+}
+
+.postcard-footer p{
+
+    margin-top:10px;
+
+    color:#777;
+
+}
+
+.postcard-footer small{
+
+    display:block;
+
+    margin-top:18px;
+
+    color:#999;
+
+}
+
+/* ===========================================================
+   COFFRE VIDE
+   =========================================================== */
+
+.gratitude-empty{
 
     text-align:center;
 
-    color:#5b3b1b;
+    padding:80px;
 
-    margin:10px 0;
+    color:#666;
 
 }
-.chapter-number{
 
-    text-align:center;
+.gratitude-empty h2{
 
-    text-transform:uppercase;
+    font-size:70px;
 
-    letter-spacing:5px;
+}
 
-    color:#8b6d4b;
+/*======================================================
+    CARTE POSTALE PREMIUM
+======================================================*/
+
+#gratitudeCards{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:50px;
+
+}
+
+.postcard{
+
+    width:360px;
+
+    background:#fffdf8;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.18);
+
+    transition:
+        transform .35s,
+        box-shadow .35s;
+
+}
+
+.postcard:hover{
+
+    transform:
+        translateY(-12px)
+        rotate(-2deg);
+
+    box-shadow:
+        0 22px 50px rgba(0,0,0,.30);
+
+}
+
+.postcard-photo{
+
+    height:240px;
+
+    overflow:hidden;
+
+}
+
+.postcard-photo img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:transform .5s;
+
+}
+
+.postcard:hover img{
+
+    transform:scale(1.05);
+
+}
+
+.postcard-bottom{
+
+    padding:20px;
+
+}
+
+.postcard-bottom h3{
+
+    font-size:28px;
+
+    margin-bottom:10px;
+
+    color:#5b3d2b;
+
+}
+
+.postcard-bottom p{
+
+    color:#7b6758;
+
+    margin-bottom:18px;
+
+}
+
+.postcard-bottom span{
+
+    color:#a18b78;
 
     font-size:14px;
 
 }
-.chapter-line{
+.postcard{
 
-    width:180px;
+    width:360px;
+    height:470px;
 
-    height:1px;
+    perspective:1500px;
 
-    margin:25px auto;
+    background:none;
 
-    background:#b99667;
-
-}
-.chapter-quote{
-
-    text-align:center;
-
-    font-style:italic;
-
-    font-size:22px;
-
-    color:#8b6d4b;
-
-    margin-bottom:45px;
+    box-shadow:none;
 
 }
 
-.chapter-text{
+.postcard-inner{
 
-    font-family:"Cormorant Garamond",serif;
+    width:100%;
+    height:100%;
 
-    font-size:28px;
+    position:relative;
+
+    transition:transform .8s;
+
+    transform-style:preserve-3d;
+
+}
+
+.postcard:hover .postcard-inner{
+
+    transform:rotateY(180deg);
+
+}
+
+.postcard-front,
+.postcard-back{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    backface-visibility:hidden;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:#fffdf8;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+}
+
+.postcard-back{
+
+    transform:rotateY(180deg);
+
+    padding:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+}
+
+.postcard-message{
+
+    font-size:20px;
 
     line-height:1.8;
 
-    color:#43311d;
+    color:#5b3d2b;
 
 }
 
-.chapter-text p{
+.postcard-signature{
 
-    margin-bottom:28px;
+    text-align:right;
 
-    text-align:justify;
+    font-size:22px;
 
-    text-indent:35px;
+    color:#7a5b43;
 
 }
 
-/* ===========================
-   Pied de page
-=========================== */
 
+
+/*======================================================
+    FOOTER
+======================================================*/
 .chapter-footer{
 
     display:flex;
@@ -117,23 +463,22 @@
     letter-spacing:1px;
 
 }
-
-.chapter-book{
-
-    font-style:italic;
-
-}
-
 .chapter-page-number{
 
     font-weight:600;
 
 }
+
+
+/*======================================================
+    BOUTON RETOUR
+======================================================*/
+
 .back-button{
 
     width:900px;
 
-    margin:30px auto 10px;
+    margin: auto 0px;
 
 }
 
@@ -154,30 +499,5 @@
 .back-button a:hover{
 
     color:#ffffff;
-
-}
-.coming-soon{
-
-    width:max-content;
-
-    margin:60px auto 0;
-
-    padding:10px 22px;
-
-    background:#f6e7c8;
-
-    border:1px solid #d6b37c;
-
-    border-radius:30px;
-
-    color:#8b5e2d;
-
-    font-family:"Inter",sans-serif;
-
-    font-size:15px;
-
-    font-weight:500;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
 
 }
