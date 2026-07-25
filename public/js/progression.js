@@ -35,7 +35,7 @@ class Progression {
 
         this.arrowImage = new Image();
         
-        this.arrowImage.src = "../images/arrow.svg";
+        this.arrowImage.src = "../assets/images/arrow.svg";
 
         this.graphWidth =
 

@@ -6,6 +6,8 @@
  * ==========================================================
  */
 
+import Chest from "/components/chest/chest.js";
+import EventBus from "/js/core/EventBus.js";
 
 class Gratitude {
 
@@ -13,14 +15,22 @@ class Gratitude {
 
         this.cards = [];
         this.container = null;
+        this.chest = null;
 
     }
+    
 
     async init() {
 
         this.container = document.getElementById("gratitudeCards");
-
+        this.chest = new Chest(document.getElementById("gratitudeChest"));
+        this.initChest();
+        await this.chest.init();
         await this.loadCards();
+        EventBus.on("chest.open", () => {
+        console.log("Le coffre est ouvert !");
+
+});
 
     }
 
@@ -137,6 +147,13 @@ class Gratitude {
         });
 
     }
+    initChest(){
+
+        // Pour l'instant
+        // affichage du composant
+
+    }
+
 
 }
 
