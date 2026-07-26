@@ -8,6 +8,7 @@
 
 import Chest from "/components/chest/chest.js";
 import EventBus from "/js/core/EventBus.js";
+import Postcard from "/components/postcard/Postcard.js";
 
 class Gratitude {
 
@@ -16,6 +17,7 @@ class Gratitude {
         this.cards = [];
         this.container = null;
         this.chest = null;
+        this.postcard = null;
 
     }
     
@@ -27,11 +29,14 @@ class Gratitude {
         this.initChest();
         await this.chest.init();
         await this.loadCards();
-        EventBus.on("chest.open", () => {
-        console.log("Le coffre est ouvert !");
+        EventBus.on("chest.open", async () => {
+            console.log("Le coffre est ouvert !");
+            await this.postcard.reveal();
+        });
 
-});
-
+        const postcardContainer = document.getElementById("gratitudePostcard");
+        this.postcard = new Postcard(postcardContainer);
+        await this.postcard.init();
     }
 
     async loadCards() {

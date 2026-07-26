@@ -437,7 +437,37 @@
 
 }
 
+.chest-scene{
 
+    position:relative;
+
+    width:720px;
+
+    margin:0 auto;
+
+}
+
+#gratitudePostcard{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:120px;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+}
+
+#gratitudeChest{
+
+    position:relative;
+
+    z-index:10;
+
+}
 
 /*======================================================
     FOOTER
