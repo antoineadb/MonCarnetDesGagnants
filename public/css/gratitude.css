@@ -437,13 +437,18 @@
 
 }
 
+/* ==========================================================
+   SCENE DU COFFRE
+   ========================================================== */
+
 .chest-scene{
 
     position:relative;
 
-    width:720px;
+    width:700px;
+    height:720px;
 
-    margin:0 auto;
+    margin:50px auto;
 
 }
 
@@ -452,21 +457,24 @@
     position:absolute;
 
     left:50%;
+    bottom:0;
 
-    bottom:120px;
+    width:720px;
+    height:700px;
 
     transform:translateX(-50%);
 
-    z-index:5;
+    pointer-events:none;
+
+    z-index:25;
 
 }
 
 #gratitudeChest{
-
-    position:relative;
-
-    z-index:10;
-
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
 }
 
 /*======================================================

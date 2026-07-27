@@ -27,9 +27,17 @@ export default class Chest extends Component {
 
     cacheElements(){
 
-        this.image=this.$("#chest-image");
+        this.closed = this.$("#chest-closed");
 
-        this.chest=this.$("#chest");
+        this.half = this.$("#chest-half");
+
+        this.openContainer = this.$("#chest-open");
+
+        this.bottom = this.$("#chest-bottom");
+
+        this.lid = this.$("#chest-lid");
+
+        this.chest = this.$("#chest");
 
     }
 
@@ -92,9 +100,11 @@ export default class Chest extends Component {
 
     showClosed() {
 
-        this.image.src = "/assets/images/chest/chest_closed.png";
+        this.closed.classList.remove("hidden");
+        this.half.classList.add("hidden");
+        this.openContainer.classList.add("hidden");
 
-        this.image.animate(
+        this.closed.animate(
             [
                 { transform: "scale(1.02)" },
                 { transform: "scale(1)" }
@@ -104,25 +114,23 @@ export default class Chest extends Component {
                 easing: "ease-out"
             }
         );
-
     }
 
     showHalf() {
-        this.image.src = "/assets/images/chest/chest_half.png";
+
+        this.closed.classList.add("hidden");
+        this.half.classList.remove("hidden");
+        this.openContainer.classList.add("hidden");
+
     }
 
     showOpen() {
 
-        this.image.src = "/assets/images/chest/chest_open.png";
-        
-        if (this.opening) return;
+        this.closed.classList.add("hidden");
+        this.half.classList.add("hidden");
+        this.openContainer.classList.remove("hidden");
 
-        this.opening = true;
-
-        this.chest.classList.add("open");
-
-
-        this.image.animate(
+        this.openContainer.animate(
             [
                 { transform: "scale(0.95)" },
                 { transform: "scale(1.06)" },
@@ -134,6 +142,5 @@ export default class Chest extends Component {
             }
         );
 
-        this.chest.classList.remove("open");
     }
 }

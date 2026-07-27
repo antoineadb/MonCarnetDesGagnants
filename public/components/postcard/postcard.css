@@ -46,6 +46,60 @@
 
 }
 
+.postcard.in-chest{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:55px;
+
+    transform:
+        translateX(-50%)
+        translateY(170px)
+        scale(.42);
+
+    opacity:0;
+
+    z-index:25;
+
+    margin:0;
+
+}
+
+.postcard.in-chest{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:55px;
+
+    transform:
+        translateX(-50%)
+        translateY(170px)
+        scale(.42);
+
+    opacity:0;
+
+    z-index:25;
+
+    margin:0;
+
+}
+
+.postcard.expand{
+
+    transform:
+
+        translateX(-50%)
+
+        translateY(-160px)
+
+        scale(1);
+
+}
+
 
 .postcard.hidden{
 
@@ -354,6 +408,47 @@
 .postcard:hover{
 
     transform:translateY(-3px);
+
+}
+
+
+/* ===========================================================
+   MODE COFFRE
+   =========================================================== */
+
+
+#gratitudePostcard .postcard{
+
+    position:absolute;
+
+    left:50%;
+    bottom:150px;
+
+    margin:0;
+
+    transform:
+        translateX(-50%)
+        translateY(180px)
+        scale(.38);
+
+    opacity:0;
+
+    z-index:25;
+
+    transition:
+        transform 1.3s cubic-bezier(.22,.8,.2,1),
+        opacity .7s;
+
+}
+
+#gratitudePostcard .postcard.show{
+
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(.48);
 
 }
 

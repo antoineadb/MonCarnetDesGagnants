@@ -61,15 +61,17 @@
 
 }
 
-.chest img {
+.chest > img {
 
-    width: 520px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+    width:520px;
+    height:auto;
+    display:block;
+    margin:0 auto;
 
+}
+
+.hidden {
+    display: none !important;
 }
 
 
@@ -89,4 +91,42 @@
 
     }
 
+}
+
+/* ==========================================================
+   Coffre ouvert
+========================================================== */
+
+#chest-open{
+    position: relative;
+    width: 520px;
+    height: 520px;
+    margin: 0 auto;
+
+    transform: translateY(-12px);
+}
+
+#chest-bottom,
+#chest-lid{
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:auto;
+
+}
+
+#chest-bottom{
+
+    z-index:10;
+
+}
+
+#chest-lid{
+    position: absolute;
+    top: -141px;
+    left: 0;
+    z-index: 30;
 }
