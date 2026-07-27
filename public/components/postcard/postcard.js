@@ -27,16 +27,30 @@ export default class Postcard extends Component {
 
     }
 
-    show() {
+    async show() {
 
         console.log("Postcard.show()");
 
         this.card.classList.remove("hidden");
 
-        // Lance l'animation de sortie du coffre
-        requestAnimationFrame(() => {
-            this.card.classList.add("show");
-        });
+        // Laisse le navigateur afficher la carte
+        await this.sleep(20);
+
+        // La carte sort du coffre
+        this.card.classList.add("show");
+
+        // Attendre la fin de la montée
+        await this.sleep(1400);
+
+        // Petite pause
+        await this.sleep(300);
+
+        // Retourner la carte
+        this.flip();
+
+        await this.sleep(900);
+
+        this.expand();
 
     }
 
@@ -69,16 +83,14 @@ export default class Postcard extends Component {
 
     async reveal() {
 
-        this.show();
+        await this.show();
 
-        // Temps nécessaire pour que la carte sorte du coffre
-        await this.sleep(1400);
+    }
 
-        // Petite pause
-        await this.sleep(250);
+    expand(){
 
-        // Puis elle se retourne
-        this.flip();
+        this.card.classList.add("expand");
 
-    }   
+    }
+        
 }

@@ -448,7 +448,7 @@
     width:700px;
     height:720px;
 
-    margin:50px auto;
+     margin:50px auto;
 
 }
 
@@ -471,9 +471,11 @@
 }
 
 #gratitudeChest{
+
     position:absolute;
     left:50%;
     bottom:0;
+
     transform:translateX(-50%);
 }
 
