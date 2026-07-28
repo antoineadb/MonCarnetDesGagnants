@@ -1,6 +1,7 @@
 const Database = require("better-sqlite3");
 const path = require("path");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 // Création du dossier si nécessaire
 const dbFolder = __dirname;
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS users (
 
     username TEXT NOT NULL UNIQUE,
 
-    password TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
 
     firstname TEXT,
 
@@ -91,6 +92,34 @@ CREATE TABLE IF NOT EXISTS users (
 
 `);
 
+// ======================================================
+// TABLE HISTORIQUE DES CONNEXIONS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS login_history (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    login_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    ip TEXT,
+
+    user_agent TEXT,
+
+    success INTEGER NOT NULL,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id)
+
+);
+
+`);
+
+console.log("✔ Table login_history prête");
 // ======================================================
 // TABLE JALONS
 // ======================================================
@@ -428,6 +457,10 @@ if (pathCount.total === 0) {
     console.log("✔ Parcours créé");
 
 }
+
+const adminPasswordHash = bcrypt.hashSync("carnet", 10);
+const lydiePasswordHash = bcrypt.hashSync("la_bella_Ragazza", 10);
+
 // ======================================================
 // UTILISATEUR ADMIN PAR DÉFAUT
 // ======================================================
@@ -444,7 +477,7 @@ if (!admin) {
         INSERT INTO users (
 
             username,
-            password,
+            password_hash,
             firstname,
             lastname,
             role
@@ -455,7 +488,7 @@ if (!admin) {
     `).run(
 
         "admin",
-        "carnet",
+        adminPasswordHash,       
         "Antonio",
         "Di Bartoloméo",
         "admin"
@@ -463,6 +496,40 @@ if (!admin) {
     );
 
     console.log("✔ Utilisateur admin créé");
+
+}
+
+const lydie = db.prepare(`
+    SELECT id
+    FROM users
+    WHERE username = ?
+`).get("lydie");
+
+if (!lydie) {
+
+    db.prepare(`
+        INSERT INTO users (
+
+            username,
+            password_hash,
+            firstname,
+            lastname,
+            role
+
+        )
+
+        VALUES (?, ?, ?, ?, ?)
+    `).run(
+
+        "lydie",
+        lydiePasswordHash,
+        "Lydie",
+        "Stragapede",
+        "user"
+
+    );
+
+    console.log("✔ Utilisateur Lydie créé");
 
 }
 module.exports = db;
