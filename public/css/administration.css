@@ -1,0 +1,118 @@
+body{
+    margin:0;
+    background:#6f4323;
+    font-family:Inter,sans-serif;
+    color:#2f2419;
+}
+
+.admin-container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px;
+}
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:50px;
+}
+
+.admin-header h1{
+    margin:0;
+    font-family:"Cormorant Garamond",serif;
+    font-size:3rem;
+    color:#f7ead2;
+}
+
+.admin-header p{
+    margin-top:10px;
+    color:#f5e8d2;
+    font-size:1.1rem;
+}
+
+#btnRetour{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#e8d3b0;
+    font-weight:bold;
+    transition:.25s;
+}
+
+#btnRetour:hover{
+    transform:translateY(-2px);
+}
+
+.admin-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+.admin-card{
+
+    background:#fffaf2;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    min-height:240px;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
+
+    transition:.25s;
+
+    cursor:pointer;
+
+}
+
+.admin-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.admin-card i{
+
+    font-size:2rem;
+
+    color:#8b5a2b;
+
+}
+
+.admin-card h2{
+
+    margin-top:20px;
+
+    margin-bottom:10px;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:2.5rem;
+    
+    margin-bottom:15px;
+
+}
+
+.admin-card p{
+
+    color:#666;
+
+    line-height:1.5;
+
+}
+
+.admin-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.25);
+
+}

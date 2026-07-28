@@ -11,6 +11,7 @@ const db = require("../database/database");
 // =========================================
 
 router.post("/login", (req, res) => {
+console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
     const { username, password } = req.body || {};
 
@@ -81,23 +82,34 @@ router.post("/login", (req, res) => {
     req.session.user = {
 
         id: user.id,
-
         username: user.username,
-
         firstname: user.firstname,
-
         lastname: user.lastname,
-
         role: user.role
 
     };
+    
+    console.log("Avant save :", req.session.user);
 
-    delete user.password_hash;
 
-    res.json({
+    req.session.save(err => {
 
-        success: true,
-        user
+        if (err) {
+            console.error("Erreur session :", err);
+
+            return res.status(500).json({
+                success: false,
+                message: "Erreur de session"
+            });
+        }
+
+        delete user.password_hash;
+
+        res.json({
+            success: true,
+            user
+        });
+        console.log("Session sauvegardée :", req.session.user);
 
     });
 

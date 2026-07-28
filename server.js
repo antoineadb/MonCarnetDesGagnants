@@ -2,6 +2,7 @@ const cors = require("cors");
 const db = require("./database/database");
 const express = require("express");
 const app = express();
+console.log("🔥🔥🔥 SERVER VERSION 2026-07-28 🔥🔥🔥");
 const PORT = 3000;
 const session = require("express-session");
 
@@ -11,16 +12,14 @@ const progressionRoutes = require("./routes/progression.routes");
 const gratitudeRoutes = require("./routes/gratitude.routes")(db);
 const adminRoutes = require("./routes/admin.routes");
 
-app.use(cors());
-app.use(express.json());
-
-// Sert les fichiers du dossier public
-app.use(express.static("public"));
-
 // Route principale
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
+
+app.use(cors());
+
+app.use(express.json());
 
 app.use(session({
 
@@ -31,19 +30,38 @@ app.use(session({
     saveUninitialized: false,
 
     cookie: {
-
-        maxAge: 1000 * 60 * 60 * 24 // 24 heures
-
+        maxAge: 1000 * 60 * 60 * 24
     }
 
 }));
+
+app.use((req, res, next) => {
+
+    console.log("=================================");
+    console.log(req.method, req.url);
+    console.log("Session :", req.session);
+    console.log("Session user :", req.session.user);
+    console.log("=================================");
+
+    next();
+
+});
+
+// Ensuite seulement
+app.use(express.static("public"));
 
 // Routes API
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/progression", progressionRoutes);
 app.use("/api/gratitude", gratitudeRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", (req, res, next) => {
+
+    console.log("➡️ ADMIN :", req.method, req.url);
+
+    next();
+
+}, adminRoutes);
 // Démarrage du serveur
 app.listen(PORT, () => {
     console.log("🚀 Le Carnet des Gagnants est lancé !");

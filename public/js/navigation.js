@@ -32,6 +32,12 @@ const Navigation = {
 
     parametres() {
         Navigation.go("parametres.html");
+    },
+
+    administration() {
+
+        window.location.href = "administration.html";
+
     }
 
 };

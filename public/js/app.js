@@ -59,6 +59,24 @@ class Dashboard {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+     if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+    
+    document.querySelector(".topbar h1").textContent = `Bonjour ${user.firstname} 👋`;
+
+    if (user && user.role === "admin") {
+
+        document.getElementById("menuAdministration").style.display = "";
+        document.getElementById("cardAdministration").style.display = "";
+
+    }
 
     const dashboard = new Dashboard();
 
@@ -118,8 +136,7 @@ document.getElementById("menuParametres")
 
     });
 
-    document
-    .getElementById("btnLogout")
+document.getElementById("btnLogout")
     .addEventListener("click", () => {
 
         if (confirm("Voulez-vous vous déconnecter ?")) {
@@ -127,5 +144,21 @@ document.getElementById("menuParametres")
             window.location.href = "../index.html";
 
         }
+
+    });
+
+    document.getElementById("menuAdministration")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.administration();
+
+    });
+
+document.getElementById("btnAdministration")
+    ?.addEventListener("click", () => {
+
+        Navigation.administration();
 
     });

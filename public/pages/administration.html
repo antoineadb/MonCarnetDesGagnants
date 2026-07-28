@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administration - Le Carnet des Gagnants</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/administration.css">
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+    <header class="admin-header">
+
+        <div>
+
+            <h1>
+                <i class="bi bi-shield-lock-fill"></i>
+                Administration
+            </h1>
+
+            <p id="adminWelcome"></p>
+
+        </div>
+
+        <button id="btnRetour">
+
+            <i class="bi bi-arrow-left-circle"></i>
+
+            Retour au tableau de bord
+
+        </button>
+
+    </header>
+
+    <section class="admin-grid">
+
+        <article class="admin-card" id="cardUsers">
+
+            <i class="bi bi-people-fill"></i>
+
+            <h2>Utilisateurs</h2>
+
+            <p>Créer, modifier et supprimer les utilisateurs.</p>
+
+        </article>
+
+        <article class="admin-card" id="cardHistory">
+
+            <i class="bi bi-clock-history"></i>
+
+            <h2>Historique</h2>
+
+            <p>Consulter les connexions.</p>
+
+        </article>
+
+        <article class="admin-card" id="cardBackup">
+
+            <i class="bi bi-database-fill"></i>
+
+            <h2>Sauvegardes</h2>
+
+            <p>Sauvegarder la base SQLite.</p>
+
+        </article>
+
+        <article class="admin-card" id="cardStats">
+
+            <i class="bi bi-bar-chart-fill"></i>
+
+            <h2>Statistiques</h2>
+
+            <p>Visualiser l'activité du carnet.</p>
+
+        </article>
+
+    </section>
+
+</div>
+
+<script src="../js/administration.js"></script>
+
+</body>
+
+</html>
