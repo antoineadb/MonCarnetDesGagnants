@@ -1,4 +1,9 @@
-document.addEventListener("DOMContentLoaded", async () => {
+// ==========================================
+// CHARGEMENT DES UTILISATEURS
+// ==========================================
+let modal;
+
+async function chargerUtilisateurs() {
 
     try {
 
@@ -26,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     : "👤 Utilisateur";
 
             tbody.innerHTML += `
+
                 <tr>
 
                     <td>${user.id}</td>
@@ -43,23 +49,76 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <button
                             class="btn-edit"
                             data-id="${user.id}">
+
                             ✏️
+
                         </button>
 
                         <button
                             class="btn-delete"
                             data-id="${user.id}">
+
                             🗑️
+
                         </button>
 
                     </td>
 
                 </tr>
+
             `;
 
         });
 
+        // Gestion des boutons Supprimer
+        document
+            .querySelectorAll(".btn-delete")
+            .forEach(button => {
+
+                button.addEventListener("click", async () => {
+
+                    const id = button.dataset.id;
+
+                    if (!confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+
+                        return;
+
+                    }
+
+                    try {
+
+                        const response = await fetch(`/api/admin/users/${id}`, {
+
+                            method: "DELETE"
+
+                        });
+
+                        const result = await response.json();
+
+                        if (!result.success) {
+
+                            alert(result.message);
+
+                            return;
+
+                        }
+
+                        await chargerUtilisateurs();
+
+                    }
+                    catch (err) {
+
+                        console.error(err);
+
+                        alert("Erreur lors de la suppression.");
+
+                    }
+
+                });
+
+            });
     }
+    
     catch (err) {
 
         console.error(err);
@@ -68,8 +127,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    const modal = document.getElementById("userModal");
-console.log(document.getElementById("btnAddUser"));
+}
+
+// ==========================================
+// INITIALISATION DE LA PAGE
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    modal = document.getElementById("userModal");
+
+
+    // Chargement du tableau
+    await chargerUtilisateurs();
+
+    // Bouton "Nouvel utilisateur"
     document
         .getElementById("btnAddUser")
         .addEventListener("click", () => {
@@ -85,6 +157,7 @@ console.log(document.getElementById("btnAddUser"));
 
         });
 
+    // Bouton Annuler
     document
         .getElementById("btnCancel")
         .addEventListener("click", () => {
@@ -95,50 +168,68 @@ console.log(document.getElementById("btnAddUser"));
 
 });
 
+// ==========================================
+// ENREGISTREMENT D'UN UTILISATEUR
+// ==========================================
+
 document
-.getElementById("userForm")
-.addEventListener("submit", async (e) => {
+    .getElementById("userForm")
+    .addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const response = await fetch("/api/admin/users", {
+        try {
 
-        method: "POST",
+            const response = await fetch("/api/admin/users", {
 
-        headers: {
+                method: "POST",
 
-            "Content-Type": "application/json"
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-        },
+                body: JSON.stringify({
 
-        body: JSON.stringify({
+                    lastname: document.getElementById("lastname").value,
 
-            lastname: document.getElementById("lastname").value,
+                    firstname: document.getElementById("firstname").value,
 
-            firstname: document.getElementById("firstname").value,
+                    username: document.getElementById("username").value,
 
-            username: document.getElementById("username").value,
+                    password: document.getElementById("password").value,
 
-            password: document.getElementById("password").value,
+                    role: document.getElementById("role").value
 
-            role: document.getElementById("role").value
+                })
 
-        })
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+
+                alert(result.message);
+
+                return;
+
+            }
+
+            // Ferme la fenêtre
+            modal.classList.add("hidden");
+
+            // Vide le formulaire
+            document.getElementById("userForm").reset();
+
+            // Recharge uniquement le tableau
+            await chargerUtilisateurs();
+
+        }
+        catch (err) {
+
+            console.error(err);
+
+            alert("Erreur lors de la création de l'utilisateur.");
+
+        }
 
     });
-
-    const result = await response.json();
-
-    if (!result.success) {
-
-        alert(result.message);
-
-        return;
-
-    }
-
-    modal.classList.add("hidden");
-
-    location.reload();
-
-});

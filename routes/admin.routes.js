@@ -46,6 +46,54 @@ router.get("/users", requireAdmin, (req, res) => {
     });
 
 });
+
+// =========================================
+// SUPPRIMER UN UTILISATEUR
+// =========================================
+
+router.delete("/users/:id", requireAdmin, (req, res) => {
+
+    const id = req.params.id;
+
+    // Empêche la suppression de l'administrateur principal
+    if (Number(id) === 1) {
+
+        return res.json({
+
+            success: false,
+            message: "Impossible de supprimer l'administrateur principal."
+
+        });
+
+    }
+
+    const result = db.prepare(`
+        DELETE
+        FROM users
+        WHERE id = ?
+    `).run(id);
+
+    if (result.changes === 0) {
+
+        return res.json({
+
+            success: false,
+            message: "Utilisateur introuvable."
+
+        });
+
+    }
+
+    res.json({
+
+        success: true
+
+    });
+
+});
+
+
+
 // =========================================
 // AJOUTER UN UTILISATEUR
 // =========================================
