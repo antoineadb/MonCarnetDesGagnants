@@ -1,0 +1,193 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.page {
+
+    padding: 30px;
+
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+}
+
+.page-header h1 {
+
+    color: #5f3818;
+
+    font-size: 34px;
+
+}
+
+/* ==========================================
+   TOOLBAR
+========================================== */
+
+.toolbar {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+}
+
+.toolbar input {
+
+    width: 260px;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #d7d7d7;
+
+}
+
+.toolbar button {
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+.danger {
+
+    background: #b22222;
+
+    color: white;
+
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.10);
+
+}
+
+.table th {
+
+    background: #5f3818;
+
+    color: white;
+
+    padding: 16px;
+
+    text-align: left;
+
+}
+
+.table td {
+
+    padding: 14px 16px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.table tbody tr:hover {
+
+    background: #faf6ef;
+
+}
+
+/* ==========================================
+   BADGES
+========================================== */
+
+.badge {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.badge.connected {
+
+    background: #d7f6df;
+
+    color: #0f7d35;
+
+}
+
+.badge.disconnected {
+
+    background: #ececec;
+
+    color: #444;
+
+}
+
+.badge.failed {
+
+    background: #ffe2e2;
+
+    color: #b22222;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:900px){
+
+    .toolbar{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .toolbar input{
+
+        width:100%;
+
+    }
+
+}

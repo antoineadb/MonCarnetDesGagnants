@@ -11,6 +11,8 @@ const journalRoutes = require("./routes/journal.routes");
 const progressionRoutes = require("./routes/progression.routes");
 const gratitudeRoutes = require("./routes/gratitude.routes")(db);
 const adminRoutes = require("./routes/admin.routes");
+const { router: historyRoutes } = require("./routes/history.routes");
+const loginHistoryRoutes = require("./routes/login-history.routes");
 
 // Route principale
 app.get("/", (req, res) => {
@@ -55,6 +57,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/progression", progressionRoutes);
 app.use("/api/gratitude", gratitudeRoutes);
+app.use("/api/history", historyRoutes);
+app.use("/api/login-history", loginHistoryRoutes);
 app.use("/api/admin", (req, res, next) => {
 
     console.log("➡️ ADMIN :", req.method, req.url);

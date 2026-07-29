@@ -42,19 +42,23 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
         if (user) {
 
-            db.prepare(`
+           const loginResult = db.prepare(`
                 INSERT INTO login_history
-                (user_id, ip, user_agent, success)
+                (
+                    user_id,
+                    ip,
+                    user_agent,
+                    success
+                )
                 VALUES (?, ?, ?, ?)
             `).run(
 
                 user.id,
                 req.ip,
                 req.get("User-Agent"),
-                0
+                0               
 
             );
-
         }
 
         return res.status(401).json({
@@ -66,19 +70,25 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
     }
 
-    db.prepare(`
+    const loginResult = db.prepare(`
         INSERT INTO login_history
-        (user_id, ip, user_agent, success)
-        VALUES (?, ?, ?, ?)
+        (
+            user_id,
+            ip,
+            user_agent,
+            success,
+            session_id
+        )
+        VALUES (?, ?, ?, ?, ?)
     `).run(
 
         user.id,
         req.ip,
         req.get("User-Agent"),
-        1
+        1,
+        req.sessionID
 
     );
-
     req.session.user = {
 
         id: user.id,
@@ -89,6 +99,8 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
     };
     
+    req.session.loginHistoryId = loginResult.lastInsertRowid;
+
     console.log("Avant save :", req.session.user);
 
 
@@ -156,6 +168,47 @@ router.get("/me", (req, res) => {
     }
 
     res.json(req.session.user);
+
+});
+
+// =========================================
+// DÉCONNEXION
+// =========================================
+
+router.post("/logout", (req, res) => {
+
+     console.log("🔥 ROUTE LOGOUT APPELÉE 🔥");
+
+    if (req.session.loginHistoryId) {
+
+        db.prepare(`
+            UPDATE login_history
+            SET logout_at = datetime('now','localtime')
+            WHERE id = ?
+        `).run(req.session.loginHistoryId);
+
+    }
+
+    req.session.destroy(err => {
+
+        if (err) {
+
+            return res.status(500).json({
+
+                success: false,
+                message: "Erreur lors de la déconnexion."
+
+            });
+
+        }
+
+        res.json({
+
+            success: true
+
+        });
+
+    });
 
 });
 

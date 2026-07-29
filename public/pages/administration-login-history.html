@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Historique des connexions</title>
+
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/administration-login-history.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/confirm.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="page-header">
+
+        <h1>🔐 Historique des connexions</h1>
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Rechercher un utilisateur..."
+            >
+
+            <button id="btnRefresh">
+                🔄 Actualiser
+            </button>
+
+            <button id="btnClear" class="danger">
+                🗑️ Vider l'historique
+            </button>
+
+            <button id="btnRetour">
+                ← Retour
+            </button>
+
+        </div>
+
+    </header>
+
+    <table class="table" id="historyTable">
+        <table class="table" id="historyTable">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Connexion</th>
+                <th>Déconnexion</th>
+                <th>Durée</th>
+                <th>IP</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+    </table>
+
+    <div id="historyCount"></div>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="../js/confirm.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/administration-login-history.js"></script>
+
+</body>
+</html>

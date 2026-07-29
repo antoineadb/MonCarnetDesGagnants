@@ -249,7 +249,7 @@ async function deleteSelectedEntry() {
 
     catch (error) {
 
-        alert("Impossible de supprimer le journal.");
+        Toast.error("Impossible de supprimer le journal.");
 
     }
 

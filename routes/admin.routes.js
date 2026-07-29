@@ -3,6 +3,10 @@ const router = express.Router();
 const db = require("../database/database");
 const { requireAdmin } = require("../middlewares/auth.middleware");
 const bcrypt = require("bcrypt");
+
+// Historique
+const { logHistory } = require("./history.routes");
+
 console.log("🔥 admin.routes chargé");
 // ======================================================
 // HISTORIQUE DES CONNEXIONS
@@ -57,42 +61,51 @@ router.delete("/users/:id", requireAdmin, (req, res) => {
 
     // Empêche la suppression de l'administrateur principal
     if (Number(id) === 1) {
-
         return res.json({
-
             success: false,
             message: "Impossible de supprimer l'administrateur principal."
-
         });
-
     }
 
-    const result = db.prepare(`
-        DELETE
+    // Récupération du nom AVANT suppression
+    const utilisateur = db.prepare(`
+        SELECT username
         FROM users
+        WHERE id = ?
+    `).get(id);
+
+    if (!utilisateur) {
+        return res.json({
+            success: false,
+            message: "Utilisateur introuvable."
+        });
+    }
+
+    // Suppression
+    const result = db.prepare(`
+        DELETE FROM users
         WHERE id = ?
     `).run(id);
 
     if (result.changes === 0) {
-
         return res.json({
-
             success: false,
             message: "Utilisateur introuvable."
-
         });
-
     }
 
+    // Historique
+    logHistory(req, {
+        action: "DELETE_USER",
+        details: `Utilisateur "${utilisateur.username}" supprimé`
+    });
+
+    // Réponse
     res.json({
-
         success: true
-
     });
 
 });
-
-
 
 // =========================================
 // AJOUTER UN UTILISATEUR
@@ -158,13 +171,170 @@ router.post("/users", requireAdmin, (req, res) => {
 
     );
 
+    logHistory(req, {
+        action: "CREATE_USER",
+        details: `Utilisateur "${username}" créé`
+
+    });
+
     res.json({
 
         success: true,
         id: result.lastInsertRowid
 
+    });  
+    
+});
+
+console.log("✅ Route POST /users enregistrée");
+
+// =========================================
+// MODIFIER UN UTILISATEUR
+// =========================================
+
+router.put("/users/:id", requireAdmin, (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        username,
+        password,
+        firstname,
+        lastname,
+        role
+    } = req.body;
+
+    if (!username || !firstname || !lastname || !role) {
+
+        return res.json({
+
+            success: false,
+            message: "Tous les champs sont obligatoires."
+
+        });
+
+    }
+
+    // Vérifie qu'un autre utilisateur n'utilise pas déjà ce nom
+    const existe = db.prepare(`
+        SELECT id
+        FROM users
+        WHERE username = ?
+          AND id <> ?
+    `).get(username, id);
+
+    if (existe) {
+
+        return res.json({
+
+            success: false,
+            message: "Ce nom d'utilisateur existe déjà."
+
+        });
+
+    }
+
+    if (password && password.trim() !== "") {
+
+        const hash = bcrypt.hashSync(password, 10);
+
+        db.prepare(`
+            UPDATE users
+            SET
+                username = ?,
+                password_hash = ?,
+                firstname = ?,
+                lastname = ?,
+                role = ?
+            WHERE id = ?
+        `).run(
+
+            username,
+            hash,
+            firstname,
+            lastname,
+            role,
+            id
+
+        );
+
+    } else {
+
+        db.prepare(`
+            UPDATE users
+            SET
+                username = ?,
+                firstname = ?,
+                lastname = ?,
+                role = ?
+            WHERE id = ?
+        `).run(
+
+            username,
+            firstname,
+            lastname,
+            role,
+            id
+
+        );
+
+    }
+
+    res.json({
+
+        success: true
+
+    });
+
+    logHistory(req, {
+        action: "UPDATE_USER",
+        details: `Utilisateur "${username}" modifié`
+    });
+});
+
+
+
+// =========================================
+// LIRE UN UTILISATEUR
+// =========================================
+
+router.get("/users/:id", requireAdmin, (req, res) => {
+
+    const id = req.params.id;
+
+    const user = db.prepare(`
+        SELECT
+            id,
+            username,
+            firstname,
+            lastname,
+            role
+        FROM users
+        WHERE id = ?
+    `).get(id);
+
+    if (!user) {
+
+        return res.json({
+
+            success: false,
+            message: "Utilisateur introuvable."
+
+        });
+
+    }
+
+    res.json({
+
+        success: true,
+        user
+
     });
 
 });
-console.log("✅ Route POST /users enregistrée");
+
+
+
+
+
 module.exports = router;

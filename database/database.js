@@ -119,6 +119,33 @@ CREATE TABLE IF NOT EXISTS login_history (
 
 `);
 
+// ======================================================
+// MIGRATION LOGIN_HISTORY
+// ======================================================
+
+try {
+
+    db.prepare(`
+        ALTER TABLE login_history
+        ADD COLUMN logout_at TEXT
+    `).run();
+
+    console.log("✔ Colonne logout_at ajoutée");
+
+} catch (e) {}
+
+try {
+
+    db.prepare(`
+        ALTER TABLE login_history
+        ADD COLUMN session_id TEXT
+    `).run();
+
+    console.log("✔ Colonne session_id ajoutée");
+
+} catch (e) {}
+
+
 console.log("✔ Table login_history prête");
 // ======================================================
 // TABLE JALONS

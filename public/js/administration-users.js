@@ -2,6 +2,7 @@
 // CHARGEMENT DES UTILISATEURS
 // ==========================================
 let modal;
+let modeEdition = false;
 
 async function chargerUtilisateurs() {
 
@@ -13,7 +14,7 @@ async function chargerUtilisateurs() {
 
         if (!result.success) {
 
-            alert(result.message);
+            Toast.success(result.message);
 
             return;
 
@@ -56,7 +57,10 @@ async function chargerUtilisateurs() {
 
                         <button
                             class="btn-delete"
-                            data-id="${user.id}">
+                            data-id="${user.id}"
+                            data-username="${user.username}"
+                            data-firstname="${user.firstname}"
+                            data-lastname="${user.lastname}">
 
                             🗑️
 
@@ -78,12 +82,27 @@ async function chargerUtilisateurs() {
                 button.addEventListener("click", async () => {
 
                     const id = button.dataset.id;
+                    const username = button.dataset.username;
+                    const firstname = button.dataset.firstname;
+                    const lastname = button.dataset.lastname;
 
-                    if (!confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+                    const ok = await Confirm.show({
 
-                        return;
+                    title: "<i class='bi bi-exclamation-triangle-fill'></i> Supprimer un utilisateur",
 
-                    }
+                    message: `Voulez-vous vraiment supprimer l'utilisateur <strong>${firstname}</strong>?`,
+
+                    confirmText: "Supprimer",
+
+                    cancelText: "Annuler"
+
+                });
+
+                if (!ok) {
+
+                    return;
+
+                }
 
                     try {
 
@@ -97,7 +116,7 @@ async function chargerUtilisateurs() {
 
                         if (!result.success) {
 
-                            alert(result.message);
+                            Toast.success(result.message);
 
                             return;
 
@@ -105,25 +124,76 @@ async function chargerUtilisateurs() {
 
                         await chargerUtilisateurs();
 
+                        Toast.success("Utilisateur supprimé avec succès.");
+
                     }
                     catch (err) {
 
                         console.error(err);
 
-                        alert("Erreur lors de la suppression.");
+                        Toast.error("Erreur lors de la suppression.");
 
                     }
 
                 });
 
             });
+
+            // Gestion des boutons Modifier
+document
+    .querySelectorAll(".btn-edit")
+    .forEach(button => {
+
+        button.addEventListener("click", async () => {
+
+            const id = button.dataset.id;
+
+            const response = await fetch(`/api/admin/users/${id}`);
+
+            const result = await response.json();
+
+            if (!result.success) {
+
+                Toast.success(result.message);
+
+                return;
+
+            }
+
+            const user = result.user;
+
+            modeEdition = true;
+
+            document.getElementById("userId").value = user.id;
+
+            document.getElementById("lastname").value = user.lastname;
+
+            document.getElementById("firstname").value = user.firstname;
+
+            document.getElementById("username").value = user.username;
+
+            document.getElementById("password").value = "";
+
+            document.getElementById("role").value = user.role;
+
+            document.getElementById("modalTitle").textContent =
+                "Modifier un utilisateur";
+
+            document.getElementById("btnSave").textContent =
+                "Enregistrer";
+
+            modal.classList.remove("hidden");
+
+        });
+
+    });
     }
     
     catch (err) {
 
         console.error(err);
 
-        alert("Impossible de charger les utilisateurs.");
+        Toast.error("Impossible de charger les utilisateurs.");
 
     }
 
@@ -142,31 +212,54 @@ document.addEventListener("DOMContentLoaded", async () => {
     await chargerUtilisateurs();
 
     // Bouton "Nouvel utilisateur"
-    document
-        .getElementById("btnAddUser")
-        .addEventListener("click", () => {
+    modeEdition = false;
 
-            document.getElementById("modalTitle").textContent =
-                "Nouvel utilisateur";
+        // Bouton "Nouvel utilisateur"
+document
+    .getElementById("btnAddUser")
+    .addEventListener("click", () => {
 
-            document.getElementById("userForm").reset();
+        modeEdition = false;
 
-            document.getElementById("userId").value = "";
+        document.getElementById("modalTitle").textContent =
+            "Nouvel utilisateur";
 
-            modal.classList.remove("hidden");
+        document.getElementById("btnSave").textContent =
+            "Créer";
 
-        });
+        document.getElementById("userForm").reset();
+
+        document.getElementById("userId").value = "";
+
+        modal.classList.remove("hidden");
+
+    });
 
     // Bouton Annuler
     document
-        .getElementById("btnCancel")
-        .addEventListener("click", () => {
+    .getElementById("btnCancel")
+    .addEventListener("click", () => {
 
-            modal.classList.add("hidden");
+        modeEdition = false;
 
-        });
+        document.getElementById("userForm").reset();
 
+        document.getElementById("userId").value = "";
+
+        modal.classList.add("hidden");
+
+    });
 });
+
+
+    // Bouton retour
+    document
+    .getElementById("btnRetour")
+    .addEventListener("click", () => {
+
+        window.location.href = "administration.html";
+
+    });
 
 // ==========================================
 // ENREGISTREMENT D'UN UTILISATEUR
@@ -180,9 +273,19 @@ document
 
         try {
 
-            const response = await fetch("/api/admin/users", {
+            const id = document.getElementById("userId").value;
 
-                method: "POST",
+            const url = modeEdition
+                ? `/api/admin/users/${id}`
+                : "/api/admin/users";
+
+            const methode = modeEdition
+                ? "PUT"
+                : "POST";
+
+            const response = await fetch(url, {
+
+                method: methode,
 
                 headers: {
                     "Content-Type": "application/json"
@@ -208,11 +311,14 @@ document
 
             if (!result.success) {
 
-                alert(result.message);
+                Toast.success(result.message);
 
                 return;
 
             }
+
+            modeEdition = false;
+            document.getElementById("userId").value = "";
 
             // Ferme la fenêtre
             modal.classList.add("hidden");
@@ -223,12 +329,23 @@ document
             // Recharge uniquement le tableau
             await chargerUtilisateurs();
 
+            // Notification
+            if (methode === "POST") {
+
+                Toast.success("Utilisateur créé avec succès.");
+
+            } else {
+
+                Toast.success("Utilisateur modifié avec succès.");
+
+            }
+
         }
         catch (err) {
 
             console.error(err);
 
-            alert("Erreur lors de la création de l'utilisateur.");
+            Toast.error("Erreur lors de la création de l'utilisateur.");
 
         }
 

@@ -1,0 +1,334 @@
+/* =======================================================
+   HISTORIQUE DES ACTIVITÉS
+======================================================= */
+
+.page {
+
+    width: 95%;
+
+    max-width: 1600px;
+
+    margin: 40px auto;
+
+    padding: 30px;
+
+}
+
+/* =======================================================
+   TITRE
+======================================================= */
+
+.page-header {
+
+    margin-bottom: 30px;
+
+}
+
+.page-header h1 {
+
+    margin: 0;
+
+    color: #4a3a28;
+
+    font-size: 2rem;
+
+}
+
+/* =======================================================
+   BARRE D'OUTILS
+======================================================= */
+
+.toolbar {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+    align-items: center;
+
+}
+
+.toolbar input {
+
+    flex: 1;
+
+    min-width: 280px;
+
+    padding: 12px 15px;
+
+    border: 1px solid #d7c8b2;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: .25s;
+
+}
+
+.toolbar input:focus {
+
+    border-color: #8d6e63;
+
+    box-shadow: 0 0 6px rgba(141,110,99,.25);
+
+}
+
+.toolbar button {
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: .25s;
+
+    font-weight: 600;
+
+}
+
+#btnRefresh {
+
+    background: #3498db;
+
+    color: white;
+
+}
+
+#btnRefresh:hover {
+
+    background: #2980b9;
+
+}
+
+#btnClear {
+
+    background: #e74c3c;
+
+    color: white;
+
+}
+
+#btnClear:hover {
+
+    background: #c0392b;
+
+}
+
+#btnRetour {
+
+    background: #7f8c8d;
+
+    color: white;
+
+}
+
+#btnRetour:hover {
+
+    background: #5d6d6f;
+
+}
+
+/* =======================================================
+   TABLEAU
+======================================================= */
+
+#historyTable {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+}
+
+#historyTable thead {
+
+    background: #4a3a28;
+
+    color: #ffffff;
+
+}
+
+#historyTable th {
+
+    padding: 16px;
+
+    text-align: left;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2;
+
+}
+
+#historyTable td {
+
+    padding: 15px;
+
+    border-bottom: 1px solid #ececec;
+
+    vertical-align: middle;
+
+}
+
+#historyTable tbody tr {
+
+    transition: background .25s;
+
+}
+
+#historyTable tbody tr:hover {
+
+    background: #f8f6f3;
+
+}
+
+#historyTable tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+/* =======================================================
+   BADGES
+======================================================= */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+.badge.success {
+
+    background: #d4edda;
+
+    color: #155724;
+
+}
+
+.badge.warning {
+
+    background: #fff3cd;
+
+    color: #856404;
+
+}
+
+.badge.danger {
+
+    background: #f8d7da;
+
+    color: #721c24;
+
+}
+
+.badge.info {
+
+    background: #d1ecf1;
+
+    color: #0c5460;
+
+}
+
+/* =======================================================
+   MESSAGE "AUCUN RÉSULTAT"
+======================================================= */
+
+.empty-message {
+
+    text-align: center;
+
+    color: #888;
+
+    padding: 40px;
+
+    font-style: italic;
+
+}
+
+/* =======================================================
+   RESPONSIVE
+======================================================= */
+
+@media (max-width: 900px) {
+
+    .toolbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+    .toolbar input {
+
+        min-width: auto;
+
+        width: 100%;
+
+    }
+
+    .toolbar button {
+
+        width: 100%;
+
+    }
+
+    #historyTable {
+
+        display: block;
+
+        overflow-x: auto;
+
+    }
+
+}
+.history-info {
+
+    margin-bottom: 15px;
+
+    color: #666;
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+}

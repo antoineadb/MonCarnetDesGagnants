@@ -1322,7 +1322,7 @@ class Progression {
 
             console.error(error);
 
-            alert(
+            Toast.error(
                 "Impossible d'enregistrer la progression."
             );
 

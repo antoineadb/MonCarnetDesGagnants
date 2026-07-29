@@ -137,24 +137,98 @@ document.getElementById("menuParametres")
     });
 
 document.getElementById("btnLogout")
-    .addEventListener("click", () => {
+    .addEventListener("click", async () => {
+        console.log("Avant Confirm");
+        const ok = await Confirm.show({
+            
+            title: "Déconnexion",
 
-        if (confirm("Voulez-vous vous déconnecter ?")) {
+            message: "Voulez-vous vraiment vous déconnecter ?",
 
-            window.location.href = "../index.html";
+            confirmText: "Déconnexion",
+
+            cancelText: "Annuler"
+
+        });
+        console.log("Après Confirm", ok);
+        if (!ok) return;
+
+        try {
+
+            const response = await fetch("/api/auth/logout", {
+
+                method: "POST"
+
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+
+                Toast.error("Impossible de se déconnecter.");
+
+                return;
+
+            }
+
+            Toast.success("Déconnexion réussie.");
+
+            setTimeout(() => {
+
+                window.location.href = "../index.html";
+
+            }, 500);
 
         }
 
-    });
+        catch (err) {
 
-    document.getElementById("menuAdministration")
-    ?.addEventListener("click", e => {
+            console.error(err);
 
-        e.preventDefault();
+            Toast.error("Erreur lors de la déconnexion.");
 
-        Navigation.administration();
+        }
 
-    });
+});
+/*
+document.getElementById("btnLogout")
+.addEventListener("click", async () => {
+
+    const ok = confirm("Voulez-vous vraiment vous déconnecter ?");
+
+    if (!ok) return;
+
+    try {
+
+        const response = await fetch("/api/auth/logout", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+            alert("Impossible de se déconnecter.");
+            return;
+        }
+
+        window.location.href = "../index.html";
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+});*/
+
+document.getElementById("menuAdministration")
+?.addEventListener("click", e => {
+
+    e.preventDefault();
+
+    Navigation.administration();
+
+});
 
 document.getElementById("btnAdministration")
     ?.addEventListener("click", () => {

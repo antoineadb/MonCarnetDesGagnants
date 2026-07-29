@@ -35,3 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+document.getElementById("cardHistory").addEventListener("click", () => {
+    window.location.href = "administration-history.html";
+});
+
+document
+    .getElementById("cardLoginHistory")
+    .addEventListener("click", () => {
+
+        window.location.href =
+            "/pages/administration-login-history.html";
+
+    });

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Historique des activités</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/confirm.css">
+
+    <link rel="stylesheet" href="../css/administration-history.css">
+
+</head>
+
+<body>
+
+    <div class="history-info">
+
+        <span id="historyCount">
+            0 événement
+        </span>
+
+    </div>
+
+<div class="page">
+
+    <header class="page-header">
+
+        <h1>📜 Historique des activités</h1>
+
+    </header>
+
+    <section class="toolbar">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Rechercher............................ 🔄 🗑️ ⬅"
+        >
+
+        <button id="btnRefresh">
+            🔄 Actualiser
+        </button>
+
+        <button id="btnClear">
+            🗑 Vider l'historique
+        </button>
+
+        <button id="btnRetour">
+            ⬅ Retour
+        </button>
+
+    </section>
+
+    <table id="historyTable">
+
+        <thead>
+
+        <tr>
+
+            <th>Date</th>
+
+            <th>Utilisateur</th>
+
+            <th>Action</th>
+
+            <th>Détails</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody id="historyBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="../js/toast.js"></script>
+<script src="../js/confirm.js"></script>
+
+<script src="../js/administration-history.js"></script>
+
+</body>
+
+</html>
