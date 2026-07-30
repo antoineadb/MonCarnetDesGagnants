@@ -3,26 +3,28 @@ const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 
-// Création du dossier si nécessaire
-const dbFolder = __dirname;
+// ======================================================
+// EMPLACEMENT DE LA BASE SQLITE
+// ======================================================
+
+const isRender = !!process.env.RENDER;
+
+const dbFolder = isRender
+    ? "/var/data"
+    : __dirname;
 
 if (!fs.existsSync(dbFolder)) {
 
     fs.mkdirSync(dbFolder, {
-
         recursive: true
-
     });
 
 }
 
-if (!fs.existsSync(dbFolder)) {
-    fs.mkdirSync(dbFolder, { recursive: true });
-}
+const dbPath = path.join(dbFolder, "carnet.db");
 
 // Ouverture de la base
-const db = new Database(path.join(dbFolder, "carnet.db"));
-
+const db = new Database(dbPath);
 // Performances SQLite
 db.pragma("journal_mode = WAL");
 
@@ -132,7 +134,9 @@ try {
 
     console.log("✔ Colonne logout_at ajoutée");
 
-} catch (e) {}
+} catch (e) {
+    // La colonne existe déjà : rien à faire.
+}
 
 try {
 
@@ -143,10 +147,11 @@ try {
 
     console.log("✔ Colonne session_id ajoutée");
 
-} catch (e) {}
+} catch (e) {
+    // La colonne existe déjà : rien à faire.
+}
 
 
-console.log("✔ Table login_history prête");
 // ======================================================
 // TABLE JALONS
 // ======================================================
@@ -198,10 +203,6 @@ CREATE TABLE IF NOT EXISTS progression_state (
 );
 
 `);
-console.log("✔ Base SQLite ouverte");
-console.log("✔ Table journal prête");
-console.log("✔ Tables progression prêtes");
-
 // ======================================================
 // TABLE PROGRESSION HISTORY
 // ======================================================
@@ -233,35 +234,7 @@ db.prepare(`
     );
 `).run();
 
-// ======================================================
-// TABLE GRATITUDE
-// ======================================================
-    db.prepare(`
-        CREATE TABLE IF NOT EXISTS gratitude_cards (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            title TEXT NOT NULL,
-            message TEXT NOT NULL,
-
-            image TEXT,
-            
-            image_type TEXT DEFAULT 'photo',
-
-            location TEXT,
-
-            theme TEXT DEFAULT 'Nature',
-
-            emotion TEXT,
-
-            favorite INTEGER DEFAULT 0,
-
-            send_date TEXT,
-
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-        `).run();
-
-        console.log("✔ Table gratitude_cards prête");
 
 // ======================================================
 // TABLE GRATITUDE_CARDS
@@ -485,8 +458,14 @@ if (pathCount.total === 0) {
 
 }
 
-const adminPasswordHash = bcrypt.hashSync("carnet", 10);
-const lydiePasswordHash = bcrypt.hashSync("la_bella_Ragazza", 10);
+const DEFAULT_ADMIN_PASSWORD = "carnet";
+const DEFAULT_LYDIE_PASSWORD = "la_bella_Ragazza";
+
+const adminPasswordHash =
+bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD,10);
+
+const lydiePasswordHash =
+bcrypt.hashSync(DEFAULT_LYDIE_PASSWORD,10);
 
 // ======================================================
 // UTILISATEUR ADMIN PAR DÉFAUT
@@ -559,4 +538,12 @@ if (!lydie) {
     console.log("✔ Utilisateur Lydie créé");
 
 }
+
+console.log("");
+console.log("======================================");
+console.log("🚀 Le Carnet des Gagnants");
+console.log("📁 Base :", dbPath);
+console.log("✅ Base SQLite ouverte");
+console.log("======================================");
+console.log("");
 module.exports = db;

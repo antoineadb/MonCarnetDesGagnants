@@ -74,19 +74,21 @@ async function chargerHistorique() {
 
     try {
 
-        const response = await fetch("/api/history");
+        const response = await fetch("/api/login-history");
 
-        const data = await response.json();
+        if (!response.ok) {
 
-        if (!data.success) {
-
-            Toast.error("Impossible de charger l'historique.");
-
-            return;
+            throw new Error(`HTTP ${response.status}`);
 
         }
 
-        historique = data.history;
+        historique = await response.json();
+
+        if (!Array.isArray(historique)) {
+
+            historique = [];
+
+        }
 
         afficherHistorique();
 
