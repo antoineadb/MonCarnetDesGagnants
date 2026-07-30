@@ -74,23 +74,19 @@ async function chargerHistorique() {
 
     try {
 
-        const response = await fetch("/api/login-history");
+           const response = await fetch("/api/history");
 
-        if (!response.ok) {
+            if (!response.ok) {
 
-            throw new Error(`HTTP ${response.status}`);
+                throw new Error(`HTTP ${response.status}`);
 
-        }
+            }
 
-        historique = await response.json();
+            const data = await response.json();
 
-        if (!Array.isArray(historique)) {
+            historique = data.history || [];
 
-            historique = [];
-
-        }
-
-        afficherHistorique();
+            afficherHistorique();
 
     }
 
