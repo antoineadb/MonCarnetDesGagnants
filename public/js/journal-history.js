@@ -223,9 +223,15 @@ async function deleteSelectedEntry() {
         return;
     }
 
-    if (!confirm("Voulez-vous vraiment supprimer ce journal ?")) {
-        return;
-    }
+   const ok = await Confirm.show({
+        icon:"⚠️",
+        title: "Supprimer le journal",
+        message: "Voulez-vous vraiment supprimer ce journal ?",
+        confirmText: "Supprimer",
+        cancelText: "Annuler",       ≈
+    });
+
+    if (!ok) return;
 
     try {
 

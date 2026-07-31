@@ -417,11 +417,15 @@ function editEntry(entry) {
 
 async function deleteEntry(id) {
 
-    if (!confirm("Supprimer cette note ?")) {
+    const ok = await Confirm.show({
+        icon: "⚠️",
+        title: "Supprimer cette note ",
+        message: "Voulez-vous vraiment supprimer cette note ?",
+        confirmText: "Supprimer",
+        cancelText: "Annuler"
+    });
 
-        return;
-
-    }
+    if (!ok) return;
 
     const response = await fetch(`/api/journal/${id}`, {
 

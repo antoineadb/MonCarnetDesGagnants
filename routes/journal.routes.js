@@ -2,7 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
+const { requireLogin } = require("../middlewares/auth.middleware");
+
 const journal = require("../controllers/journal.controller");
+
+router.use(requireLogin);
 
 router.get("/history", journal.getHistory);
 

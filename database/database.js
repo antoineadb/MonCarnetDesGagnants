@@ -50,7 +50,47 @@ CREATE TABLE IF NOT EXISTS journal (
 
 );
 
+
 `);
+
+// ======================================================
+// MIGRATION JOURNAL
+// ======================================================
+try {
+
+    db.prepare(`
+        ALTER TABLE journal
+        ADD COLUMN user_id INTEGER
+    `).run();
+
+    console.log("✔ Colonne user_id ajoutée à journal");
+
+} catch (e) {
+
+    // La colonne existe déjà.
+
+}
+
+const admin = db.prepare(`
+    SELECT id
+    FROM users
+    WHERE username = ?
+`).get("admin");
+
+if (admin) {
+
+    db.prepare(`
+        UPDATE journal
+        SET user_id = ?
+        WHERE user_id IS NULL
+    `).run(admin.id);
+
+    console.log("✔ Journaux existants rattachés à l'administrateur");
+}
+
+// ======================================================
+// TABLE PROGRESSION_PATHS
+// ======================================================
 
 db.exec(`
 
@@ -471,7 +511,8 @@ bcrypt.hashSync(DEFAULT_LYDIE_PASSWORD,10);
 // UTILISATEUR ADMIN PAR DÉFAUT
 // ======================================================
 
-const admin = db.prepare(`
+if (admin) {
+db.prepare(`
     SELECT id
     FROM users
     WHERE username = ?
@@ -481,28 +522,23 @@ if (!admin) {
 
     db.prepare(`
         INSERT INTO users (
-
             username,
             password_hash,
             firstname,
             lastname,
             role
-
         )
+            VALUES (?, ?, ?, ?, ?)`).run(
+            "admin",
+            adminPasswordHash,       
+            "Antonio",
+            "Di Bartoloméo",
+            "admin"
+        );
 
-        VALUES (?, ?, ?, ?, ?)
-    `).run(
+        console.log("✔ Utilisateur admin créé");
 
-        "admin",
-        adminPasswordHash,       
-        "Antonio",
-        "Di Bartoloméo",
-        "admin"
-
-    );
-
-    console.log("✔ Utilisateur admin créé");
-
+    }
 }
 
 const lydie = db.prepare(`

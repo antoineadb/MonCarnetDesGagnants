@@ -4,13 +4,16 @@ const db = require("../database/database");
  * Retourne tous les journaux
  */
 exports.getAll = (req, res) => {
-
+    
+    const userId = req.session.user.id;
+    
     const rows = db.prepare(`
         SELECT *
         FROM journal
+        WHERE user_id = ?
         ORDER BY updated_at DESC
         LIMIT 3
-    `).all();
+    `).all(userId);
 
     res.json(rows);
 
@@ -18,9 +21,12 @@ exports.getAll = (req, res) => {
 
 exports.getHistory = (req, res) => {
 
+    const userId = req.session.user.id;
+
     const rows = db.prepare(`
         SELECT *
         FROM journal
+        WHERE user_id = ?
         ORDER BY  updated_at DESC
     `).all();
 
@@ -35,6 +41,8 @@ exports.create = (req, res) => {
 
     const { title, content, mood } = req.body;
 
+    const userId = req.session.user.id;
+
     if (!title || !content) {
 
         return res.status(400).json({
@@ -42,10 +50,11 @@ exports.create = (req, res) => {
         });
 
     }
-
+    
     const stmt = db.prepare(`
         INSERT INTO journal
         (
+            user_id,
             title,
             content,
             mood
@@ -54,11 +63,13 @@ exports.create = (req, res) => {
         (
             ?,
             ?,
+            ?,
             ?
         )
     `);
 
     const result = stmt.run(
+        userId,
         title,
         content,
         mood
@@ -82,20 +93,24 @@ exports.update = (req, res) => {
 
     const { title, content, mood } = req.body;
 
-   const result = db.prepare(`
-    UPDATE journal
-    SET
-        title = ?,
-        content = ?,
-        mood = ?,
-        updated_at = CURRENT_TIMESTAMP
-    WHERE id = ?
-`).run(
-    title,
-    content,
-    mood,
-    id
-);
+    const userId = req.session.user.id;
+
+    const result = db.prepare(`
+        UPDATE journal
+        SET
+            title = ?,
+            content = ?,
+            mood = ?,
+            updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            AND user_id = ?
+    `).run(
+        title,
+        content,
+        mood,
+        id,
+        userId
+    );
 
 if (result.changes === 0) {
 
@@ -115,13 +130,15 @@ res.json({
  * Suppression
  */
 exports.remove = (req, res) => {
-
+   
     const { id } = req.params;
+    const userId = req.session.user.id;
 
     const result = db.prepare(`
         DELETE FROM journal
         WHERE id = ?
-    `).run(id);
+        AND user_id = ?
+    `).run(id,userId);
 
     if (result.changes === 0) {
 
@@ -140,12 +157,13 @@ exports.remove = (req, res) => {
 exports.getOne = (req, res) => {
 
     const { id } = req.params;
+    const userId = req.session.user.id;
 
     const row = db.prepare(`
         SELECT *
         FROM journal
-        WHERE id = ?
-    `).get(id);
+        WHERE id = ? AND user_id = ?
+    `).get(id,userId);
 
     if (!row) {
 

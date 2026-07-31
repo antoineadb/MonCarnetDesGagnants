@@ -190,36 +190,6 @@ document.getElementById("btnLogout")
         }
 
 });
-/*
-document.getElementById("btnLogout")
-.addEventListener("click", async () => {
-
-    const ok = confirm("Voulez-vous vraiment vous déconnecter ?");
-
-    if (!ok) return;
-
-    try {
-
-        const response = await fetch("/api/auth/logout", {
-            method: "POST"
-        });
-
-        const data = await response.json();
-
-        if (!data.success) {
-            alert("Impossible de se déconnecter.");
-            return;
-        }
-
-        window.location.href = "../index.html";
-
-    } catch (err) {
-
-        console.error(err);
-
-    }
-
-});*/
 
 document.getElementById("menuAdministration")
 ?.addEventListener("click", e => {

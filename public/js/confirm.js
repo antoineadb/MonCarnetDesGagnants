@@ -1,6 +1,7 @@
 class Confirm {
 
     static show({
+        icon = "",
         title = "Confirmation",
         message = "Êtes-vous sûr ?",
         confirmText = "Confirmer",
@@ -24,8 +25,12 @@ class Confirm {
             overlay.innerHTML = `
                 <div class="confirm-box">
 
-                    <div class="confirm-title">
-                        ${title}
+                  <div class="confirm-title">
+
+                        ${icon ? `<span class="confirm-icon">${icon}</span>` : ""}
+
+                        <span>${title}</span>
+
                     </div>
 
                     <div class="confirm-message">
