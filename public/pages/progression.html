@@ -170,30 +170,62 @@
 
     <div class="save-dialog">
 
-        <h2>📖 Le Carnet des Gagnants</h2>
+        <div class="modal-header">
 
-        <p class="save-text">
-            Vous êtes sur le point d'inscrire cette progression dans votre carnet.
-        </p>
+            <div class="modal-book">
+                📖
+            </div>
 
-        <div class="save-score">
-            <span id="oldValue">63 %</span>
-            ➜
-            <span id="newValue">67 %</span>
+            <h2>Le Carnet des Gagnants</h2>
+
+            <p class="save-text">
+                Vous progressez dans
+            </p>
+
+            <div id="modalMilestone" class="modal-milestone">
+                🌅 Miracle Morning
+            </div>
+
         </div>
-        <div class="score-gain">
-            <span id="gainValue">+4 %</span>
+
+        <div class="modal-score">
+
+            <div class="score-before">
+
+                <span class="score-label">Avant</span>
+
+                <span id="oldValue">40 %</span>
+
+            </div>
+
+            <div class="score-arrow">
+                ➜
+            </div>
+
+            <div class="score-after">
+
+                <span class="score-label">Après</span>
+
+                <span id="newValue">48 %</span>
+
+            </div>
+
         </div>
-        <p class="modalCitation" id="modalCitation"></p>
+
+        <div id="gainValue" class="gain-badge">
+            +8 %
         </div>
+
+        <blockquote id="modalCitation" class="modal-citation">
+        </blockquote>
 
         <div class="save-buttons">
 
-            <button id="cancelSave">
+            <button id="cancelSave" class="btn-cancel">
                 Annuler
             </button>
 
-            <button id="confirmSave">
+            <button id="confirmSave" class="btn-save">
                 ✍️ Inscrire
             </button>
 

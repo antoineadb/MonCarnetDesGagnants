@@ -56,9 +56,7 @@ class Progression {
 
             container: document.getElementById("saveModal"),
 
-            title: document.getElementById("modalTitle"),
-
-            description: document.getElementById("modalDescription"),
+            milestone: document.getElementById("modalMilestone"),
 
             citation: document.getElementById("modalCitation"),
 
@@ -199,6 +197,8 @@ class Progression {
         this.animate();
         window.addEventListener("resize",() => this.resize());
         document.getElementById("cancelSave").addEventListener("click",() => this.fermerFenetre());
+        console.log("Installation du listener confirmSave");
+        console.log(document.getElementById("confirmSave"));
         document.getElementById("confirmSave").addEventListener("click",() => this.validerProgression());
 
     }
@@ -1279,18 +1279,25 @@ class Progression {
             variation: nouveauScore - ancienScore
         };
 
-        const data = this.domaines[milestone.getCode() ];
-            this.modal.title.textContent = `${data.icon} ${data.titre}`;
-            this.modal.description.textContent = data.description;
-            this.modal.citation.textContent = data.citation;
-            this.modal.oldValue.textContent = ancienScore + " %";
-            this.modal.newValue.textContent = nouveauScore + " %";
+            this.modal.milestone.textContent =
+            `${milestone.getIcon()} ${milestone.getTitle()}`;
+            
+            this.modal.citation.textContent =
+            milestone.getCitation();
+
+            this.modal.oldValue.textContent =
+                ancienScore + " %";
+
+            this.modal.newValue.textContent =
+                nouveauScore + " %";
+
             this.modal.gain.textContent =
                 (this.progressionEnCours.variation >= 0 ? "+" : "")
                 + this.progressionEnCours.variation
                 + " %";
+
             this.modal.container.classList.add("show");
-        }
+    }
 
     fermerFenetre(){
         this.modal.container.classList.remove("show");
@@ -1299,15 +1306,23 @@ class Progression {
 
     async validerProgression(){
 
+        console.log("VALIDER PROGRESSION");
+
         if(!this.progressionEnCours){
+            console.log("progressionEnCours est NULL");
             return;
         }
 
         try{
+            
+            console.log("APPEL SAVE PROGRESSION");
+            console.log(this.progressionEnCours);
 
             await ProgressionService.saveProgression(
                 this.progressionEnCours
             );
+
+            console.log("SAVE TERMINÉ");
 
             await this.load();
 

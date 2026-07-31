@@ -24,6 +24,18 @@ class ProgressionEditor {
         this.slider = document.getElementById("editor-slider");
 
         this.saveButton = document.getElementById("editor-save");
+        
+        this.saveButton.addEventListener("click", () => {
+
+            const nouveauScore = Number(this.slider.value);
+
+            this.progression.ouvrirFenetre(
+                this.milestone,
+                this.ancienScore,
+                nouveauScore
+            );
+
+        });
 
         this.milestone = null;
 
@@ -40,6 +52,7 @@ class ProgressionEditor {
             this.progression.draw();
 
         });
+        this.ancienScore = 0;
 
     }
 
@@ -60,6 +73,8 @@ class ProgressionEditor {
         const score = Math.round(
             milestone.getPosition() * 100
         );
+
+        this.ancienScore = score;
 
         this.value.textContent = score + "%";
 
