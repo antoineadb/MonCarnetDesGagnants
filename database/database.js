@@ -27,87 +27,6 @@ const dbPath = path.join(dbFolder, "carnet.db");
 const db = new Database(dbPath);
 // Performances SQLite
 db.pragma("journal_mode = WAL");
-
-// ======================================================
-// TABLE JOURNAL
-// ======================================================
-
-db.exec(`
-
-CREATE TABLE IF NOT EXISTS journal (
-
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    title TEXT NOT NULL,
-
-    content TEXT NOT NULL,
-
-    mood TEXT,
-
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-
-    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
-
-);
-
-
-`);
-
-// ======================================================
-// MIGRATION JOURNAL
-// ======================================================
-try {
-
-    db.prepare(`
-        ALTER TABLE journal
-        ADD COLUMN user_id INTEGER
-    `).run();
-
-    console.log("✔ Colonne user_id ajoutée à journal");
-
-} catch (e) {
-
-    // La colonne existe déjà.
-
-}
-
-const admin = db.prepare(`
-    SELECT id
-    FROM users
-    WHERE username = ?
-`).get("admin");
-
-if (admin) {
-
-    db.prepare(`
-        UPDATE journal
-        SET user_id = ?
-        WHERE user_id IS NULL
-    `).run(admin.id);
-
-    console.log("✔ Journaux existants rattachés à l'administrateur");
-}
-
-// ======================================================
-// TABLE PROGRESSION_PATHS
-// ======================================================
-
-db.exec(`
-
-CREATE TABLE IF NOT EXISTS progression_paths (
-
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    name TEXT NOT NULL,
-
-    description TEXT,
-
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-
-);
-
-`);
-
 // ======================================================
 // TABLE USERS
 // ======================================================
@@ -133,6 +52,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 `);
+
 
 // ======================================================
 // TABLE HISTORIQUE DES CONNEXIONS
@@ -190,6 +110,122 @@ try {
 } catch (e) {
     // La colonne existe déjà : rien à faire.
 }
+// ======================================================
+// TABLE JOURNAL
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS journal (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    title TEXT NOT NULL,
+
+    content TEXT NOT NULL,
+
+    mood TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+);
+
+
+`);
+
+// ======================================================
+// MIGRATION JOURNAL
+// ======================================================
+try {
+
+    db.prepare(`
+        ALTER TABLE journal
+        ADD COLUMN user_id INTEGER
+    `).run();
+
+    console.log("✔ Colonne user_id ajoutée à journal");
+
+} catch (e) {
+
+    // La colonne existe déjà.
+
+}
+
+// ======================================================
+// TABLE GRATITUDE_CARDS
+// ======================================================
+    db.prepare(`   
+        CREATE TABLE IF NOT EXISTS gratitude_cards (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        title TEXT NOT NULL,
+
+        message TEXT NOT NULL,
+
+        image TEXT,
+
+        image_type TEXT DEFAULT 'photo',
+
+        location TEXT,
+
+        theme TEXT DEFAULT 'Nature',
+
+        emotion TEXT,
+
+        favorite INTEGER DEFAULT 0,
+
+        send_date TEXT,
+
+        deleted INTEGER DEFAULT 0,
+
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+    );
+    `).run();   
+
+// ======================================================
+// TABLE PROGRESSION_PATHS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS progression_paths (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    name TEXT NOT NULL,
+
+    description TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+);
+
+`);
+
+
+
+const admin = db.prepare(`
+    SELECT id
+    FROM users
+    WHERE username = ?
+`).get("admin");
+
+if (admin) {
+
+    db.prepare(`
+        UPDATE journal
+        SET user_id = ?
+        WHERE user_id IS NULL
+    `).run(admin.id);
+
+    console.log("✔ Journaux existants rattachés à l'administrateur");
+}
 
 
 // ======================================================
@@ -230,6 +266,8 @@ CREATE TABLE IF NOT EXISTS progression_state (
 
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+    user_id INTEGER NOT NULL,
+
     path_id INTEGER NOT NULL,
 
     progress REAL DEFAULT 0,
@@ -237,7 +275,6 @@ CREATE TABLE IF NOT EXISTS progression_state (
     updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY(path_id)
-
         REFERENCES progression_paths(id)
 
 );
@@ -248,9 +285,11 @@ CREATE TABLE IF NOT EXISTS progression_state (
 // ======================================================
 
 db.prepare(`
-    CREATE TABLE IF NOT EXISTS progression_history (
+   CREATE TABLE IF NOT EXISTS progression_history (
 
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
 
     path_id INTEGER NOT NULL,
 
@@ -264,52 +303,11 @@ db.prepare(`
 
     note TEXT,
 
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY(path_id)
-        REFERENCES progression_paths(id),
-
-    FOREIGN KEY(milestone_id)
-        REFERENCES progression_milestones(id)
-    );
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
 `).run();
 
-
-
-// ======================================================
-// TABLE GRATITUDE_CARDS
-// ======================================================
-    db.prepare(`   
-        CREATE TABLE IF NOT EXISTS gratitude_cards (
-
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-        title TEXT NOT NULL,
-
-        message TEXT NOT NULL,
-
-        image TEXT,
-
-        image_type TEXT DEFAULT 'photo',
-
-        location TEXT,
-
-        theme TEXT DEFAULT 'Nature',
-
-        emotion TEXT,
-
-        favorite INTEGER DEFAULT 0,
-
-        send_date TEXT,
-
-        deleted INTEGER DEFAULT 0,
-
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-
-        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
-
-    );
-    `).run();     
+  
 // ======================================================
 // DONNÉES PAR DÉFAUT
 // ======================================================
@@ -477,6 +475,10 @@ if (pathCount.total === 0) {
         db.prepare(`
 
         INSERT INTO progression_state (
+    
+            id,
+
+            user_id NOT NULL,
 
             path_id,
 
@@ -511,8 +513,7 @@ bcrypt.hashSync(DEFAULT_LYDIE_PASSWORD,10);
 // UTILISATEUR ADMIN PAR DÉFAUT
 // ======================================================
 
-if (admin) {
-db.prepare(`
+const adminUser = db.prepare(`
     SELECT id
     FROM users
     WHERE username = ?
@@ -528,19 +529,17 @@ if (!admin) {
             lastname,
             role
         )
-            VALUES (?, ?, ?, ?, ?)`).run(
-            "admin",
-            adminPasswordHash,       
-            "Antonio",
-            "Di Bartoloméo",
-            "admin"
-        );
+        VALUES (?, ?, ?, ?, ?)
+    `).run(
+        "admin",
+        adminPasswordHash,
+        "Antonio",
+        "Di Bartoloméo",
+        "admin"
+    );
 
-        console.log("✔ Utilisateur admin créé");
-
-    }
+    console.log("✔ Utilisateur admin créé");
 }
-
 const lydie = db.prepare(`
     SELECT id
     FROM users

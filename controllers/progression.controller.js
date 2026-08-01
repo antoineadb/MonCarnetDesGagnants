@@ -165,27 +165,32 @@ exports.save = (req, res) => {
 
             // Historique
 
-            db.prepare(`
+           db.prepare(`
                 INSERT INTO progression_history (
 
+                    user_id,
                     path_id,
                     milestone_id,
                     old_score,
                     new_score,
-                    variation
+                    variation,
+                    note
 
                 )
-                VALUES (?, ?, ?, ?, ?)
+
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+
             `).run(
 
+                userId,
                 pathId,
                 milestoneId,
                 ancienScore,
                 nouveauScore,
-                variation
+                variation,
+                ""
 
             );
-
         if (state) {
 
             db.prepare(`

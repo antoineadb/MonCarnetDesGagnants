@@ -37,7 +37,7 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
         FROM users
         WHERE username = ?
     `).get(username);
-
+    console.log("Utilisateur trouvé :", user);
     if (!user || !bcrypt.compareSync(password, user.password_hash)) {
 
         if (user) {
