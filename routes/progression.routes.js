@@ -17,6 +17,12 @@ router.get("/history/:id", progression.history);
 // ======================================================
 // Enregistrer une progression
 // ======================================================
-router.post("/save", progression.save);
+router.post("/save", (req, res) => {
+
+    console.log("🔥🔥🔥 ROUTE /SAVE APPELÉE 🔥🔥🔥");
+
+    return progression.save(req, res);
+
+});
 
 module.exports = router;

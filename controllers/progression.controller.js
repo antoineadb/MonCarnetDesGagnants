@@ -27,23 +27,62 @@ exports.load = (req, res) => {
             });
 
         }
+        // ===============================
+        // Vérification utilisateur
+        // ===============================
 
-        // Jalons
-
-        const milestones = db.prepare(`
-            SELECT *
-            FROM progression_milestones
-            WHERE path_id = ?
-            ORDER BY step_order
-        `).all(pathId);
-
-        // État
         if (!req.session.user) {
+
             return res.status(401).json({
                 error: "Utilisateur non connecté"
             });
+
         }
+
         const userId = req.session.user.id;
+
+        // ===============================
+        // Jalons
+        // ===============================
+
+        const milestones = db.prepare(`
+            SELECT
+
+                pm.id,
+                pm.path_id,
+                pm.step_order,
+                pm.code,
+                pm.title,
+                pm.icon,
+                pm.description,
+                pm.citation,
+                pm.color,
+
+                COALESCE(
+                    pum.position,
+                    pm.curve_position
+                ) AS curve_position,
+
+                pm.is_visible,
+                pm.editable,
+                pm.created_at
+
+            FROM progression_milestones pm
+
+            LEFT JOIN progression_user_milestones pum
+
+                ON pum.milestone_id = pm.id
+                AND pum.user_id = ?
+
+            WHERE pm.path_id = ?
+
+            ORDER BY pm.step_order
+
+        `).all(userId, pathId);
+
+        // ===============================
+        // État
+        // ===============================
 
         const state = db.prepare(`
             SELECT *
@@ -51,7 +90,7 @@ exports.load = (req, res) => {
             WHERE path_id = ?
             AND user_id = ?
         `).get(pathId, userId);
-
+    
         res.json({
 
             path,
@@ -137,7 +176,6 @@ exports.load = (req, res) => {
 // ======================================================
 // Enregistrer une progression
 // ======================================================
-
 exports.save = (req, res) => {
 
     const userId = req.session.user.id;
@@ -227,6 +265,37 @@ exports.save = (req, res) => {
             );
 
         }
+
+        const result = db.prepare(`
+            INSERT INTO progression_user_milestones (
+
+                user_id,
+                milestone_id,
+                position
+
+            )
+
+            VALUES (?, ?, ?)
+
+            ON CONFLICT(user_id, milestone_id)
+
+            DO UPDATE SET
+
+                position = excluded.position,
+                updated_at = CURRENT_TIMESTAMP
+
+        `).run(
+
+            userId,
+            milestoneId,
+            nouveauScore / 100
+
+        );
+
+        const test = db.prepare(`
+            SELECT *
+            FROM progression_user_milestones
+        `).all();
 
         // Progression actuelle
 
