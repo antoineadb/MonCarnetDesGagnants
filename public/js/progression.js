@@ -190,15 +190,12 @@ class Progression {
  */
 
     async init() {
-
         await this.load();
         this.resize();
         this.bindEvents();
         this.animate();
         window.addEventListener("resize",() => this.resize());
         document.getElementById("cancelSave").addEventListener("click",() => this.fermerFenetre());
-        console.log("Installation du listener confirmSave");
-        console.log(document.getElementById("confirmSave"));
         document.getElementById("confirmSave").addEventListener("click",() => this.validerProgression());
 
     }
@@ -1190,12 +1187,9 @@ class Progression {
 
     bindEvents() {
 
-        this.canvas.addEventListener(
-
-            "click",
-
+         this.canvas.addEventListener(
+            "pointerdown",
             this.onClick.bind(this)
-
         );
 
     }
@@ -1303,6 +1297,7 @@ class Progression {
 
             this.modal.container.offsetHeight;    
             this.modal.container.classList.add("show");
+            document.body.style.overflow = "hidden";
 
             const history = await ProgressionService.loadHistory(
                 milestone.getId()
@@ -1314,6 +1309,7 @@ this.afficherHistorique(history);
 
     fermerFenetre(){
         this.modal.container.classList.remove("show");
+        document.body.style.overflow = "";
         this.progressionEnCours = null;
     }
 
