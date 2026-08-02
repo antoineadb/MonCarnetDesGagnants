@@ -19,8 +19,6 @@ router.get("/history/:id", progression.history);
 // ======================================================
 router.post("/save", (req, res) => {
 
-    console.log("🔥🔥🔥 ROUTE /SAVE APPELÉE 🔥🔥🔥");
-
     return progression.save(req, res);
 
 });

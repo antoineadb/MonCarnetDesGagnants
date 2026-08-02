@@ -1,5 +1,5 @@
 /* ==========================================================
-   PAGE
+   PAGE PROGRESSION
 ========================================================== */
 
 body{
@@ -48,11 +48,12 @@ header h1{
 
 header p{
 
-    opacity:.85;
-
     font-size:18px;
 
+    opacity:.85;
+
 }
+
 /* ==========================================================
    GRAPHIQUE
 ========================================================== */
@@ -69,24 +70,19 @@ header p{
 
 }
 
-#graph{
+#progressCanvas{
 
     width:100%;
 
     height:650px;
 
-}
+    display:block;
 
-.axis{
+    background:white;
 
-    stroke:#666;
-
-    stroke-width:2;
+    border-radius:18px;
 
 }
-/* ==========================================================
-   COURBE
-========================================================== */
 
 #progressCurve{
 
@@ -111,6 +107,7 @@ header p{
     stroke-width:4;
 
 }
+
 /* ==========================================================
    RITUELS
 ========================================================== */
@@ -148,23 +145,10 @@ header p{
     font-size:18px;
 
 }
-#progressCanvas{
 
-    width:100%;
-
-    height:650px;
-
-    display:block;
-
-    border-radius:18px;
-
-    background:white;
-
-}
-
-/* ===========================
-   Pied de page
-=========================== */
+/* ==========================================================
+   FOOTER
+========================================================== */
 
 .chapter-footer{
 
@@ -184,8 +168,6 @@ header p{
 
     font-size:16px;
 
-    letter-spacing:1px;
-
 }
 
 .chapter-book{
@@ -199,6 +181,11 @@ header p{
     font-weight:600;
 
 }
+
+/* ==========================================================
+   RETOUR
+========================================================== */
+
 .back-button{
 
     width:900px;
@@ -215,46 +202,17 @@ header p{
 
     font-size:18px;
 
-    font-family:"Inter",sans-serif;
-
-    transition:.25s;
-
 }
 
 .back-button a:hover{
 
-    color:#ffffff;
-
-}
-.coming-soon{
-
-    width:max-content;
-
-    margin:60px auto 0;
-
-    padding:10px 22px;
-
-    background:#f6e7c8;
-
-    border:1px solid #d6b37c;
-
-    border-radius:30px;
-
-    color:#8b5e2d;
-
-    font-family:"Inter",sans-serif;
-
-    font-size:15px;
-
-    font-weight:500;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    color:white;
 
 }
 
-/* =====================================================
-   Rotation téléphone
-===================================================== */
+/* ==========================================================
+   ROTATION TÉLÉPHONE
+========================================================== */
 
 #rotate-device{
 
@@ -269,18 +227,20 @@ header p{
 
     background:#f8f3e8;
 
-    z-index:99999;
+    padding:40px;
 
     text-align:center;
 
-    padding:40px;
+    z-index:99999;
 
 }
 
 #rotate-device h2{
 
     margin-top:20px;
+
     font-size:2rem;
+
     color:#5a4635;
 
 }
@@ -288,6 +248,7 @@ header p{
 #rotate-device p{
 
     margin-top:15px;
+
     max-width:320px;
 
     color:#6d5a4b;
@@ -298,7 +259,9 @@ header p{
 
 .rotate-icon{
 
-    font-size:70px;
+    font-size:72px;
+
+    color:#8d6b2b;
 
     animation:rotatePhone 2s infinite ease-in-out;
 
@@ -332,25 +295,24 @@ header p{
     }
 
 }
-.rotate-icon{
 
-    font-size:72px;
-    color:#8d6b2b;
+/* ==========================================================
+   ÉDITEUR DE PROGRESSION
+========================================================== */
 
-}
 .progression-editor{
 
     margin:40px auto;
 
     max-width:900px;
 
+    padding:30px;
+
     background:#fffdf7;
 
     border:2px solid #d4af37;
 
     border-radius:16px;
-
-    padding:30px;
 
     box-shadow:0 10px 30px rgba(0,0,0,.08);
 
@@ -366,9 +328,9 @@ header p{
 
     display:flex;
 
-    gap:20px;
-
     align-items:center;
+
+    gap:20px;
 
 }
 
@@ -380,11 +342,11 @@ header p{
 
 .editor-title h2{
 
-    color:#3f3125;
+    margin-bottom:6px;
 
     font-size:34px;
 
-    margin-bottom:6px;
+    color:#3f3125;
 
 }
 
@@ -395,15 +357,8 @@ header p{
     font-size:18px;
 
 }
-#editor-save:hover{
-
-    transform:translateY(-2px);
-
-}
 
 .editor-score{
-
-    margin-top:30px;
 
     display:flex;
 
@@ -411,14 +366,17 @@ header p{
 
     align-items:center;
 
-    color: #4b3a2f;
+    margin-top:30px;
+
+    color:#4b3a2f;
+
 }
 
 #editor-score-value{
 
     font-size:28px;
 
-    color: #4b3a2f;
+    color:#4b3a2f;
 
 }
 
@@ -448,9 +406,9 @@ header p{
 
     padding:12px 24px;
 
-    font-size:16px;
-
     cursor:pointer;
+
+    transition:.25s;
 
 }
 
@@ -458,512 +416,7 @@ header p{
 
     background:#c1972f;
 
-}
-
-/*==================================================
-    FENÊTRE D'INSCRIPTION
-==================================================*/
-
-/* ==========================================================
-   Fenêtre de confirmation
-========================================================== */
-
-.save-modal{
-
-    position:fixed;
-    inset:0;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:rgba(35,28,20,.45);
-    backdrop-filter:blur(6px);
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:.35s;
-    z-index:5000;
-
-}
-
-.save-modal.show{
-
-    opacity:1;
-    pointer-events:auto;
-
-}
-
-.save-dialog{
-
-    width:700px;
-    max-width:85vw;
-
-    background:#fbf6ea;
-    border:2px solid #d6b15d;
-    border-radius:22px;
-
-    padding:28px 34px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.35),
-        inset 0 0 0 1px rgba(255,255,255,.6);
-
-    position:relative;
-
-    animation:modalPop .35s ease;
-
-}
-
-/* léger papier */
-
-.save-dialog::before{
-
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    border-radius:20px;
-
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(0,0,0,.015) 0px,
-            rgba(0,0,0,.015) 2px,
-            transparent 2px,
-            transparent 12px
-        );
-
-    pointer-events:none;
-
-}
-
-/* ==========================================================
-   En-tête
-========================================================== */
-
-.modal-header{
-
-    text-align:center;
-    margin-bottom:16px;
-
-}
-
-.modal-book{
-
-    font-size:42px;
-    margin-bottom:10px;
-
-}
-
-.modal-header h2{
-
-    margin:0;
-
-    font-family:"Cormorant Garamond",serif;
-      
-    font-size:30px;
-    
-    color:#5b4430;
-
-}
-
-.save-text{
-
-    margin-top:18px;
-
-    font-size:16px;
-    line-height:1.6;
-
-    color:#705844;
-
-}
-
-/* ==========================================================
-   Scores
-========================================================== */
-
-.modal-score{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:45px;
-
-    margin:18px 0;
-
-}
-
-.score-before,
-.score-after{
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-}
-
-.score-label{
-
-    font-size:14px;
-    text-transform:uppercase;
-    letter-spacing:2px;
-
-    color:#9d8b72;
-
-    margin-bottom:8px;
-
-}
-
-#oldValue{
-
-    font-size:42px;
-    color:#8d6b2b;
-    font-weight:600;
-
-}
-
-#newValue{
-
-    font-size:54px;
-    color:#2e9f63;
-    font-weight:700;
-
-}
-
-.score-arrow{
-
-    font-size:42px;
-    color:#c8a041;
-
-}
-
-/* ==========================================================
-   Gain
-========================================================== */
-
-.gain-badge{
-
-    width:max-content;
-
-    margin:12px auto 18px;
-
-    padding:10px 28px;
-
-    border-radius:999px;
-
-    background:linear-gradient(
-        135deg,
-        #ffe8a3,
-        #d6a126
-    );
-
-    color:#5a3d06;
-
-    font-size:26px;
-    font-weight:bold;
-
-    box-shadow:
-        0 8px 20px rgba(214,161,38,.35);
-
-}
-
-/* ==========================================================
-   Citation
-========================================================== */
-
-.modal-citation{
-
-    margin-top:20px;
-
-    padding:20px;
-
-    background:#fffdf8;
-
-    border-left:6px solid #d4af37;
-
-    border-radius:12px;
-
-    text-align:center;
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-style:italic;
-
-    font-size:28px;
-
-    color:#6d5643;
-
-    line-height:1.45;
-
-}
-
-.modal-milestone{
-
-    margin-top:12px;
-    
-    margin:8px 0 18px;
-
-    font-family:"Cormorant Garamond",serif;
-
-    font-size:34px;
-
-    font-weight:700;
-
-    color:#7b5b22;
-
-    text-align:center;
-    
-    text-shadow:0 1px 1px rgba(255,255,255,.6);
-}
-
-.modal-milestone::after{
-
-    content:"";
-
-    display:block;
-
-    width:120px;
-
-    height:2px;
-
-    margin:12px auto 0;
-
-    background:#d4af37;
-
-    border-radius:2px;
-
-}
-
-/* ==========================================================
-   Boutons
-========================================================== */
-
-.save-buttons{
-
-    display:flex;
-    justify-content:flex-end;
-    gap:18px;
-
-    margin-top:22px;
-
-}
-
-.btn-cancel{
-
-    padding:14px 26px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#ece7dd;
-
-    color:#55483d;
-
-    cursor:pointer;
-
-    font-size:17px;
-
-    transition:.25s;
-
-}
-
-.btn-cancel:hover{
-
-    background:#ddd4c5;
     transform:translateY(-2px);
 
 }
 
-.btn-save{
-
-    padding:14px 32px;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    background:linear-gradient(
-        135deg,
-        #d9a021,
-        #c88708
-    );
-
-    color:white;
-
-    font-size:17px;
-    font-weight:600;
-
-    transition:.25s;
-
-}
-
-.btn-save:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 10px 20px rgba(200,135,8,.35);
-
-}
-
-/* ==========================================================
-   Animation
-========================================================== */
-
-@keyframes modalPop{
-
-    from{
-
-        opacity:0;
-        transform:translateY(25px) scale(.94);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0) scale(1);
-
-    }
-
-}
-
-@keyframes modalAppear{
-
-    from{
-
-        opacity:0;
-        transform:translateY(25px) scale(.95);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0) scale(1);
-
-    }
-
-}
-
-.save-dialog h2{
-
-    margin-bottom:20px;
-
-    text-align:center;
-
-    font-size:24px;
-
-    color:#4c3527;
-
-}
-
-.save-text{
-
-    text-align:center;
-
-    line-height:1.5;
-
-    font-size:18px;
-
-    color:#7d6a58;
-
-    margin-bottom:8px;
-
-}
-
-.save-score{
-
-    background:#fffdf8;
-
-    border:1px solid #e3d4b2;
-
-    border-radius:12px;
-
-    padding:20px;
-
-    margin-bottom:30px;
-
-}
-
-.save-score h3{
-
-    margin:0 0 18px;
-
-    font-size:26px;
-
-}
-
-.save-score p{
-
-    margin:10px 0;
-
-    font-size:20px;
-
-}
-
-.gain{
-
-    font-weight:bold;
-
-    color:#1d8b42;
-
-}
-
-.save-buttons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:24px;
-
-}
-
-.save-buttons button{
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:14px 28px;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    transition:.25s;
-
-}
-
-#cancelSave{
-
-    background:#d7d7d7;
-
-}
-
-#cancelSave:hover{
-
-    background:#c5c5c5;
-
-}
-
-#confirmSave{
-
-    background:#b97d19;
-
-    color:white;
-
-}
-
-#confirmSave:hover{
-
-    background:#9f680d;
-
-}

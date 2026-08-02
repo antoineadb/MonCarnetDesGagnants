@@ -23,9 +23,16 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet"
-          href="../css/progression.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
 
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/milestone-card.css">
+    <link rel="stylesheet" href="../css/progress-bar.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/progression.css">
 </head>
 
 <body>
@@ -163,12 +170,14 @@
 
 <script src="../js/progression/GrowthCurve.js"></script>
 
+<script src="../js/toast.js"></script>
+
 <script src="../js/progression.js"></script>
 
 <!-- Fenêtre d'inscription -->
-<div id="saveModal" class="save-modal hide">
+<div id="saveModal" class="modal">
 
-    <div class="save-dialog">
+    <div class="modal-content">
 
         <div class="modal-header">
 
@@ -176,10 +185,12 @@
                 📖
             </div>
 
-            <h2>Le Carnet des Gagnants</h2>
+            <h2 class="modal-title">
+                Le Carnet des Gagnants
+            </h2>
 
-            <p class="save-text">
-                Vous progressez dans
+            <p class="modal-subtitle">
+                Aujourd'hui, tu as progressé dans
             </p>
 
             <div id="modalMilestone" class="modal-milestone">
@@ -192,9 +203,13 @@
 
             <div class="score-before">
 
-                <span class="score-label">Avant</span>
+                <span class="score-label">
+                    Avant
+                </span>
 
-                <span id="oldValue">40 %</span>
+                <span id="oldValue">
+                    40 %
+                </span>
 
             </div>
 
@@ -204,9 +219,13 @@
 
             <div class="score-after">
 
-                <span class="score-label">Après</span>
+                <span class="score-label">
+                    Après
+                </span>
 
-                <span id="newValue">48 %</span>
+                <span id="newValue">
+                    48 %
+                </span>
 
             </div>
 
@@ -216,17 +235,34 @@
             +8 %
         </div>
 
-        <blockquote id="modalCitation" class="modal-citation">
+        <blockquote
+            id="modalCitation"
+            class="modal-citation">
         </blockquote>
 
-        <div class="save-buttons">
+        <hr>
 
-            <button id="cancelSave" class="btn-cancel">
+        <h3>📈 Historique</h3>
+
+        <div id="modalHistory">
+
+            Aucun historique.
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button id="cancelSave" class="btn-secondary">
+
                 Annuler
+
             </button>
 
-            <button id="confirmSave" class="btn-save">
-                ✍️ Inscrire
+            <button id="confirmSave" class="btn-primary">
+
+                🎉 Inscrire ma progression
+
             </button>
 
         </div>

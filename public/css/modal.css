@@ -1,0 +1,320 @@
+/* ==========================================================
+   MODAL
+   ========================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(6px);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.25s;
+
+    z-index:1000;
+
+}
+
+.modal.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.modal-content{
+
+    width:min(650px,90vw);
+
+    background:var(--surface);
+
+    border-radius:24px;
+
+    padding:32px;
+
+    box-shadow:var(--shadow-lg);
+
+    transform:scale(.95);
+
+    transition:.25s;
+
+    border-top:6px solid var(--accent, var(--primary));
+
+}
+
+.modal.show .modal-content{
+
+    transform:scale(1);
+
+}
+
+/* ==========================================================
+   TITRE
+   ========================================================== */
+
+.modal-title{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.modal-description{
+
+    line-height:1.7;
+
+    color:var(--text-light);
+
+}
+
+.modal-citation{
+
+    margin-top:24px;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--border);
+
+    font-style:italic;
+
+    color:var(--text-light);
+
+}
+
+.modal-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:32px;
+
+}
+
+/* ==========================================================
+   ANIMATION D'OUVERTURE
+   ========================================================== */
+
+@keyframes modalPop{
+
+    0%{
+
+        opacity:0;
+        transform:scale(.90);
+
+    }
+
+    70%{
+
+        transform:scale(1.02);
+
+    }
+
+    100%{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+.modal.show .modal-content{
+
+    animation:modalPop .35s ease;
+
+}
+
+/* ==========================================================
+   GAIN
+   ========================================================== */
+
+.gain-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:24px auto;
+
+    padding:12px 24px;
+
+    border-radius:999px;
+
+    background:linear-gradient(
+        135deg,
+        var(--success),
+        #48C78E
+    );
+
+    color:white;
+
+    min-width:120px;
+
+    font-size:2rem;
+
+    letter-spacing:1px;
+    
+    font-weight:700;
+
+    box-shadow:var(--shadow-sm);
+
+}
+@keyframes gainPop{
+
+    0%{
+
+        transform:scale(.4);
+
+        opacity:0;
+
+    }
+
+    80%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+.modal.show .gain-badge{
+
+    animation:gainPop .45s .15s both;
+
+}
+.modal-milestone{
+
+    font-size:1.8rem;
+
+    font-weight:700;
+
+    color:var(--accent, var(--primary));
+
+    margin:16px 0;
+
+}
+
+.history-line{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:10px 0;
+
+    border-bottom:1px solid var(--border);
+
+}
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.modal-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:16px;
+
+    margin-top:30px;
+
+}
+
+/* Bouton secondaire */
+
+.btn-secondary{
+
+    padding:14px 26px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ece7dd;
+
+    color:#55483d;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.btn-secondary:hover{
+
+    background:#ddd4c5;
+
+    transform:translateY(-2px);
+
+}
+
+/* Bouton principal */
+
+.btn-primary{
+
+    padding:14px 32px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #d9a021,
+        #c88708
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(200,135,8,.35);
+
+}

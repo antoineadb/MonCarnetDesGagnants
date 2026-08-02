@@ -1,0 +1,164 @@
+/* ==========================================================
+   LE CARNET DES GAGNANTS
+   DESIGN SYSTEM V1.0
+   ========================================================== */
+
+:root{
+
+    /* ======================================================
+       COULEURS
+    ====================================================== */
+
+    --primary: #4A90E2;
+    --primary-dark: #357ABD;
+
+    --success: #6FCF97;
+    --warning: #F2C94C;
+    --danger: #EB5757;
+
+    --gold: #D4AF37;
+
+    --background: #F8F6F2;
+    --surface: #FFFFFF;
+
+    --text: #2C3E50;
+    --text-light: #7B8A97;
+
+    --border: #E7E2DA;
+
+    /* ======================================================
+       OMBRES
+    ====================================================== */
+
+    --shadow-sm:
+        0 4px 12px rgba(0,0,0,.08);
+
+    --shadow-md:
+        0 10px 30px rgba(0,0,0,.12);
+
+    --shadow-lg:
+        0 20px 60px rgba(0,0,0,.18);
+
+    /* ======================================================
+       ARRONDIS
+    ====================================================== */
+
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+    --radius-xl:30px;
+
+    /* ======================================================
+       ESPACEMENTS
+    ====================================================== */
+
+    --space-xs:6px;
+    --space-sm:12px;
+    --space-md:20px;
+    --space-lg:30px;
+    --space-xl:48px;
+
+    /* ======================================================
+       TRANSITIONS
+    ====================================================== */
+
+    --transition-fast:.18s;
+    --transition:.30s;
+    --transition-slow:.50s;
+
+}
+/* ==========================================================
+   CARD
+   ========================================================== */
+
+.card{
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: var(--surface);
+
+    border-radius: var(--radius-lg);
+
+    padding: 24px;
+
+    box-shadow: var(--shadow-sm);
+
+    border: 1px solid var(--border);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+
+}
+
+.card:hover{
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/* ==========================================================
+   BOUTONS
+   ========================================================== */
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px 26px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:all .25s;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-md);
+
+    background:var(--primary-dark);
+
+}
+/* ==========================================================
+   SIGNATURE DU CARNET
+   ========================================================== */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:3px;
+
+    background:linear-gradient(
+        90deg,
+        var(--gold),
+        transparent
+    );
+
+}
+

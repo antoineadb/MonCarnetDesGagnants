@@ -90,4 +90,26 @@ class ProgressionService {
 
     }
 
+    /**
+    * Charge l'historique d'un jalon
+    */
+    static async loadHistory(milestoneId){
+
+        const response = await fetch(
+
+            `/api/progression/history/${milestoneId}`
+
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Impossible de charger l'historique."
+            );
+
+        }
+
+        return await response.json();
+
+    }
 }

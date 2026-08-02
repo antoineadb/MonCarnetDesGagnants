@@ -121,7 +121,9 @@ exports.load = (req, res) => {
 
     exports.history = (req, res) => {
 
-        const pathId = req.params.id;
+        const userId = req.session.user.id;
+
+        const milestoneId = req.params.id;
 
         try {
 
@@ -148,11 +150,14 @@ exports.load = (req, res) => {
 
                     ON m.id = h.milestone_id
 
-                WHERE h.path_id = ?
+                WHERE h.user_id = ?
+                
+                AND h.milestone_id = ?
+
 
                 ORDER BY h.created_at DESC
 
-            `).all(pathId);
+            `).all(userId, milestoneId);
 
             res.json(history);
 
@@ -266,7 +271,7 @@ exports.save = (req, res) => {
 
         }
 
-        const result = db.prepare(`
+         db.prepare(`
             INSERT INTO progression_user_milestones (
 
                 user_id,
@@ -291,11 +296,6 @@ exports.save = (req, res) => {
             nouveauScore / 100
 
         );
-
-        const test = db.prepare(`
-            SELECT *
-            FROM progression_user_milestones
-        `).all();
 
         // Progression actuelle
 

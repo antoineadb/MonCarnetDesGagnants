@@ -1266,7 +1266,7 @@ class Progression {
 
     }
 
-    ouvrirFenetre(milestone, ancienScore, nouveauScore) {
+    async ouvrirFenetre(milestone, ancienScore, nouveauScore) {
 
         this.progressionEnCours = {
 
@@ -1282,6 +1282,11 @@ class Progression {
             this.modal.milestone.textContent =
             `${milestone.getIcon()} ${milestone.getTitle()}`;
             
+            this.modal.container.style.setProperty(
+                "--accent",
+                milestone.getColor()
+            );
+
             this.modal.citation.textContent =
             milestone.getCitation();
 
@@ -1296,7 +1301,15 @@ class Progression {
                 + this.progressionEnCours.variation
                 + " %";
 
+            this.modal.container.offsetHeight;    
             this.modal.container.classList.add("show");
+
+            const history = await ProgressionService.loadHistory(
+                milestone.getId()
+            );
+
+
+this.afficherHistorique(history);
     }
 
     fermerFenetre(){
@@ -1308,42 +1321,69 @@ class Progression {
 
         console.log("VALIDER PROGRESSION");
 
-        if(!this.progressionEnCours){
-            console.log("progressionEnCours est NULL");
+        if(!this.progressionEnCours){            
+            Toast.error("progressionEnCours est NULL.");
             return;
         }
 
-        try{
-            
-            console.log("APPEL SAVE PROGRESSION");
-            console.log(this.progressionEnCours);
+    try{
 
-            await ProgressionService.saveProgression(
-                this.progressionEnCours
-            );
+        await ProgressionService.saveProgression(
+            this.progressionEnCours
+        );
 
-            console.log("SAVE TERMINÉ");
+        console.log("SAVE TERMINÉ");
 
-            await this.load();
+        await this.load();
 
-            this.draw();
+        this.draw();
+
+        setTimeout(() => {
 
             this.fermerFenetre();
 
-            console.log("✔ Progression enregistrée");
+        }, 600);
 
-        }
-        catch(error){
-
-            console.error(error);
-
-            Toast.error(
-                "Impossible d'enregistrer la progression."
-            );
-
-        }
+       Toast.success("🎉 Progression enregistrée !");
 
     }
+    catch(error){
+
+        console.error(error);
+
+        Toast.error("Impossible d'enregistrer la progression.");
+
+    }
+}
+ afficherHistorique(history){
+        const container =
+        document.getElementById("modalHistory");
+
+    if(history.length === 0){
+
+        container.innerHTML =
+            "<p>Aucune progression enregistrée.</p>";
+
+        return;
+
+    }
+
+    container.innerHTML = history.map(item => `
+
+        <div class="history-line">
+
+            <span>${item.created_at}</span>
+
+            <strong>${item.old_score}% → ${item.new_score}%</strong>
+
+            <span>+${item.variation}%</span>
+
+        </div>
+
+    `).join("");
+
+}
+
     
 }
 
@@ -1366,5 +1406,7 @@ document.addEventListener(
     }
 
 );
+
+
 
 

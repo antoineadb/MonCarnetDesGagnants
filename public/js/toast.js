@@ -67,3 +67,4 @@ class Toast {
     }
 
 }
+window.Toast = Toast;
