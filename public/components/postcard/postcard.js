@@ -336,6 +336,10 @@ export default class Postcard extends Component {
  
     refreshFavorite(){
 
+        this.favoriteButton.classList.toggle(
+            "favorite",
+            this.cardData.favorite
+        );
         this.favoriteButton.textContent =
 
             this.cardData.favorite
