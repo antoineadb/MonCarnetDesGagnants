@@ -9,13 +9,13 @@
 import Chest from "/components/chest/chest.js";
 import EventBus from "/js/core/EventBus.js";
 import Postcard from "/components/postcard/postcard.js";
+import ChestMenu from "/components/chest-menu/chest-menu.js";
+import GratitudeGallery from "/components/gratitude-gallery/gratitude-gallery.js";
 
 class Gratitude {
 
     constructor() {
 
-        this.cards = [];
-        this.container = null;
         this.chest = null;
         this.postcard = null;
 
@@ -24,37 +24,167 @@ class Gratitude {
 
     async init() {
 
-        this.container = document.getElementById("gratitudeCards");
-        this.chest = new Chest(document.getElementById("gratitudeChest"));
+        // ======================================================
+        // Conteneurs
+        // ======================================================
+
+        // ======================================================
+        // Composants
+        // ======================================================
+
+        this.chest = new Chest(
+            document.getElementById("gratitudeChest")
+        );
+
+        this.chestMenu = new ChestMenu(
+            document.getElementById("gratitudeChestMenu")
+        );
+
+        this.postcard = new Postcard(
+            document.getElementById("gratitudePostcard")
+        );
+
+        // ======================================================
+        // Initialisation
+        // ======================================================
+
         this.initChest();
+
         await this.chest.init();
 
-        await this.loadCards();
-        EventBus.on("chest.open", async () => {
-            console.log("Le coffre est ouvert !");
-            await this.postcard.reveal();
-        });
+        await this.chestMenu.init();
 
-        const postcardContainer = document.getElementById("gratitudePostcard");
-        this.postcard = new Postcard(postcardContainer);
         await this.postcard.init();
-    }
 
-    async loadCards() {
+        this.gallery = new GratitudeGallery(
+            document.getElementById("gratitudeCards")
+        );
 
-        try {
+        await this.gallery.init();
 
-            const response = await fetch("/api/gratitude");
+        // ======================================================
+        // Chargement
+        // ======================================================
 
-            if (!response.ok) {
+        //await this.loadCards();
 
-                throw new Error("Erreur lors du chargement des cartes");
+        // ======================================================
+        // Événements
+        // ======================================================
+
+        EventBus.on(
+
+            "gratitude.write",
+
+            async () => {
+
+                this.chestMenu.hide();
+
+                await this.postcard.reveal();
 
             }
 
-            this.cards = await response.json();
+        );
 
-            this.render();
+        EventBus.on(
+
+            "gratitude.gallery",
+
+            () => {
+
+                this.chestMenu.hide();
+
+                this.showGallery();
+
+            }
+
+        );
+
+        EventBus.on(
+
+            "postcard.save",
+
+            data => this.saveCard(data)
+
+        );
+
+    }
+
+    async showGallery() {
+
+        await this.gallery.loadCards();
+
+        this.gallery.show();
+
+    }
+    
+    initChest() {
+
+        EventBus.on(
+
+            "chest.open",
+
+            () => {
+
+                console.log("Chest ouvert");
+
+                this.chestMenu.show();
+
+            }
+
+        );
+
+    }
+
+    async saveCard(data) {
+
+        if (!data.title.trim() && !data.message.trim()) {
+
+            Toast.warning(
+                "Écris quelques mots avant de déposer ta carte."
+            );
+
+            return;
+
+        }
+
+        try {
+            
+            this.postcard.setLoading(true);
+
+            const response = await fetch("/api/gratitude", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(data)
+
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+
+                Toast.error(
+                    result.message || result.error || "Impossible de sauvegarder la carte."
+                );
+
+                return;
+
+            }
+
+            Toast.success(
+                "Carte déposée dans le coffre ✨"
+            );
+            
+            await this.postcard.deposit();
+
+           await this.gallery.loadCards();
 
         }
 
@@ -62,105 +192,21 @@ class Gratitude {
 
             console.error(error);
 
-        }
-
-    }
-
-    render() {
-
-        this.container.innerHTML = "";
-
-        if (this.cards.length === 0) {
-
-            this.container.innerHTML = `
-
-                <div class="gratitude-empty">
-
-                    <h2>📮</h2>
-
-                    <p>Votre coffre est vide.</p>
-
-                    <p>Créez votre première carte postale.</p>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-        this.cards.forEach(card => {
-
-            this.container.appendChild(
-
-                this.createCard(card)
-
+            Toast.error(
+                "Impossible de sauvegarder la carte."
             );
 
-        });
+        }
+        finally {
+
+            this.postcard.setLoading(false);
+
+        }
 
     }
+    
 
-    createCard(card) {
-
-        const element = document.createElement("div");
-
-        element.className = "postcard";
-
-        element.innerHTML = `
-
-            <div class="postcard-image">
-
-                ${
-                    card.image
-                        ? `<img src="${card.image}" alt="">`
-                        : `<div class="postcard-placeholder">📮</div>`
-                }
-
-            </div>
-
-            <div class="postcard-footer">
-
-                <h3>${card.title}</h3>
-
-                <p>${card.location ?? ""}</p>
-
-                <small>${this.formatDate(card.created_at)}</small>
-
-            </div>
-
-        `;
-
-        element.addEventListener("click", () => {
-
-            console.log(card);
-
-        });
-
-        return element;
-
-    }
-
-    formatDate(date) {
-
-        return new Date(date).toLocaleDateString("fr-FR", {
-
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-
-        });
-
-    }
-    initChest(){
-
-        // Pour l'instant
-        // affichage du composant
-
-    }
-
-
+  
 }
 
 document.addEventListener("DOMContentLoaded", () => {

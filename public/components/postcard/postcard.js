@@ -1,4 +1,5 @@
 import Component from "/js/core/Component.js";
+import EventBus from "/js/core/EventBus.js";
 
 export default class Postcard extends Component {
 
@@ -11,7 +12,6 @@ export default class Postcard extends Component {
     async init() {
 
         await super.init();
-        //this.hide();
 
     }
 
@@ -20,10 +20,28 @@ export default class Postcard extends Component {
         this.card = this.$("#postcard");
         this.inner = this.$(".postcard-inner");
         this.text = this.$(".gratitude-text");
+        this.title = this.$("#gratitudeTitle");
+        this.message = this.$("#gratitudeMessage");
+        this.saveButton = this.$("#saveGratitude");
 
     }
 
     bindEvents() {
+
+        this.saveButton.addEventListener(
+
+            "click",
+
+            () => {
+
+                EventBus.emit(
+                    "postcard.save",
+                    this.getData()
+                );
+
+            }
+
+        );
 
     }
 
@@ -52,17 +70,57 @@ export default class Postcard extends Component {
 
         this.expand();
 
+        // La carte est maintenant interactive
+        this.card.parentElement.style.pointerEvents = "auto";
+
     }
 
     hide() {
 
         this.card.classList.remove("show");
+
         this.card.classList.remove("flip");
+
+        this.card.classList.remove("expand");
 
         this.card.classList.add("hidden");
 
     }
+    
+    async deposit() {
 
+        // On empêche toute interaction
+        this.card.parentElement.style.pointerEvents = "none";
+
+        // On remet la carte côté recto
+        this.unflip();
+
+        await this.sleep(900);
+
+        // Elle reprend sa taille normale
+        this.card.classList.remove("expand");
+
+        await this.sleep(500);
+
+        // Elle redescend dans le coffre
+        this.card.classList.remove("show");
+
+        await this.sleep(1200);
+
+        // Elle disparaît
+        this.card.classList.add("hidden");
+
+        // On vide le formulaire
+        this.clear();
+
+    }
+    clear() {
+
+        this.title.value = "";
+
+        this.message.value = "";
+
+    }
     flip() {
 
         this.card.classList.add("flip");
@@ -92,5 +150,38 @@ export default class Postcard extends Component {
         this.card.classList.add("expand");
 
     }
-        
+
+    getData(){
+
+        return{
+
+            title: this.title.value.trim(),
+
+            message: this.message.value.trim()
+
+        };
+
+    }
+
+    clear(){
+
+        this.title.value = "";
+
+        this.message.value = "";
+
+    }
+
+    setLoading(isLoading){
+
+        this.saveButton.disabled = isLoading;
+
+        this.title.disabled = isLoading;
+
+        this.message.disabled = isLoading;
+
+        this.saveButton.textContent = isLoading
+            ? "⏳ Dépôt dans le coffre..."
+            : "📮 Déposer dans le coffre";
+
+    }
 }

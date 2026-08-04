@@ -261,6 +261,8 @@ try {
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+        user_id INTEGER NOT NULL,
+
         title TEXT NOT NULL,
 
         message TEXT NOT NULL,

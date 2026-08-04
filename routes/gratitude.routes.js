@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const send_date = new Date().toISOString();
 
 module.exports = (db) => {
 
@@ -8,13 +9,17 @@ module.exports = (db) => {
     // ==========================
     router.get("/", (req, res) => {
 
+        console.log("SESSION =", req.session);
+        console.log("USER =", req.session?.user);
+
         try {
 
             const cards = db.prepare(`
                 SELECT *
                 FROM gratitude_cards
+                WHERE user_id = ?
                 ORDER BY created_at DESC
-            `).all();
+            `).all(req.session.user.id);
 
             res.json(cards);
 
@@ -40,7 +45,8 @@ module.exports = (db) => {
                 SELECT *
                 FROM gratitude_cards
                 WHERE id = ?
-            `).get(req.params.id);
+                AND user_id = ?
+            `).get(req.params.id, req.session.user.id);
 
             if (!card) {
 
@@ -66,8 +72,7 @@ module.exports = (db) => {
     // ==========================
     // Création
     // ==========================
-    router.post("/", (req, res) => {
-
+    router.post("/", (req, res) => {        
         try {
 
             const {
@@ -78,13 +83,29 @@ module.exports = (db) => {
                 location,
                 theme,
                 emotion,
-                favorite,
-                send_date
+                favorite                
             } = req.body;
+        if (!title?.trim()) {
 
+            return res.status(400).json({
+                success:false,
+                message:"Titre obligatoire."
+            });
+
+            }
+
+            if (!message?.trim()) {
+
+                return res.status(400).json({
+                    success:false,
+                    message:"Message obligatoire."
+                });
+
+            }
             const result = db.prepare(`
                 INSERT INTO gratitude_cards
                 (
+                    user_id,
                     title,
                     message,
                     image,
@@ -95,8 +116,9 @@ module.exports = (db) => {
                     favorite,
                     send_date
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `).run(
+                req.session.user.id,
                 title,
                 message,
                 image,
@@ -135,7 +157,8 @@ module.exports = (db) => {
             db.prepare(`
                 DELETE FROM gratitude_cards
                 WHERE id = ?
-            `).run(req.params.id);
+                AND user_id = ?
+            `).run(req.params.id, req.session.user.id);
 
             res.json({
                 success: true

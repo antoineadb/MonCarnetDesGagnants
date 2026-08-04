@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/confirm.css">
     <link rel="stylesheet" href="../css/gratitude.css">
 
 </head>
@@ -44,20 +46,24 @@
 
     </div>
 
-    <div class="gratitude-page">
+    <div class="gratitude-scene">
 
-    <h1>🗝️ Le Coffre de Gratitude</h1>
+        <h1>🗝️ Le Coffre de Gratitude</h1>
 
-    <button id="btnNewCard">📮 Nouvelle carte postale</button>
-    <div class="chest-scene">
+        <p class="gratitude-subtitle">
+            Chaque carte est un souvenir précieux que vous avez choisi de conserver.
+        </p>
+
+        <div id="gratitudeChest"></div>
+        
+        <div id="gratitudeChestMenu"></div>
+
         <div id="gratitudePostcard"></div>
-        <div id="gratitudeChest"></div>      
-    </div>
-     <div id="gratitudeCards"></div>
-</div>
 
-<script type="module" src="/js/gratitude.js"></script>
     </div>
+
+    <div id="gratitudeCards" class="hidden"></div>
+
     <footer class="chapter-footer">
 
     <span class="chapter-book">
@@ -71,3 +77,5 @@
 </footer>
 
 </section>
+<script type="module" src="/js/gratitude.js"></script>
+<script src="/js/toast.js"></script>

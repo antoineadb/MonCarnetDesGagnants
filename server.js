@@ -41,8 +41,7 @@ app.use((req, res, next) => {
 
     console.log("=================================");
     console.log(req.method, req.url);
-    console.log("Session :", req.session);
-    console.log("Session user :", req.session.user);
+    console.log("Session user :", req.session && req.session.user);
     console.log("=================================");
 
     next();

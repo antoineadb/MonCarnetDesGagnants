@@ -32,31 +32,50 @@
 
         <section class="postcard-back">
 
-            <div class="postcard-header">
+        <div class="postcard-header">
 
-                Aujourd'hui je remercie...
+            Aujourd'hui je remercie...
 
-            </div>
+        </div>
+
+        <div class="gratitude-editor">
+
+            <input
+                id="gratitudeTitle"
+                class="gratitude-title"
+                type="text"
+                maxlength="60"
+                placeholder="Titre de votre gratitude">
 
             <textarea
+                id="gratitudeMessage"
                 class="gratitude-text"
-                placeholder="Écris ici ce qui a illuminé ta journée..."></textarea>
+                placeholder="Écris ici ce qui a illuminé ta journée...">
+            </textarea>
 
-            <div class="postcard-bottom">
+        </div>
 
-                <div class="signature">
+        <button
+            id="saveGratitude"
+            class="postcard-save">
 
-                    Signature
+            📮 Déposer dans le coffre
 
-                </div>
+        </button>
 
-                <div class="stamp">
+        <div class="postcard-bottom">
 
-                </div>
+            <div class="signature">
+
+                Signature
 
             </div>
 
-        </section>
+            <div class="stamp"></div>
+
+        </div>
+
+    </section>
 
     </div>
 

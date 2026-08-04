@@ -1,0 +1,67 @@
+.chest-menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-top:25px;
+
+    opacity:0;
+
+    transform:translateY(-15px);
+
+    transition:
+        opacity .35s,
+        transform .35s;
+
+}
+
+.chest-menu.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.chest-action{
+
+    min-width:260px;
+
+    padding:15px 26px;
+
+    border:none;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    background:linear-gradient(#8f5b35,#6e4324);
+
+    color:white;
+
+    transition:.25s;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.chest-action:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.hidden{
+
+    display:none;
+
+}
