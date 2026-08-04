@@ -3,9 +3,11 @@ import EventBus from "/js/core/EventBus.js";
 
 export default class Postcard extends Component {
 
-    constructor(container) {
+    constructor(container, options = {}){
 
         super(container, "postcard");
+
+        this.mode = options.mode || "edit";
 
     }
 
@@ -13,16 +15,41 @@ export default class Postcard extends Component {
 
         await super.init();
 
+        this.setMode(this.mode);
+
     }
 
     cacheElements() {
 
         this.card = this.$("#postcard");
+
         this.inner = this.$(".postcard-inner");
+
         this.text = this.$(".gratitude-text");
+
         this.title = this.$("#gratitudeTitle");
+
         this.message = this.$("#gratitudeMessage");
+
         this.saveButton = this.$("#saveGratitude");
+
+        this.editor = this.$("#gratitudeEditor");
+
+        this.reader = this.$("#gratitudeReader");
+
+        this.actionsEdit = this.$("#postcardActionsEdit");
+
+        this.actionsView = this.$("#postcardActionsView");
+
+        this.titleView = this.$("#gratitudeTitleView");
+
+        this.messageView = this.$("#gratitudeMessageView");
+
+        this.favoriteButton = this.$("#favoriteCard");
+
+        this.editButton = this.$("#editCard");
+
+        this.deleteButton = this.$("#deleteCard");
 
     }
 
@@ -37,6 +64,60 @@ export default class Postcard extends Component {
                 EventBus.emit(
                     "postcard.save",
                     this.getData()
+                );
+
+            }
+
+        );
+
+        this.editButton.addEventListener(
+
+            "click",
+
+            () => {
+
+                EventBus.emit(
+                    "postcard.edit",
+                    this.cardData
+                );
+
+            }
+
+        );
+  
+        this.deleteButton.addEventListener(
+
+            "click",
+
+            () => {
+
+                EventBus.emit(
+                    "postcard.delete",
+                    this.cardData
+                );
+
+            }
+
+        );
+
+        this.favoriteButton.addEventListener(
+
+            "click",
+
+            () => {
+
+                console.log("CLICK FAVORI");
+
+                this.cardData.favorite = !this.cardData.favorite;
+
+                this.refreshFavorite();
+
+                EventBus.emit(
+
+                    "postcard.favorite",
+
+                    this.cardData
+
                 );
 
             }
@@ -114,13 +195,7 @@ export default class Postcard extends Component {
         this.clear();
 
     }
-    clear() {
 
-        this.title.value = "";
-
-        this.message.value = "";
-
-    }
     flip() {
 
         this.card.classList.add("flip");
@@ -153,21 +228,15 @@ export default class Postcard extends Component {
 
     getData(){
 
-        return{
+        return {
+
+            ...this.cardData,
 
             title: this.title.value.trim(),
 
             message: this.message.value.trim()
 
         };
-
-    }
-
-    clear(){
-
-        this.title.value = "";
-
-        this.message.value = "";
 
     }
 
@@ -184,4 +253,98 @@ export default class Postcard extends Component {
             : "📮 Déposer dans le coffre";
 
     }
+
+    isEditMode(){
+
+        return this.mode === "edit";
+
+    }
+
+    isViewMode(){
+
+        return this.mode === "view";
+
+    }
+
+    setMode(mode){
+
+        this.mode = mode;
+
+        if(mode==="edit"){
+
+            this.initEditMode();
+
+        }else{
+
+            this.initViewMode();
+
+        }
+
+    }
+
+    initEditMode(){
+
+        this.editor.classList.remove("hidden");
+
+        this.reader.classList.add("hidden");
+
+        this.actionsEdit.classList.remove("hidden");
+
+        this.actionsView.classList.add("hidden");
+
+    }
+
+    initViewMode(){
+
+        this.editor.classList.add("hidden");
+
+        this.reader.classList.remove("hidden");
+
+        this.actionsEdit.classList.add("hidden");
+
+        this.actionsView.classList.remove("hidden");
+
+    }
+
+    fill(card){
+
+        this.cardData = card;
+
+        // Champs du mode édition
+        this.title.value = card.title;
+        this.message.value = card.message;
+
+        // Champs du mode lecture
+        this.titleView.textContent = card.title;
+        this.messageView.textContent = card.message;
+
+        this.refreshFavorite();
+
+    }
+
+    clear(){
+
+        this.title.value = "";
+
+        this.message.value = "";
+
+        this.titleView.textContent = "";
+
+        this.messageView.textContent = "";
+
+    }   
+ 
+    refreshFavorite(){
+
+        this.favoriteButton.textContent =
+
+            this.cardData.favorite
+
+                ? "⭐ Favori"
+
+                : "☆ Favori";
+
+    }
+
+    
 }

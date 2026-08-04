@@ -158,6 +158,88 @@ module.exports = (db) => {
     });
 
     // ==========================
+    // Modification
+    // ==========================
+    
+    router.put("/:id", (req, res) => {
+
+        try {
+
+            const {
+                title,
+                message,
+                image,
+                image_type,
+                location,
+                theme,
+                emotion,
+                favorite
+            } = req.body;
+
+            if (!title?.trim()) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Titre obligatoire."
+                });
+
+            }
+
+            if (!message?.trim()) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Message obligatoire."
+                });
+
+            }
+
+            db.prepare(`
+                UPDATE gratitude_cards
+                SET
+                    title = ?,
+                    message = ?,
+                    image = ?,
+                    image_type = ?,
+                    location = ?,
+                    theme = ?,
+                    emotion = ?,
+                    favorite = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE
+                    id = ?
+                    AND user_id = ?
+            `).run(
+
+                title,
+                message,
+                image,
+                image_type,
+                location,
+                theme,
+                emotion,
+                favorite ? 1 : 0,
+                req.params.id,
+                req.session.user.id
+
+            );
+
+            res.json({
+                success: true
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            res.status(500).json({
+                error: error.message
+            });
+
+        }
+
+    });
+    // ==========================
     // Suppression
     // ==========================
     router.delete("/:id", (req, res) => {

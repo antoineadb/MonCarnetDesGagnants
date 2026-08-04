@@ -1,0 +1,67 @@
+.gratitude-viewer{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5000;
+
+}
+
+.viewer-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(3px);
+
+}
+
+.viewer-window{
+
+    position:relative;
+
+    width:900px;
+
+    max-width:90vw;
+
+    min-height:600px;
+
+    background:#fdf8ef;
+
+    border-radius:20px;
+
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+
+    padding:40px;
+
+    z-index:2;
+
+}
+
+.viewer-close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    cursor:pointer;
+
+}
+
+.hidden{
+
+    display:none;
+
+}

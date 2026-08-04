@@ -32,50 +32,107 @@
 
         <section class="postcard-back">
 
-        <div class="postcard-header">
+            <div class="postcard-header">
 
-            Aujourd'hui je remercie...
-
-        </div>
-
-        <div class="gratitude-editor">
-
-            <input
-                id="gratitudeTitle"
-                class="gratitude-title"
-                type="text"
-                maxlength="60"
-                placeholder="Titre de votre gratitude">
-
-            <textarea
-                id="gratitudeMessage"
-                class="gratitude-text"
-                placeholder="Écris ici ce qui a illuminé ta journée...">
-            </textarea>
-
-        </div>
-
-        <button
-            id="saveGratitude"
-            class="postcard-save">
-
-            📮 Déposer dans le coffre
-
-        </button>
-
-        <div class="postcard-bottom">
-
-            <div class="signature">
-
-                Signature
+                Aujourd'hui je remercie...
 
             </div>
 
-            <div class="stamp"></div>
+            <!-- ================================= -->
+            <!-- MODE ÉDITION                      -->
+            <!-- ================================= -->
 
-        </div>
+            <div
+                id="gratitudeEditor"
+                class="gratitude-editor">
 
-    </section>
+                <input
+                    id="gratitudeTitle"
+                    class="gratitude-title"
+                    type="text"
+                    maxlength="60"
+                    placeholder="Titre de votre gratitude">
+
+                <textarea
+                    id="gratitudeMessage"
+                    class="gratitude-text"
+                    placeholder="Écris ici ce qui a illuminé ta journée..."></textarea>
+
+            </div>
+
+            <!-- ================================= -->
+            <!-- MODE LECTURE                      -->
+            <!-- ================================= -->
+
+            <div
+                id="gratitudeReader"
+                class="gratitude-reader hidden">
+
+                <h2 id="gratitudeTitleView"></h2>
+
+                <div id="gratitudeMessageView"></div>
+
+            </div>
+
+            <!-- ================================= -->
+            <!-- ACTIONS ÉDITION                   -->
+            <!-- ================================= -->
+
+            <div
+                id="postcardActionsEdit"
+                class="postcard-actions-edit">
+
+                <button
+                    id="saveGratitude"
+                    class="postcard-save">
+
+                    📮 Déposer dans le coffre
+
+                </button>
+
+            </div>
+
+            <!-- ================================= -->
+            <!-- ACTIONS LECTURE                   -->
+            <!-- ================================= -->
+
+            <div
+                id="postcardActionsView"
+                class="postcard-actions-view hidden">
+
+                <button id="favoriteCard">
+
+                    ⭐ Favori
+
+                </button>
+
+                <button id="editCard">
+
+                    ✏ Modifier
+
+                </button>
+
+                <button id="deleteCard">
+
+                    🗑 Supprimer
+
+                </button>
+
+            </div>
+
+            <div class="postcard-bottom">
+
+                <div class="signature">
+
+                    Signature
+
+                </div>
+
+                <div class="stamp"></div>
+
+            </div>
+
+        </section>       
 
     </div>
 

@@ -112,4 +112,4 @@ class Confirm {
 
    }
 }
-    window.Confirm = Confirm;
+   window.Confirm = Confirm;

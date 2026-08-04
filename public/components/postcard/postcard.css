@@ -105,6 +105,137 @@
 
 }
 
+/* ==========================================
+   Actions de la carte postale
+========================================== */
+
+.postcard-actions-view {
+
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 28px;
+
+}
+
+/* Boutons communs */
+
+.postcard-actions-view button {
+
+    padding: 10px 22px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 1.15rem;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+    box-shadow:
+        0 6px 14px rgba(0,0,0,.15);
+
+}
+
+/* ==========================
+   FAVORI
+========================== */
+
+#favoriteCard {
+
+    background: linear-gradient(#fff8d9, #f6e9aa);
+
+    color: #7a5a00;
+
+}
+
+#favoriteCard:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.20);
+
+}
+
+#favoriteCard.favorite {
+
+    background: linear-gradient(#ffe68a,#ffc400);
+
+    color: #5c4300;
+
+}
+
+.postcard-actions-view button:hover {
+
+    transform: translateY(-3px);
+
+    filter: brightness(1.05);
+
+}
+
+.postcard-actions-view button:active {
+
+    transform: scale(.97);
+
+}
+
+/* ==========================
+   MODIFIER
+========================== */
+
+#editCard {
+
+    background: linear-gradient(#d6ebff,#9ec9f8);
+
+    color: #214f84;
+
+}
+
+#editCard:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.20);
+
+}
+
+/* ==========================
+   SUPPRIMER
+========================== */
+
+#deleteCard {
+
+    background: linear-gradient(#d84d4d,#b52222);
+
+    color: white;
+
+}
+
+#deleteCard:hover {
+
+    background: linear-gradient(#c53434,#8e1515);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.postcard-actions-view button:active {
+
+    transform: scale(.97);
+
+}
 
 .postcard.hidden{
 

@@ -1,4 +1,5 @@
 import Component from "/js/core/Component.js";
+import EventBus from "/js/core/EventBus.js";
 
 export default class GratitudeGallery extends Component {
 
@@ -78,13 +79,17 @@ export default class GratitudeGallery extends Component {
 
         console.log("Container avant :", this.container.innerHTML);
 
-        this.cards.forEach(card => {
+        this.cards.forEach((card, index) => {
 
-            this.container.appendChild(
+            const element = this.createCard(card);
 
-                this.createCard(card)
+            element.style.left = `${index * 35}px`;
 
-            );
+            element.style.top = `${index * 18}px`;
+
+            element.style.zIndex = index;
+
+            this.container.appendChild(element);
 
         });
 
@@ -136,7 +141,13 @@ export default class GratitudeGallery extends Component {
 
         element.addEventListener("click", () => {
 
-            console.log(card);
+            EventBus.emit(
+
+            "gratitude.view",
+
+            card
+
+        );
 
         });
 

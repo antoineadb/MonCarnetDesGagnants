@@ -241,20 +241,26 @@
 
 #gratitudeCards{
 
-    display:grid;
+     position:relative;
 
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    width:900px;
 
-    gap:35px;
+    height:520px;
 
-    max-width:1200px;
-
-    margin:60px auto;
-
-    padding:0 20px;
+    margin:50px auto;
 
 }
+
 .gratitude-card{
+    position:absolute;
+
+    width:360px;
+
+    transition:
+        transform .45s ease,
+        left .45s ease,
+        top .45s ease,
+        box-shadow .45s ease;
 
     background:#fdf8ef;
 
@@ -265,8 +271,6 @@
     box-shadow:0 18px 40px rgba(0,0,0,.15);
 
     cursor:pointer;
-
-    transition:.3s;
 
     transform:rotate(var(--rotation));
 
