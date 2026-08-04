@@ -34,6 +34,16 @@ module.exports = (db) => {
 
     });
 
+    router.get("/debug", (req, res) => {
+
+        const columns = db.prepare(`
+            PRAGMA table_info(gratitude_cards)
+        `).all();
+
+        res.json(columns);
+
+    });
+
     // ==========================
     // Une carte
     // ==========================
