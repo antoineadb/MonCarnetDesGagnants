@@ -290,6 +290,20 @@ try {
     );
     `).run();   
 
+    try {
+
+        db.prepare(`
+            ALTER TABLE gratitude_cards
+            ADD COLUMN user_id INTEGER
+        `).run();
+
+        console.log("✔ Colonne user_id ajoutée");
+
+    } catch (error) {
+
+        // La colonne existe déjà
+    }
+
 // ======================================================
 // TABLE PROGRESSION_PATHS
 // ======================================================
