@@ -27,57 +27,6 @@ body{
 
 }
 
-.login-screen{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100vh;
-
-}
-
-.book{
-
-    width:420px;
-
-    height:620px;
-
-    perspective:1200px;
-
-}
-
-.book-cover{
-
-    width:100%;
-
-    height:100%;
-
-    background:
-    linear-gradient(145deg,
-    #754A29,
-    #5E391E);
-
-    border-radius:14px;
-
-    box-shadow:var(--shadow-book);
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:white;
-
-    padding:50px;
-
-}
-
 .cg-logo{
 
     width:90px;

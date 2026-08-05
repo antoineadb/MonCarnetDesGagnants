@@ -538,7 +538,7 @@ if (pathCount.total === 0) {
     
             id,
 
-            user_id NOT NULL,
+            user_id,
 
             path_id,
 
