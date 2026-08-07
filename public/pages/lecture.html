@@ -1,90 +1,236 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Objectifs - Le Carnet des Gagnants</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Carnet de Lecture</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/lecture.css">
+    <link rel="stylesheet" href="/css/lecture.css">
 
 </head>
 
 <body>
-    <div class="back-button">
 
-    <a href="app.html">
-        ← Retour au carnet
-    </a>
-</div>
+<section class="chapter-page lecture-page">
 
+    <header class="lecture-header">
 
+        <div class="lecture-icon">
 
-<section class="chapter-page">
+            📖
 
-    <div class="chapter-header">
+        </div>
 
-        <div class="chapter-number">Chapitre IV</div>
+        <h1>
 
-        <h1 class="chapter-title">Lecture</h1>
+            Carnet de Lecture
 
-        <div class="chapter-line"></div>
+        </h1>
 
-        <p class="chapter-quote">
-            « Chaque livre ouvre une nouvelle porte. »
+        <p class="lecture-subtitle">
+
+            Les livres qui m'ont construit
+
         </p>
 
-    </div>
+        <blockquote class="lecture-quote">
 
-    <div class="chapter-text">
+            « Les livres sont les mentors silencieux
+            qui nous accompagnent toute une vie. »
 
-        <p>
-            Les livres sont une source inépuisable d'inspiration.
+        </blockquote>
+
+        <div class="lecture-separator">
+
+            ✦ &nbsp; ✦ &nbsp; ✦
+
+        </div>
+
+        <button
+            id="newBookButton"
+            class="primary-button">
+
+            ➕ Nouveau livre
+
+        </button>
+
+    </header>
+        <!-- ==========================================
+         Bibliothèque
+    =========================================== -->
+
+    <main class="lecture-content">
+
+        <section class="bookshelf-section">
+
+            <h2>
+
+                📚 Ma bibliothèque
+
+            </h2>
+
+            <p class="bookshelf-intro">
+
+                Chaque livre que vous ajouterez écrira
+                un nouveau chapitre de votre histoire.
+
+            </p>
+
+            <div
+                id="bookshelf"
+                class="bookshelf">
+
+                <div class="bookshelf-empty">
+
+                    <div class="bookshelf-empty-icon">
+
+                        📚
+
+                    </div>
+
+                    <h3>
+
+                        Votre bibliothèque n'attend plus
+                        que votre première découverte.
+
+                    </h3>
+
+                    <p>
+
+                        Les livres que vous ajouterez ici
+                        deviendront les témoins de votre évolution.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+                <!-- ==========================================
+             Livres de Vie
+        =========================================== -->
+
+        <section class="life-books-section">
+
+            <h2>
+
+                ❤️ Mes Livres de Vie
+
+            </h2>
+
+            <p class="life-books-intro">
+
+                Certains livres ne se contentent pas de nous instruire.
+                Ils changent notre façon de voir le monde.
+
+            </p>
+
+            <div
+                id="lifeBooks"
+                class="life-books">
+
+                <div class="life-books-empty">
+
+                    <div class="life-books-icon">
+
+                        ❤️📖
+
+                    </div>
+
+                    <h3>
+
+                        Aucun Livre de Vie pour le moment
+
+                    </h3>
+
+                    <p>
+
+                        Lorsque l'un de vos livres vous transformera
+                        profondément, marquez-le d'un ❤️.
+                        Il rejoindra automatiquement cette collection.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+        <!-- ==========================================
+         Statistiques (à venir)
+    =========================================== -->
+
+    <section class="reading-stats-preview">
+
+        <h2>
+
+            📈 Vos statistiques de lecture
+
+        </h2>
+
+        <p class="stats-intro">
+
+            Au fil de vos lectures, votre bibliothèque
+            prendra vie et révélera votre parcours.
+
         </p>
 
-        <p>
-            Tu pourras conserver ici les ouvrages que tu souhaites lire,
-            ceux que tu as terminés ainsi que les idées qui t'ont marqué.
-        </p>
+        <div class="stats-placeholder">
 
-        <p>
-            Une citation, une réflexion ou une découverte peuvent parfois
-            transformer une manière de penser.
-        </p>
+            <div class="stat-card">
 
-        <p>
-            Fais de cette bibliothèque le reflet de ton évolution personnelle.
-        </p>
+                <span class="stat-value">0</span>
 
-    </div>
-       <footer class="chapter-footer">
+                <span class="stat-label">Livres lus</span>
 
-    <span class="chapter-book">
-        Le Carnet des Gagnants
-    </span>
+            </div>
 
-    <span class="chapter-page-number">
-        Page 4
-    </span>
+            <div class="stat-card">
 
-</footer>
-<div class="coming-soon">
+                <span class="stat-value">0</span>
 
-    🚧 Fonctionnalités en cours de développement
+                <span class="stat-label">Livres de Vie</span>
 
-</div>
+            </div>
+
+            <div class="stat-card">
+
+                <span class="stat-value">0</span>
+
+                <span class="stat-label">Citations</span>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="stat-value">0</span>
+
+                <span class="stat-label">Idées retenues</span>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </section>
+
+<script type="module" src="/js/lecture.js"></script>
+
+</body>
+
+</html>

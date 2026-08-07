@@ -1,183 +1,432 @@
-.chapter-page{
+@import url("/components/BookCard/book-card.css");
 
-    max-width:760px;
+@import url("/components/Bookshelf/bookshelf.css");
+
+/*=========================================================
+    CHAPITRE IV - CARNET DE LECTURE
+=========================================================*/
+
+.lecture-page{
+
+    max-width:1200px;
 
     margin:40px auto;
 
-    padding:60px;
+    padding:40px;
 
-    background:#f8f3e8;
+    background:#d5b98a;
 
-    border:1px solid #d8c6a5;
+    radial-gradient(circle at top,
+    #dcc49a 0%,
+    #cfb17d 45%,
+    #c29a63 100%);
 
-    border-radius:8px;
+    border-radius:22px;
 
-    box-shadow:
-
-        0 8px 25px rgba(0,0,0,.12);
-
+   box-shadow:
+    0 15px 35px rgba(40,25,10,.30),
+    inset 0 0 70px rgba(90,60,20,.18);
 }
-.chapter-title{
 
-    font-family:"Cormorant Garamond",serif;
+/*=========================================================
+    HEADER
+=========================================================*/
 
-    font-size:60px;
-
-    font-weight:600;
+.lecture-header{
 
     text-align:center;
 
-    color:#5b3b1b;
-
-    margin:10px 0;
+    margin-bottom:55px;
 
 }
-.chapter-number{
 
-    text-align:center;
+.lecture-icon{
 
-    text-transform:uppercase;
+    font-size:72px;
 
-    letter-spacing:5px;
-
-    color:#8b6d4b;
-
-    font-size:14px;
+    margin-bottom:18px;
 
 }
-.chapter-line{
 
-    width:180px;
+.lecture-header h1{
 
-    height:1px;
+    font-size:42px;
 
-    margin:25px auto;
+    color:#2f180b;
 
-    background:#b99667;
+    margin-bottom:12px;
+
+    font-weight:700;
 
 }
-.chapter-quote{
 
-    text-align:center;
-
-    font-style:italic;
+.lecture-subtitle{
 
     font-size:22px;
 
-    color:#8b6d4b;
+    color:#9a7048;
 
-    margin-bottom:45px;
+    font-style:italic;
+
+    margin-bottom:30px;
 
 }
 
-.chapter-text{
+.lecture-quote{
 
-    font-family:"Cormorant Garamond",serif;
+    max-width:700px;
 
-    font-size:28px;
+    margin:0 auto;
+
+    font-size:22px;
 
     line-height:1.8;
 
-    color:#43311d;
-
-}
-
-.chapter-text p{
-
-    margin-bottom:28px;
-
-    text-align:justify;
-
-    text-indent:35px;
-
-}
-
-/* ===========================
-   Pied de page
-=========================== */
-
-.chapter-footer{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:80px;
-
-    padding-top:20px;
-
-    border-top:1px solid #d8c6a5;
-
-    color:#8b6d4b;
-
-    font-size:16px;
-
-    letter-spacing:1px;
-
-}
-
-.chapter-book{
+    color:#70543f;
 
     font-style:italic;
 
 }
 
-.chapter-page-number{
+.lecture-separator{
 
-    font-weight:600;
+    margin:35px 0;
 
-}
-.back-button{
+    font-size:24px;
 
-    width:900px;
-
-    margin:30px auto 10px;
+    color:#c7a46a;
 
 }
 
-.back-button a{
+/*=========================================================
+    BOUTON
+=========================================================*/
 
-    text-decoration:none;
+#newBookButton{
 
-    color:#f3e7d0;
+    display:inline-flex;
 
-    font-size:18px;
+    align-items:center;
 
-    font-family:"Inter",sans-serif;
+    justify-content:center;
 
-    transition:.25s;
+    gap:10px;
 
-}
+    padding:16px 34px;
 
-.back-button a:hover{
+    border:none;
+
+    border-radius:14px;
+
+    background:#7b4f2b;
 
     color:#ffffff;
 
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
+
+    box-shadow:0 6px 18px rgba(123,79,43,.25);
+
 }
-.coming-soon{
 
-    width:max-content;
+#newBookButton:hover{
 
-    margin:60px auto 0;
+    background:#94633a;
 
-    padding:10px 22px;
+    transform:translateY(-2px);
 
-    background:#f6e7c8;
+    box-shadow:0 10px 22px rgba(123,79,43,.35);
 
-    border:1px solid #d6b37c;
+}
 
-    border-radius:30px;
+/*=========================================================
+    CONTENU
+=========================================================*/
 
-    color:#8b5e2d;
+.lecture-content{
 
-    font-family:"Inter",sans-serif;
+    display:flex;
 
-    font-size:15px;
+    flex-direction:column;
 
-    font-weight:500;
+    gap:60px;
 
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+/*=========================================================
+    SECTIONS
+=========================================================*/
+
+.bookshelf-section,
+.life-books-section,
+.reading-stats-preview{
+
+    background:#e4cfab;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    border:1px solid #b88b50;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+
+}
+
+.bookshelf-section h2,
+.life-books-section h2,
+.reading-stats-preview h2{
+
+    color:#5a3923;
+
+    font-size:28px;
+
+    margin-bottom:14px;
+
+}
+
+.bookshelf-intro,
+.life-books-intro,
+.stats-intro{
+
+    color:#86684c;
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    margin-bottom:28px;
+
+}
+/*=========================================================
+    BIBLIOTHÈQUE
+=========================================================*/
+
+.bookshelf{
+
+    min-height:260px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:1px solid #a87a42;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+        180deg,
+        #e7d4b1,
+        #d7be95);
+
+}
+
+.bookshelf-empty{
+
+    max-width:520px;
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+.bookshelf-empty-icon{
+
+    font-size:64px;
+
+    margin-bottom:20px;
+
+}
+
+.bookshelf-empty h3{
+
+    font-size:28px;
+
+    color:#5a3923;
+
+    margin-bottom:18px;
+
+}
+
+.bookshelf-empty p{
+
+    color:#86684c;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+/*=========================================================
+    FUTURES ETAGÈRES
+=========================================================*/
+
+.bookshelf-grid{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(180px,1fr));
+
+    gap:28px;
+
+}
+/*=========================================================
+    LIVRES DE VIE
+=========================================================*/
+
+.life-books{
+
+    min-height:240px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:1px solid #a87a42;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+        180deg,
+        #ead7b5,
+        #d8bd93);
+}
+
+.life-books-empty{
+
+    max-width:540px;
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+.life-books-icon{
+
+    font-size:58px;
+
+    margin-bottom:20px;
+
+}
+
+.life-books-empty h3{
+
+    color:#7a2f2f;
+
+    font-size:28px;
+
+    margin-bottom:18px;
+
+}
+
+.life-books-empty p{
+
+    color:#86684c;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+/*=========================================================
+    FUTURS LIVRES DE VIE
+=========================================================*/
+
+.life-books-grid{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(190px,1fr));
+
+    gap:30px;
+
+}
+/*=========================================================
+    STATISTIQUES
+=========================================================*/
+
+.stats-placeholder{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(170px,1fr));
+
+    gap:24px;
+
+    margin-top:30px;
+
+}
+
+.stat-card{
+
+    background:#ead8b8;
+
+    border:1px solid #eadcc8;
+
+    border-radius:16px;
+
+    padding:28px 18px;
+
+    text-align:center;
+
+    transition:.30s;
+
+    box-shadow:0 5px 16px rgba(0,0,0,.05);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 24px rgba(0,0,0,.10);
+
+}
+
+.stat-value{
+
+    display:block;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#7b4f2b;
+
+    margin-bottom:12px;
+
+}
+
+.stat-label{
+
+    display:block;
+
+    color:#86684c;
+
+    font-size:16px;
+
+    line-height:1.5;
 
 }
