@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="360" viewBox="0 0 240 360">
+    <rect width="240" height="360" rx="8" fill="#7d4f2a"></rect>
+    <rect x="18" y="18" width="204" height="324" rx="5" fill="#d9bd8b"></rect>
+    <text x="120" y="145" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#4b2d1b">
+        Carnet
+    </text>
+    <text x="120" y="175" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#4b2d1b">
+        de Lecture
+    </text>
+    <text x="120" y="230" text-anchor="middle" font-size="32">
+        📖
+    </text>
+</svg>

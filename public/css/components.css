@@ -1,0 +1,266 @@
+/* =========================================================
+   FENÊTRE DÉTAIL D'UN LIVRE
+========================================================= */
+
+.book-detail-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(45, 25, 12, 0.72);
+
+    padding: 30px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENU DE LA FENÊTRE
+========================================================= */
+
+.book-detail-content {
+    position: relative;
+
+    width: min(850px, 90vw);
+    max-height: 85vh;
+
+    display: flex;
+    gap: 40px;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    background:
+        linear-gradient(
+            rgba(244, 226, 190, 0.94),
+            rgba(225, 198, 151, 0.94)
+        );
+
+    border: 1px solid #a87943;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        inset 0 0 30px rgba(120, 75, 30, 0.12);
+}
+
+
+/* =========================================================
+   BOUTON FERMER
+========================================================= */
+
+.book-detail-close {
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #7b4b27;
+    color: #f5dfb5;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.book-detail-close:hover {
+    transform: scale(1.08);
+
+    background: #5f351a;
+}
+
+
+/* =========================================================
+   COUVERTURE
+========================================================= */
+
+.book-detail-cover {
+    flex: 0 0 220px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.book-detail-cover img {
+    width: 200px;
+    height: 300px;
+
+    object-fit: cover;
+
+    border: 10px solid #7b4b27;
+
+    border-radius: 4px;
+
+    background: #ddbd83;
+
+    box-shadow:
+        4px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================================================
+   INFORMATIONS
+========================================================= */
+
+.book-detail-info {
+    flex: 1;
+
+    padding-top: 10px;
+}
+
+.book-detail-info h2 {
+    margin: 0 0 10px;
+
+    font-family: Georgia, serif;
+
+    font-size: 32px;
+
+    color: #4a2a16;
+}
+
+.book-detail-info > p {
+    margin: 0 0 30px;
+
+    font-family: Georgia, serif;
+
+    font-size: 19px;
+
+    font-style: italic;
+
+    color: #80664b;
+}
+
+
+/* =========================================================
+   MÉTADONNÉES
+========================================================= */
+
+.book-detail-meta {
+    margin-bottom: 30px;
+
+    padding: 20px;
+
+    background: rgba(255, 248, 229, 0.35);
+
+    border-left: 3px solid #9b6b3d;
+}
+
+.book-detail-meta p {
+    margin: 10px 0;
+
+    color: #513522;
+
+    font-size: 16px;
+}
+
+.book-detail-meta strong {
+    color: #6d4222;
+}
+
+
+/* =========================================================
+   BOUTONS
+========================================================= */
+
+.book-detail-actions {
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 25px;
+}
+
+.book-detail-actions button {
+    padding: 11px 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.book-detail-actions button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Modifier */
+
+.book-detail-actions .primary-button {
+    background: #7b4b27;
+    color: #fff3dc;
+}
+
+
+/* Supprimer */
+
+.book-detail-actions .secondary-button {
+    background: #9b3030;
+    color: white;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .book-detail-content {
+        flex-direction: column;
+
+        align-items: center;
+
+        width: 94vw;
+
+        padding: 30px 20px;
+    }
+
+    .book-detail-info {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    .book-detail-actions {
+        justify-content: center;
+    }
+
+}
+
+.book-detail-modal[hidden] {
+    display: none !important;
+}

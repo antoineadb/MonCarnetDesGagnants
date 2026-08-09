@@ -569,6 +569,243 @@ bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD,10);
 const lydiePasswordHash =
 bcrypt.hashSync(DEFAULT_LYDIE_PASSWORD,10);
 
+
+
+// ======================================================
+// TABLES CARNET DE LECTURE
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS books (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    title TEXT NOT NULL,
+
+    subtitle TEXT,
+
+    author TEXT,
+
+    publisher TEXT,
+
+    isbn TEXT,
+
+    language TEXT DEFAULT 'fr',
+
+    cover TEXT,
+
+    category TEXT,
+
+    start_date TEXT,
+
+    end_date TEXT,
+
+    purchase_date TEXT,
+
+    pages INTEGER DEFAULT 0,
+
+    status TEXT DEFAULT 'to-read',
+
+    format TEXT DEFAULT 'paper',
+
+    read_count INTEGER DEFAULT 1,
+
+    rating INTEGER DEFAULT 0,
+
+    life_impact INTEGER DEFAULT 0,
+
+    life_book INTEGER DEFAULT 0,
+
+    summary TEXT,
+
+    what_i_liked TEXT,
+
+    what_i_did_not_like TEXT,
+
+    what_i_learned TEXT,
+
+    before_reading TEXT,
+
+    after_reading TEXT,
+
+    why_this_book TEXT,
+
+    reread TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id)
+
+);
+
+`);
+
+
+// ======================================================
+// TABLE QUOTES
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS quotes (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    book_id INTEGER NOT NULL,
+
+    text TEXT NOT NULL,
+
+    page TEXT,
+
+    chapter TEXT,
+
+    comment TEXT,
+
+    favorite INTEGER DEFAULT 0,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY(book_id)
+        REFERENCES books(id)
+        ON DELETE CASCADE
+
+);
+
+`);
+
+
+// ======================================================
+// TABLE IDEAS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS ideas (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    book_id INTEGER NOT NULL,
+
+    title TEXT NOT NULL,
+
+    description TEXT,
+
+    category TEXT,
+
+    importance INTEGER DEFAULT 3,
+
+    applied INTEGER DEFAULT 0,
+
+    application_date TEXT,
+
+    result TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY(book_id)
+        REFERENCES books(id)
+        ON DELETE CASCADE
+
+);
+
+`);
+
+
+// ======================================================
+// TABLE ACTIONS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS actions (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    book_id INTEGER NOT NULL,
+
+    title TEXT NOT NULL,
+
+    description TEXT,
+
+    priority INTEGER DEFAULT 3,
+
+    completed INTEGER DEFAULT 0,
+
+    completed_at TEXT,
+
+    deadline TEXT,
+
+    notes TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY(book_id)
+        REFERENCES books(id)
+        ON DELETE CASCADE
+
+);
+
+`);
+
+
+// ======================================================
+// INDEX CARNET DE LECTURE
+// ======================================================
+
+db.exec(`
+
+CREATE INDEX IF NOT EXISTS idx_books_user_id
+ON books(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_quotes_book_id
+ON quotes(book_id);
+
+CREATE INDEX IF NOT EXISTS idx_quotes_user_id
+ON quotes(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_ideas_book_id
+ON ideas(book_id);
+
+CREATE INDEX IF NOT EXISTS idx_ideas_user_id
+ON ideas(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_actions_book_id
+ON actions(book_id);
+
+CREATE INDEX IF NOT EXISTS idx_actions_user_id
+ON actions(user_id);
+
+`);
+
+console.log("✔ Tables Carnet de Lecture vérifiées");
+
 // ======================================================
 // UTILISATEUR ADMIN PAR DÉFAUT
 // ======================================================

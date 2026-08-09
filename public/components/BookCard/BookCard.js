@@ -46,9 +46,8 @@ export default class BookCard {
             <div class="book-card-cover">
 
                 <img
-                    src="${this.book.cover || "/assets/images/books/default-cover.webp"}"
+                    src="${this.book.cover || "/assets/images/books/default-cover.svg"}"
                     alt="${this.book.getDisplayTitle()}">
-
             </div>
 
             <div class="book-card-content">
@@ -108,12 +107,12 @@ export default class BookCard {
     =========================================================*/
 
     open() {
-/*
+
         EventBus.emit(
             "book.open",
             this.book
         );
-*/    // À implémenter plus tard
+
     }
     /*=========================================================
         MISE À JOUR

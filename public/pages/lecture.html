@@ -15,12 +15,229 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/components.css">
-
+    <link rel="stylesheet" href="/css/confirm.css">
     <link rel="stylesheet" href="/css/lecture.css">
 
 </head>
 
 <body>
+    <!-- ==========================================
+     Nouveau livre
+=========================================== -->
+
+<section
+    id="newBookForm"
+    class="new-book-form"
+    hidden>
+
+    <h2 id="bookFormTitle">📖 Ajouter un livre</h2>
+
+    <div class="new-book-form-fields">
+
+        <label>
+            Titre
+            <input
+                type="text"
+                id="bookTitle"
+                required>
+        </label>
+
+        <label>
+            Auteur
+            <input
+                type="text"
+                id="bookAuthor">
+        </label>
+        <label>
+            Couverture
+            <input
+                type="text"
+                id="bookCover"
+                placeholder="/assets/images/books/ma-couverture.jpg">
+        </label>
+        <label>
+            Catégorie
+            <input
+                type="text"
+                id="bookCategory"
+                placeholder="Ex. Développement personnel">
+        </label>
+        <label>
+            Format
+            <select id="bookFormat">
+                <option value="paper">Papier</option>
+                <option value="ebook">Ebook</option>
+                <option value="audio">Audio</option>
+            </select>
+        </label>
+        <label>
+            Début de lecture
+            <input
+                type="date"
+                id="bookStartDate">
+        </label>
+        <label>
+            Fin de lecture
+            <input
+                type="date"
+                id="bookEndDate">
+        </label>
+        <label>
+            Nombre de pages
+            <input
+                type="number"
+                id="bookPages"
+                min="0">
+        </label>
+
+        <label>
+            Statut
+            <select id="bookStatus">
+
+                <option value="to-read">
+                    À lire
+                </option>
+
+                <option value="reading">
+                    En cours de lecture
+                </option>
+
+                <option value="finished">
+                    Terminé
+                </option>
+
+                <option value="abandoned">
+                    Abandonné
+                </option>
+
+            </select>
+        </label>
+
+        <label>
+            Note
+            <select id="bookRating">
+
+                <option value="0">Aucune note</option>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+
+            </select>
+        </label>
+
+        <label class="new-book-life-book">
+
+            <input
+                type="checkbox"
+                id="bookLifeBook">
+
+            ❤️ Livre de Vie
+
+        </label>
+        <label>
+            Nombre de lectures
+            <input
+                type="number"
+                id="bookReadCount"
+                min="0"
+                value="0">
+        </label>
+        <label>
+            Impact sur ma vie
+            <select id="bookLifeImpact">
+                <option value="0">Aucun impact</option>
+                <option value="1">⭐ 1 - Faible</option>
+                <option value="2">⭐⭐ 2</option>
+                <option value="3">⭐⭐⭐ 3 - Moyen</option>
+                <option value="4">⭐⭐⭐⭐ 4</option>
+                <option value="5">⭐⭐⭐⭐⭐ 5 - Très important</option>
+            </select>
+        </label>
+        <label>
+            Résumé
+            <textarea
+                id="bookSummary"
+                rows="4"
+                placeholder="Ce que je retiens de ce livre..."></textarea>
+        </label>
+
+        <label>
+            Ce que j'ai aimé
+            <textarea
+                id="bookWhatILiked"
+                rows="4"
+                placeholder="Ce que j'ai particulièrement apprécié..."></textarea>
+        </label>
+        <label>
+            Ce que je n'ai pas aimé
+            <textarea
+                id="bookWhatIDidNotLike"
+                rows="4"
+                placeholder="Ce qui m'a moins plu..."></textarea>
+        </label>
+        <label>
+            Ce que j'ai appris
+            <textarea
+                id="bookWhatILearned"
+                rows="4"
+                placeholder="Ce que ce livre m'a appris..."></textarea>
+        </label>
+        <label>
+            Avant de lire
+            <textarea
+                id="bookBeforeReading"
+                rows="4"
+                placeholder="Ce que je pensais, attendais ou ressentais avant de commencer..."></textarea>
+        </label>
+        <label>
+            Après la lecture
+            <textarea
+                id="bookAfterReading"
+                rows="4"
+                placeholder="Ce que je pense de ce livre après l'avoir terminé..."></textarea>
+        </label>
+        <label>
+            Pourquoi ce livre ?
+            <textarea
+                id="bookWhyThisBook"
+                rows="4"
+                placeholder="Pourquoi ai-je choisi ce livre ?"></textarea>
+        </label>
+        <label>
+            Relire ce livre ?
+            <select id="bookReread">
+                <option value="">Pas encore décidé</option>
+                <option value="yes">Oui</option>
+                <option value="no">Non</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="new-book-form-actions">
+
+        <button
+            type="button"
+            id="cancelNewBook"
+            class="secondary-button">
+
+            Annuler
+
+        </button>
+
+        <button
+            type="button"
+            id="saveNewBook"
+            class="primary-button">
+
+            📖 Ajouter le livre
+
+        </button>
+
+    </div>
+
+</section>
 
 <section class="chapter-page lecture-page">
 
@@ -229,6 +446,97 @@
 
 </section>
 
+<!-- ==========================================
+     Détail d'un livre
+=========================================== -->
+
+<section
+    id="bookDetailModal"
+    class="book-detail-modal"
+    hidden>
+
+    <div class="book-detail-content">
+
+        <button
+            type="button"
+            id="closeBookDetail"
+            class="book-detail-close">
+
+            ✕
+
+        </button>
+
+        <div class="book-detail-cover">
+
+            <img
+                id="bookDetailCover"
+                src="/assets/images/books/default-cover.svg"
+                alt="Couverture du livre">
+
+        </div>
+
+        <div class="book-detail-info">
+
+            <h2 id="bookDetailTitle">
+                Titre du livre
+            </h2>
+
+            <p id="bookDetailAuthor">
+                Auteur
+            </p>
+
+            <div class="book-detail-meta">
+
+                <p>
+                    <strong>📚 Statut :</strong>
+                    <span id="bookDetailStatus"></span>
+                </p>
+
+                <p>
+                    <strong>📄 Pages :</strong>
+                    <span id="bookDetailPages"></span>
+                </p>
+
+                <p>
+                    <strong>⭐ Note :</strong>
+                    <span id="bookDetailRating"></span>
+                </p>
+
+                <p>
+                    <strong>❤️ Livre de Vie :</strong>
+                    <span id="bookDetailLifeBook"></span>
+                </p>
+
+            </div>
+
+            <div class="book-detail-actions">
+
+                <button
+                    type="button"
+                    id="editBookButton"
+                    class="primary-button">
+
+                    ✏️ Modifier
+
+                </button>
+
+                <button
+                    type="button"
+                    id="deleteBookButton"
+                    class="secondary-button">
+
+                    🗑️ Supprimer
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<script src="/js/confirm.js"></script>
 <script type="module" src="/js/lecture.js"></script>
 
 </body>

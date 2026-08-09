@@ -2,6 +2,23 @@
 
 @import url("/components/Bookshelf/bookshelf.css");
 
+
+body {
+    background-color: #cdb487;
+
+    background-image:
+        linear-gradient(
+            rgba(190, 158, 105, 0.35),
+            rgba(190, 158, 105, 0.35)
+        ),
+        url("../assets/images/backgrounds/vieille-page.png");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
 /*=========================================================
     CHAPITRE IV - CARNET DE LECTURE
 =========================================================*/
@@ -32,10 +49,16 @@
     HEADER
 =========================================================*/
 
-.lecture-header{
+/* =====================================================
+   En-tête du Carnet de Lecture
+   Laisser apparaître la texture ancienne du fond
+===================================================== */
 
+.lecture-header {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
     text-align:center;
-
     margin-bottom:55px;
 
 }
@@ -207,25 +230,46 @@
     BIBLIOTHÈQUE
 =========================================================*/
 
-.bookshelf{
+/*=========================================================
+    BIBLIOTHÈQUE
+=========================================================*/
 
-    min-height:260px;
+/*=========================================================
+    BIBLIOTHÈQUE
+=========================================================*/
 
-    display:flex;
+.bookshelf {
 
-    justify-content:center;
+    min-height: 260px;
 
-    align-items:center;
+    width: 100%;
 
-    border:1px solid #a87a42;
+    padding: 25px;
 
-    border-radius:18px;
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    align-items: stretch;
+
+    justify-content: flex-start;
+
+    gap: 0;
+
+    border: 1px solid #a87a42;
+
+    border-radius: 18px;
 
     background:
         linear-gradient(
-        180deg,
-        #e7d4b1,
-        #d7be95);
+            180deg,
+            #e7d4b1,
+            #d7be95
+        );
 
 }
 
@@ -271,17 +315,42 @@
     FUTURES ETAGÈRES
 =========================================================*/
 
-.bookshelf-grid{
+/*=========================================================
+    GRILLE DES LIVRES
+=========================================================*/
 
-    width:100%;
+.bookshelf-grid {
+    width: 100%;
 
-    display:grid;
+    display: grid;
 
-    grid-template-columns:
-        repeat(auto-fill,minmax(180px,1fr));
+    grid-template-columns: repeat(5, 1fr);
 
-    gap:28px;
+    gap: 20px;
 
+    align-items: start;
+
+    box-sizing: border-box;
+
+    flex-shrink: 0;
+}
+
+.book-card {
+    width: 100%;
+    max-width: 180px;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
+}
+
+.book-cover {
+    width: 130px;
+    height: 185px;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
 }
 /*=========================================================
     LIVRES DE VIE
@@ -429,4 +498,710 @@
 
     line-height:1.5;
 
+}
+
+/*=========================================================
+    FORMULAIRE - NOUVEAU LIVRE
+=========================================================*/
+
+.new-book-form {
+
+    max-width: 900px;
+
+    margin: 0 auto 50px auto;
+
+    padding: 35px 40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ead8b8,
+            #d8bd93
+        );
+
+    border: 1px solid #b88b50;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 28px rgba(70,45,20,.18),
+        inset 0 0 35px rgba(120,80,30,.08);
+
+}
+
+/*---------------------------------------------------------
+    TITRE
+---------------------------------------------------------*/
+
+.new-book-form h2 {
+
+    margin: 0 0 30px 0;
+
+    text-align: center;
+
+    color: #5a3923;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+}
+
+/*---------------------------------------------------------
+    CHAMPS
+---------------------------------------------------------*/
+
+.new-book-form-fields {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px 28px;
+
+}
+
+/*---------------------------------------------------------
+    LABELS
+---------------------------------------------------------*/
+
+.new-book-form-fields label {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    color: #5a3923;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+}
+
+/*---------------------------------------------------------
+    INPUTS ET SELECT
+---------------------------------------------------------*/
+
+.new-book-form-fields input,
+.new-book-form-fields select {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid #b88b50;
+
+    border-radius: 10px;
+
+    background: #f3e5c9;
+
+    color: #4b2d1b;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+/*---------------------------------------------------------
+    FOCUS
+---------------------------------------------------------*/
+
+.new-book-form-fields input:focus,
+.new-book-form-fields select:focus {
+
+    border-color: #7b4f2b;
+
+    background: #f7ecd8;
+
+    box-shadow:
+        0 0 0 3px rgba(123,79,43,.12);
+
+}
+
+/*---------------------------------------------------------
+    LIVRE DE VIE
+---------------------------------------------------------*/
+
+.new-book-life-book {
+
+    flex-direction: row !important;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 10px !important;
+
+    margin-top: 28px;
+
+    padding: 12px 16px;
+
+    background: rgba(255,255,255,.20);
+
+    border: 1px solid rgba(184,139,80,.55);
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
+
+.new-book-life-book input {
+
+    width: auto;
+
+    margin: 0;
+
+    accent-color: #8b2635;
+
+}
+
+/*---------------------------------------------------------
+    BOUTONS
+---------------------------------------------------------*/
+
+.new-book-form-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 32px;
+
+}
+
+/*---------------------------------------------------------
+    BOUTON ANNULER
+---------------------------------------------------------*/
+
+.new-book-form-actions .secondary-button {
+
+    padding: 13px 25px;
+
+    border: 1px solid #a87a42;
+
+    border-radius: 12px;
+
+    background: #e4cfab;
+
+    color: #5a3923;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+
+}
+
+.new-book-form-actions .secondary-button:hover {
+
+    background: #d7be95;
+
+    transform: translateY(-1px);
+
+}
+
+/*---------------------------------------------------------
+    BOUTON AJOUTER
+---------------------------------------------------------*/
+
+.new-book-form-actions .primary-button {
+
+    padding: 13px 28px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #7b4f2b;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px rgba(123,79,43,.25);
+
+    transition: all .2s ease;
+
+}
+
+.new-book-form-actions .primary-button:hover {
+
+    background: #94633a;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(123,79,43,.32);
+
+}
+
+/*---------------------------------------------------------
+    PETITS ÉCRANS
+---------------------------------------------------------*/
+
+@media (max-width: 700px) {
+
+    .new-book-form {
+
+        margin: 0 15px 40px 15px;
+
+        padding: 28px 22px;
+
+    }
+
+    .new-book-form-fields {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .new-book-form-actions {
+
+        flex-direction: column;
+
+    }
+
+    .new-book-form-actions button {
+
+        width: 100%;
+
+    }
+
+}
+
+/* =========================================================
+   PAGINATION DE LA BIBLIOTHÈQUE
+========================================================= */
+
+.bookshelf-pagination {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 30px;
+
+    padding: 15px 0 5px;
+
+}
+
+
+/* Boutons */
+
+.bookshelf-pagination-button {
+
+    min-width: 38px;
+
+    height: 38px;
+
+    padding: 0 10px;
+
+    border: 1px solid #a87a42;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ead8b8,
+            #d8bd91
+        );
+
+    color: #5b351f;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 5px rgba(80, 45, 20, 0.18);
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        box-shadow 0.15s ease;
+
+}
+
+
+/* Survol */
+
+.bookshelf-pagination-button:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            180deg,
+            #f0dfc1,
+            #dfc59b
+        );
+
+    box-shadow:
+        0 4px 8px rgba(80, 45, 20, 0.25);
+
+}
+
+
+/* Page actuelle */
+
+.bookshelf-pagination-button.active {
+
+    background:
+        linear-gradient(
+            180deg,
+            #89552e,
+            #70411f
+        );
+
+    color: #fff8e8;
+
+    border-color: #70411f;
+
+    box-shadow:
+        0 3px 7px rgba(80, 45, 20, 0.30);
+
+}
+
+
+/* Boutons précédent / suivant désactivés */
+
+.bookshelf-pagination-button:disabled {
+
+    opacity: 0.35;
+
+    cursor: default;
+
+    transform: none;
+
+    box-shadow: none;
+
+}
+
+/* =========================================================
+   TAILLE DES LIVRES — VERSION FINALE
+========================================================= */
+
+.book-card {
+
+    width: 100%;
+
+    max-width: 190px;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
+
+}
+
+
+/* Couverture */
+
+.book-card-cover {
+
+    width: 105px;
+
+    height: 147px;
+
+    margin: 0 auto;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+}
+
+
+/* Image de couverture */
+
+.book-card-cover img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+/* Contenu sous la couverture */
+
+.book-card-content {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+}
+
+
+/* Titre */
+
+.book-card-title {
+
+    font-size: 17px;
+
+    line-height: 1.2;
+
+    margin: 0 0 8px;
+
+}
+
+
+/* Auteur */
+
+.book-card-author {
+
+    font-size: 14px;
+
+    line-height: 1.3;
+
+    margin: 0;
+
+}
+
+/* =========================================================
+   SUPPRESSION DES LIGNES VERTICALES DES CARTES
+========================================================= */
+
+.book-card::before,
+.book-card::after,
+.book-card-content::before,
+.book-card-content::after {
+    display: none !important;
+    content: none !important;
+}
+
+.book-card {
+    border-left: none !important;
+}
+
+.book-card-content {
+    border-left: none !important;
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   TEXTURE ANCIENNE — CARNET DE LECTURE
+========================================================= */
+
+.lecture-page {
+    position: relative;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 15%,
+            rgba(255,255,255,0.18) 0%,
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 80% 85%,
+            rgba(90,55,20,0.12) 0%,
+            transparent 40%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(90,55,20,0.025) 0px,
+            rgba(90,55,20,0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        linear-gradient(
+            135deg,
+            #d8bd91,
+            #c9a875
+        );
+
+    box-shadow:
+        inset 0 0 80px rgba(70,40,15,0.20),
+        0 15px 35px rgba(40,25,10,0.30);
+}
+/* =====================================================
+   Cadre principal — aspect vieux carnet
+===================================================== */
+
+.lecture-page {
+    background:
+        linear-gradient(
+            rgba(210, 180, 125, 0.58),
+            rgba(210, 180, 125, 0.58)
+        ),
+        url("../assets/images/backgrounds/vieille-page.png");
+
+    background-size: cover;
+    background-position: center;
+
+    border: 1px solid rgba(120, 78, 35, 0.35) !important;
+
+    box-shadow:
+        0 8px 25px rgba(70, 40, 15, 0.18),
+        inset 0 0 50px rgba(105, 70, 30, 0.15) !important;
+
+    border-radius: 28px !important;
+}
+
+/* =========================================================
+   PAPIER ANCIEN — TEXTURE PATINÉE
+========================================================= */
+
+.lecture-page {
+    position: relative;
+
+    background:
+        /* petites zones de vieillissement */
+        radial-gradient(
+            ellipse at 12% 18%,
+            rgba(92, 58, 25, 0.12) 0%,
+            transparent 18%
+        ),
+        radial-gradient(
+            ellipse at 87% 12%,
+            rgba(110, 72, 32, 0.10) 0%,
+            transparent 20%
+        ),
+        radial-gradient(
+            ellipse at 78% 78%,
+            rgba(80, 48, 20, 0.12) 0%,
+            transparent 22%
+        ),
+        radial-gradient(
+            ellipse at 18% 86%,
+            rgba(255, 247, 220, 0.18) 0%,
+            transparent 25%
+        ),
+
+        /* vieillissement irrégulier */
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 244, 210, 0.08) 0%,
+            rgba(125, 82, 35, 0.06) 55%,
+            rgba(70, 42, 18, 0.18) 100%
+        ),
+
+        /* très légère fibre du papier */
+        repeating-linear-gradient(
+            92deg,
+            rgba(95, 62, 28, 0.018) 0px,
+            rgba(95, 62, 28, 0.018) 1px,
+            transparent 1px,
+            transparent 7px
+        ),
+
+        #d6b984;
+
+    box-shadow:
+        inset 0 0 120px rgba(65, 38, 15, 0.25),
+        inset 0 0 35px rgba(255, 241, 205, 0.18);
+}
+
+
+/* =========================================================
+   PAPIER DE LA BIBLIOTHÈQUE
+========================================================= */
+
+.bookshelf-section {
+
+    background:
+        radial-gradient(
+            ellipse at 8% 10%,
+            rgba(120, 78, 30, 0.10) 0%,
+            transparent 22%
+        ),
+
+        radial-gradient(
+            ellipse at 92% 18%,
+            rgba(100, 62, 25, 0.08) 0%,
+            transparent 20%
+        ),
+
+        radial-gradient(
+            ellipse at 15% 90%,
+            rgba(95, 58, 23, 0.08) 0%,
+            transparent 25%
+        ),
+
+        radial-gradient(
+            ellipse at 85% 85%,
+            rgba(255, 245, 215, 0.18) 0%,
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at center,
+            rgba(255, 244, 210, 0.10) 0%,
+            rgba(170, 125, 68, 0.05) 65%,
+            rgba(90, 55, 22, 0.12) 100%
+        ),
+
+        #dfc69b;
+
+    box-shadow:
+        inset 0 0 70px rgba(85, 50, 18, 0.16),
+        inset 0 0 20px rgba(255, 242, 210, 0.15);
+}
+
+/* Suppression du fond derrière le titre du Carnet de Lecture */
+.lecture-header,
+.page-header,
+.lecture-hero {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* =====================================================
+   Aspect ancien du cadre principal du Carnet
+===================================================== */
+
+.lecture-page {
+    background: rgba(210, 180, 125, 0.45) !important;
+
+    border: 1px solid rgba(120, 78, 35, 0.35) !important;
+
+    box-shadow:
+        0 8px 25px rgba(70, 40, 15, 0.18),
+        inset 0 0 45px rgba(105, 70, 30, 0.12) !important;
+
+    border-radius: 28px !important;
 }

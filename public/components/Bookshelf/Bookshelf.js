@@ -10,13 +10,20 @@ import BookCard from "../BookCard/BookCard.js";
 
 export default class Bookshelf {
 
+
     constructor(container) {
 
         this.container = container;
 
         this.books = [];
 
+        // Pagination
+        this.currentPage = 1;
+
+        this.booksPerPage = 5;
+
     }
+
 
     /*=========================================================
         INITIALISATION
@@ -28,6 +35,7 @@ export default class Bookshelf {
 
     }
 
+
     /*=========================================================
         LIVRES
     =========================================================*/
@@ -36,17 +44,28 @@ export default class Bookshelf {
 
         this.books = books;
 
+        // Quand la liste change,
+        // on revient à la première page.
+
+        this.currentPage = 1;
+
         this.render();
 
     }
 
-        /*=========================================================
+
+    /*=========================================================
         AFFICHAGE
     =========================================================*/
 
     render() {
 
         this.container.innerHTML = "";
+
+
+        /*-----------------------------------------------------
+            BIBLIOTHÈQUE VIDE
+        -----------------------------------------------------*/
 
         if (this.books.length === 0) {
 
@@ -55,22 +74,231 @@ export default class Bookshelf {
             return;
 
         }
-        
-        console.log(this.books);
 
-        this.books.forEach(book => {
 
-            const card = new BookCard(book);
+        /*-----------------------------------------------------
+            CONTENEUR DES CARTES
+        -----------------------------------------------------*/
 
-            this.container.appendChild(
+        const grid =
+            document.createElement("div");
+
+        grid.className = "bookshelf-grid";
+
+
+        /*-----------------------------------------------------
+            CALCUL DE LA PAGE
+        -----------------------------------------------------*/
+
+        const start =
+            (this.currentPage - 1)
+            * this.booksPerPage;
+
+
+        const end =
+            start + this.booksPerPage;
+
+
+        const pageBooks =
+            this.books.slice(start, end);
+
+
+        /*-----------------------------------------------------
+            AFFICHER LES LIVRES DE LA PAGE
+        -----------------------------------------------------*/
+
+        pageBooks.forEach(book => {
+
+            const card =
+                new BookCard(book);
+
+
+            grid.appendChild(
                 card.render()
             );
 
-            const div = document.createElement("div");
-
         });
 
+
+        this.container.appendChild(grid);
+
+
+        /*-----------------------------------------------------
+            PAGINATION
+        -----------------------------------------------------*/
+
+        this.renderPagination();
+
     }
+
+
+    /*=========================================================
+        PAGINATION
+    =========================================================*/
+
+    renderPagination() {
+
+        const totalPages =
+            Math.ceil(
+                this.books.length
+                / this.booksPerPage
+            );
+
+
+        // Pas de pagination s'il n'y a
+        // qu'une seule page.
+
+        if (totalPages <= 1) {
+
+            return;
+
+        }
+
+
+        const pagination =
+            document.createElement("div");
+
+        pagination.className =
+            "bookshelf-pagination";
+
+
+        /*-----------------------------------------------------
+            BOUTON PRÉCÉDENT
+        -----------------------------------------------------*/
+
+        const previous =
+            document.createElement("button");
+
+        previous.type = "button";
+
+        previous.className =
+            "bookshelf-pagination-button";
+
+
+        previous.textContent = "‹";
+
+
+        previous.disabled =
+            this.currentPage === 1;
+
+
+        previous.addEventListener(
+            "click",
+            () => {
+
+                if (this.currentPage > 1) {
+
+                    this.currentPage--;
+
+                    this.render();
+
+                }
+
+            }
+        );
+
+
+        pagination.appendChild(previous);
+
+
+        /*-----------------------------------------------------
+            NUMÉROS DES PAGES
+        -----------------------------------------------------*/
+
+        for (
+            let page = 1;
+            page <= totalPages;
+            page++
+        ) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.type = "button";
+
+
+            button.className =
+                "bookshelf-pagination-button";
+
+
+            if (page === this.currentPage) {
+
+                button.classList.add("active");
+
+            }
+
+
+            button.textContent = page;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    this.currentPage = page;
+
+                    this.render();
+
+                }
+            );
+
+
+            pagination.appendChild(button);
+
+        }
+
+
+        /*-----------------------------------------------------
+            BOUTON SUIVANT
+        -----------------------------------------------------*/
+
+        const next =
+            document.createElement("button");
+
+
+        next.type = "button";
+
+
+        next.className =
+            "bookshelf-pagination-button";
+
+
+        next.textContent = "›";
+
+
+        next.disabled =
+            this.currentPage === totalPages;
+
+
+        next.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    this.currentPage
+                    < totalPages
+                ) {
+
+                    this.currentPage++;
+
+                    this.render();
+
+                }
+
+            }
+        );
+
+
+        pagination.appendChild(next);
+
+
+        this.container.appendChild(
+            pagination
+        );
+
+    }
+
 
     /*=========================================================
         BIBLIOTHÈQUE VIDE
@@ -106,7 +334,9 @@ export default class Bookshelf {
         `;
 
     }
-        /*=========================================================
+
+
+    /*=========================================================
         AJOUT
     =========================================================*/
 
@@ -114,9 +344,19 @@ export default class Bookshelf {
 
         this.books.push(book);
 
+        // Aller sur la dernière page
+        // pour voir immédiatement le nouveau livre.
+
+        this.currentPage =
+            Math.ceil(
+                this.books.length
+                / this.booksPerPage
+            );
+
         this.render();
 
     }
+
 
     /*=========================================================
         SUPPRESSION
@@ -124,13 +364,37 @@ export default class Bookshelf {
 
     removeBook(bookId) {
 
-        this.books = this.books.filter(
-            book => book.id !== bookId
-        );
+        this.books =
+            this.books.filter(
+                book => book.id !== bookId
+            );
+
+
+        const totalPages =
+            Math.max(
+                1,
+                Math.ceil(
+                    this.books.length
+                    / this.booksPerPage
+                )
+            );
+
+
+        if (
+            this.currentPage
+            > totalPages
+        ) {
+
+            this.currentPage =
+                totalPages;
+
+        }
+
 
         this.render();
 
     }
+
 
     /*=========================================================
         MISE À JOUR
@@ -138,9 +402,11 @@ export default class Bookshelf {
 
     updateBook(updatedBook) {
 
-        const index = this.books.findIndex(
-            book => book.id === updatedBook.id
-        );
+        const index =
+            this.books.findIndex(
+                book => book.id === updatedBook.id
+            );
+
 
         if (index === -1) {
 
@@ -148,12 +414,17 @@ export default class Bookshelf {
 
         }
 
-        this.books[index] = updatedBook;
+
+        this.books[index] =
+            updatedBook;
+
 
         this.render();
 
     }
-        /*=========================================================
+
+
+    /*=========================================================
         ACCÈS
     =========================================================*/
 
@@ -163,6 +434,7 @@ export default class Bookshelf {
 
     }
 
+
     getBook(bookId) {
 
         return this.books.find(
@@ -171,17 +443,23 @@ export default class Bookshelf {
 
     }
 
+
     /*=========================================================
         TRI
     =========================================================*/
 
     sort(compareFunction) {
 
-        this.books.sort(compareFunction);
+        this.books.sort(
+            compareFunction
+        );
+
+        this.currentPage = 1;
 
         this.render();
 
     }
+
 
     /*=========================================================
         FILTRE
@@ -189,9 +467,12 @@ export default class Bookshelf {
 
     filter(predicate) {
 
-        return this.books.filter(predicate);
+        return this.books.filter(
+            predicate
+        );
 
     }
+
 
     /*=========================================================
         RÉINITIALISATION
@@ -201,24 +482,18 @@ export default class Bookshelf {
 
         this.books = [];
 
+        this.currentPage = 1;
+
         this.render();
 
     }
-        /*=========================================================
-        CARTES
+
+
+    /*=========================================================
+        DESTRUCTION
     =========================================================*/
 
-    getCards() {
-
-        return [...this.cards];
-
-    }
-
     destroy() {
-
-        this.cards.forEach(card => card.destroy());
-
-        this.cards = [];
 
         this.books = [];
 
