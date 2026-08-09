@@ -1205,3 +1205,36 @@ body {
 
     border-radius: 28px !important;
 }
+
+#backToJournal {
+    display: inline-block;
+
+    margin: 20px 0 0 20px;
+    padding: 8px 16px;
+
+    background: transparent;
+
+    border: 1px solid rgba(90, 65, 40, 0.45);
+    border-radius: 6px;
+
+    color: #5a432d;
+
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#backToJournal:hover {
+    background: rgba(90, 65, 40, 0.08);
+
+    box-shadow:
+        0 2px 5px rgba(60, 40, 20, 0.15);
+
+    transform: translateX(-2px);
+}

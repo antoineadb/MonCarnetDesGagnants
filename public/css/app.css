@@ -1025,3 +1025,59 @@ body{
     box-shadow:0 8px 20px rgba(0,0,0,.18);
 
 }
+
+/* ======================================================
+   PHOTO DE PROFIL
+====================================================== */
+
+.profile-photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-photo-edit {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #8b5e34;
+    color: white;
+
+    font-size: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+    transform: scale(0.8);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Apparition au survol de la photo */
+.profile-photo-wrapper:hover .profile-photo-edit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Effet au survol du crayon */
+.profile-photo-edit:hover {
+    background: #6f4527;
+    transform: scale(1.08);
+}

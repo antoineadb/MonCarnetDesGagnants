@@ -54,6 +54,25 @@ CREATE TABLE IF NOT EXISTS users (
 `);
 
 // ======================================================
+// MIGRATION PHOTO DE PROFIL
+// ======================================================
+
+try {
+
+    db.prepare(`
+        ALTER TABLE users
+        ADD COLUMN profile_image TEXT
+    `).run();
+
+    console.log("✔ Colonne profile_image ajoutée");
+
+} catch (e) {
+
+    // La colonne existe déjà
+
+}
+
+// ======================================================
 // TABLE JOURNAL
 // ======================================================
 
@@ -816,7 +835,7 @@ const adminUser = db.prepare(`
     WHERE username = ?
 `).get("admin");
 
-if (!admin) {
+if (!adminUser) {
 
     db.prepare(`
         INSERT INTO users (
@@ -836,7 +855,22 @@ if (!admin) {
     );
 
     console.log("✔ Utilisateur admin créé");
+
+} else {
+
+    db.prepare(`
+        UPDATE users
+        SET firstname = ?
+        WHERE id = ?
+    `).run(
+        "Administrateur",
+        adminUser.id
+    );
+
+    console.log("✔ Prénom administrateur vérifié");
+
 }
+
 const lydie = db.prepare(`
     SELECT id
     FROM users

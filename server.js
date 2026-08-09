@@ -57,6 +57,14 @@ app.use(
     "/uploads/books",
     express.static("/var/data/books")
 );
+
+// Photos de profil stockées sur le disque persistant
+app.use(
+    "/uploads/profile",
+    express.static("/var/data/profile")
+);
+
+
 // Routes API
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);

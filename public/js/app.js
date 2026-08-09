@@ -14,7 +14,7 @@ class Dashboard {
 
         this.bindEvents();
 
-    }
+        }
 
     updateDate() {
 
@@ -53,6 +53,97 @@ class Dashboard {
         document.getElementById("cardParametres")
             ?.addEventListener("click", Navigation.parametres);
 
+        const changeProfilePhoto =
+            document.getElementById("changeProfilePhoto");
+
+        const profilePhotoInput =
+            document.getElementById("profilePhotoInput");
+
+        if (changeProfilePhoto && profilePhotoInput) {
+
+            changeProfilePhoto.addEventListener(
+                "click",
+                () => {
+
+                    profilePhotoInput.click();
+
+                }
+            );
+
+            profilePhotoInput.addEventListener(
+                "change",
+                async () => {
+
+                    const file =
+                        profilePhotoInput.files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+                    const formData =
+                        new FormData();
+
+                    formData.append(
+                        "profilePhoto",
+                        file
+                    );
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/api/auth/profile-photo",
+                                {
+                                    method: "POST",
+                                    credentials: "include",
+                                    body: formData
+                                }
+                            );
+
+                        const data =
+                            await response.json();
+
+                        if (!response.ok || !data.success) {
+
+                            throw new Error(
+                                data.message ||
+                                "Erreur lors de l'envoi de la photo."
+                            );
+
+                        }
+
+                        const profilePhoto =
+                            document.getElementById("profilePhoto");
+
+                        if (profilePhoto) {
+
+                            profilePhoto.src =
+                                data.profile_image +
+                                "?t=" +
+                                Date.now();
+
+                        }
+
+                        console.log(
+                            "📷 Photo de profil mise à jour"
+                        );
+
+                    }
+                    catch (error) {
+
+                        console.error(
+                            "Erreur photo de profil :",
+                            error
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
     }
 
 
@@ -70,6 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     document.querySelector(".topbar h1").textContent = `Bonjour ${user.firstname} 👋`;
+
+    const userFirstName =
+    document.getElementById("userFirstName");
+
+    if (userFirstName) {
+
+        userFirstName.textContent =
+            user.firstname;
+
+    }
 
     if (user && user.role === "admin") {
 

@@ -103,6 +103,9 @@ class Lecture {
         this.saveNewBook =
             document.getElementById("saveNewBook");
 
+        this.backToJournal =
+            document.getElementById("backToJournal");
+
     }
 
 
@@ -204,6 +207,16 @@ class Lecture {
             () => {
 
                 this.createBook();
+
+            }
+        );
+
+        this.backToJournal.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "/pages/app.html";
 
             }
         );

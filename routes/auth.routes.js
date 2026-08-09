@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 
 const db = require("../database/database");
 
+const profileUpload =
+    require("../middlewares/profile-upload.middleware");
 
 // =========================================
 // CONNEXION
@@ -170,6 +172,82 @@ router.get("/me", (req, res) => {
     res.json(req.session.user);
 
 });
+
+// =========================================
+// PHOTO DE PROFIL
+// =========================================
+
+router.post(
+    "/profile-photo",
+    profileUpload.single("profilePhoto"),
+    (req, res) => {
+
+        if (!req.session.user) {
+
+            return res.status(401).json({
+
+                success: false,
+                message: "Aucun utilisateur connecté."
+
+            });
+
+        }
+
+        if (!req.file) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Aucune photo reçue."
+
+            });
+
+        }
+
+        const imagePath =
+            `/uploads/profile/${req.file.filename}`;
+
+        db.prepare(`
+            UPDATE users
+            SET profile_image = ?
+            WHERE id = ?
+        `).run(
+            imagePath,
+            req.session.user.id
+        );
+
+        req.session.user.profile_image =
+            imagePath;
+
+        req.session.save(err => {
+
+            if (err) {
+
+                console.error(
+                    "Erreur sauvegarde session :",
+                    err
+                );
+
+                return res.status(500).json({
+
+                    success: false,
+                    message: "Erreur de session."
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+                profile_image: imagePath
+
+            });
+
+        });
+
+    }
+);
 
 // =========================================
 // DÉCONNEXION

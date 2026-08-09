@@ -115,7 +115,7 @@
 
             <div>
 
-                <h1>Bonjour Lydie 👋</h1>
+                <h1> Bonjour <span id="userFirstName"></span> 👋</h1>
 
                 <p>
                     Ravi de vous retrouver aujourd'hui.
@@ -125,11 +125,31 @@
             <div class="topbar-right">
 
                 <span id="currentDate"></span>
+<div class="profile-photo-wrapper">
 
-                <img
-                    src="../assets/images/lydie.png"
-                    alt="Lydie"
-                    class="profile-photo">
+    <img
+        id="profilePhoto"
+        src="../assets/images/lydie.png"
+        alt="Photo de profil"
+        class="profile-photo">
+
+            <button
+                type="button"
+                id="changeProfilePhoto"
+                class="profile-photo-edit"
+                title="Changer la photo">
+
+                ✏️
+
+            </button>
+
+            <input
+                type="file"
+                id="profilePhotoInput"
+                accept="image/jpeg,image/png,image/webp"
+                hidden>
+
+        </div>
 
                 <button id="btnLogout" class="logout-button">
                     <i class="bi bi-box-arrow-right"></i>
