@@ -57,6 +57,10 @@ exports.getOne = (req, res) => {
 exports.create = (req, res) => {
 
     const userId = req.session.user.id;
+    const cover =
+    req.file
+        ? `/assets/images/books/${req.file.filename}`
+        : null;
 
     const {
 
@@ -66,7 +70,6 @@ exports.create = (req, res) => {
         publisher,
         isbn,
         language,
-        cover,
         category,
 
         start_date,
@@ -167,15 +170,21 @@ exports.update = (req, res) => {
 
     const userId = req.session.user.id;
 
+    const data = {
+        ...req.body
+    };
+
+    if (req.file) {
+
+        data.cover =
+            `/assets/images/books/${req.file.filename}`;
+
+    }
 
     const book = BookModel.update(
-
         id,
-
-        req.body,
-
+        data,
         userId
-
     );
 
 

@@ -830,8 +830,8 @@ if (!admin) {
     `).run(
         "admin",
         adminPasswordHash,
-        "Antonio",
-        "Di Bartoloméo",
+        "Administrateur",
+        "Admin",
         "admin"
     );
 

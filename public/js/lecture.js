@@ -128,6 +128,11 @@ class Lecture {
                 this.saveNewBook.textContent =
                     "📖 Ajouter le livre";
 
+                this.newBookForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
             }
         );
 
@@ -223,6 +228,10 @@ class Lecture {
 
         this.newBookButton.hidden = true;
 
+        this.newBookForm.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
         // Mode modification
         this.bookFormTitle.textContent =
@@ -441,9 +450,9 @@ class Lecture {
 
         const author =
             document.getElementById("bookAuthor").value.trim();
-        
-        const cover =
-            document.getElementById("bookCover").value.trim();
+                
+        const coverInput =
+            document.getElementById("bookCover");
 
         const pages =
             Number( document.getElementById("bookPages").value ) || 0;
@@ -522,8 +531,6 @@ class Lecture {
 
             author,
 
-            cover,
-
             category,
 
             pages,
@@ -562,6 +569,27 @@ class Lecture {
 
         };
 
+        const formData = new FormData();
+
+        Object.entries(bookData).forEach(
+            ([key, value]) => {
+
+                formData.append(
+                    key,
+                    value ?? ""
+                );
+
+            }
+        );
+ 
+        if (coverInput.files.length > 0) {
+
+            formData.append(
+                "cover",
+                coverInput.files[0]
+            );
+
+        }
 
         try {
 
@@ -584,16 +612,8 @@ class Lecture {
 
                 credentials: "include",
 
-                headers: {
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
                 body:
-                    JSON.stringify(bookData)
-
+                    formData
             }
         );
 

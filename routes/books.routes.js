@@ -15,6 +15,9 @@ const { requireLogin } =
 const book =
     require("../controllers/book.controller");
 
+const upload =
+    require("../middlewares/upload.middleware");
+
 
 /*=========================================================
     AUTHENTIFICATION
@@ -44,13 +47,14 @@ router.get(
 // Créer un livre
 router.post(
     "/",
+    upload.single("cover"),
     book.create
 );
-
 
 // Modifier un livre
 router.put(
     "/:id",
+     upload.single("cover"),
     book.update
 );
 
