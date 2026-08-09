@@ -52,6 +52,11 @@ app.use((req, res, next) => {
 // Ensuite seulement
 app.use(express.static("public"));
 
+// Images des livres stockées sur le disque persistant Render
+app.use(
+    "/uploads/books",
+    express.static("/var/data/books")
+);
 // Routes API
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
