@@ -250,9 +250,6 @@ class Lecture {
         document.getElementById("bookAuthor").value =
             book.author || "";
 
-        document.getElementById("bookCover").value =
-            book.cover || "";
-
         document.getElementById("bookCategory").value =
             book.category || "";
 

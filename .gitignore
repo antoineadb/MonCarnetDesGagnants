@@ -2,3 +2,4 @@ node_modules/
 database/carnet.db
 database/*.db-wal
 database/*.db-shm
+/public/assets/images/books/*
