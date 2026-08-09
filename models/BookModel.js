@@ -142,7 +142,12 @@ class BookModel {
 
             data.rating ?? 0,
             data.life_impact ?? 0,
-            data.life_book ? 1 : 0,
+            data.life_book === true ||
+            data.life_book === "true" ||
+            data.life_book === 1 ||
+            data.life_book === "1"
+                ? 1
+                : 0,
 
             data.summary ?? "",
             data.what_i_liked ?? "",
@@ -245,8 +250,15 @@ class BookModel {
             data.rating ?? existing.rating,
             data.life_impact ?? existing.life_impact,
             data.life_book !== undefined
-                ? (data.life_book ? 1 : 0)
-                : existing.life_book,
+            ? (
+                data.life_book === true ||
+                data.life_book === "true" ||
+                data.life_book === 1 ||
+                data.life_book === "1"
+                    ? 1
+                    : 0
+            )
+            : existing.life_book,
 
             data.summary ?? existing.summary,
             data.what_i_liked ?? existing.what_i_liked,

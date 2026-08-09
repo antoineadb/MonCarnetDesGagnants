@@ -272,7 +272,10 @@ class Lecture {
             book.rating || 0;
 
         document.getElementById("bookLifeBook").checked =
-            Number(book.life_book) === 1;
+            book.lifeBook === true ||
+            book.lifeBook === 1 ||
+            book.lifeBook === "1" ||
+            book.lifeBook === "true";
 
         document.getElementById("bookReadCount").value =
             book.read_count || 0;
@@ -521,7 +524,6 @@ class Lecture {
         /*-----------------------------------------------------
             DONNEES
         -----------------------------------------------------*/
-
        const bookData = {
 
             title,
