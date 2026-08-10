@@ -146,8 +146,13 @@ function afficherHistorique() {
 
     for (const item of liste) {
 
+        const nomUtilisateur =
+            item.username === "admin"
+                ? "Administrateur root"
+                : `${item.firstname ?? ""} ${item.lastname ?? ""}`;
+
         const utilisateur = `
-            <strong>${item.firstname ?? ""} ${item.lastname ?? ""}</strong><br>
+            <strong>${nomUtilisateur}</strong><br>
             <small>${item.username}</small>
         `;
 
@@ -157,7 +162,10 @@ function afficherHistorique() {
 
                 ? "—"
 
-                : calculerDuree(item.login_at, item.logout_at);
+                : calculerDuree(
+                    item.login_at,
+                    item.logout_at
+                );
 
         const tr = document.createElement("tr");
 
@@ -180,7 +188,6 @@ function afficherHistorique() {
         tbody.appendChild(tr);
 
     }
-
     document.getElementById("historyCount").textContent =
 
         `${liste.length} connexion${liste.length > 1 ? "s" : ""}`;
