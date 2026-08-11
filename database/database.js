@@ -599,7 +599,7 @@ if (pathCount.total === 0) {
 
 }
 
-
+const DEFAULT_ADMIN_PASSWORD = "carnet";
 const adminPasswordHash =
 bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD,10);
 
