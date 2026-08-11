@@ -14,7 +14,10 @@ class Dashboard {
 
         this.bindEvents();
 
-        }
+        this.loadProfilePhoto();
+
+
+    }
 
     updateDate() {
 
@@ -140,6 +143,53 @@ class Dashboard {
                     }
 
                 }
+            );
+
+        }
+
+    }
+
+    async loadProfilePhoto() {
+
+        try {
+
+            const response = await fetch(
+                "/api/auth/me",
+                {
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                return;
+            }
+
+            const data = await response.json();
+
+            const user =
+                data.user ?? data;
+
+            const profilePhoto =
+                document.getElementById("profilePhoto");
+
+            if (
+                profilePhoto &&
+                user.profile_image
+            ) {
+
+                profilePhoto.src =
+                    user.profile_image +
+                    "?t=" +
+                    Date.now();
+
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "❌ Erreur chargement photo de profil :",
+                error
             );
 
         }

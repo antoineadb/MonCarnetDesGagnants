@@ -599,15 +599,9 @@ if (pathCount.total === 0) {
 
 }
 
-const DEFAULT_ADMIN_PASSWORD = "carnet";
-const DEFAULT_LYDIE_PASSWORD = "la_bella_Ragazza";
 
 const adminPasswordHash =
 bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD,10);
-
-const lydiePasswordHash =
-bcrypt.hashSync(DEFAULT_LYDIE_PASSWORD,10);
-
 
 
 // ======================================================
@@ -891,39 +885,6 @@ if (!adminUser) {
 
 }
 
-const lydie = db.prepare(`
-    SELECT id
-    FROM users
-    WHERE username = ?
-`).get("lydie");
-
-if (!lydie) {
-
-    db.prepare(`
-        INSERT INTO users (
-
-            username,
-            password_hash,
-            firstname,
-            lastname,
-            role
-
-        )
-
-        VALUES (?, ?, ?, ?, ?)
-    `).run(
-
-        "lydie",
-        lydiePasswordHash,
-        "Lydie",
-        "Stragapede",
-        "user"
-
-    );
-
-    console.log("✔ Utilisateur Lydie créé");
-
-}
 
 
 console.log("");
