@@ -4,88 +4,271 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Objectifs - Le Carnet des Gagnants</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mon compte - Le Carnet des Gagnants</title>
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/parametres.css">
+
+    <link rel="stylesheet"
+          href="../css/variables.css">
+
+    <link rel="stylesheet"
+          href="../css/base.css">
+
+    <link rel="stylesheet"
+          href="../css/layout.css">
+
+    <link rel="stylesheet"
+          href="../css/components.css">
+
+    <link rel="stylesheet"
+          href="../css/parametres.css">
+
+    <link rel="stylesheet" 
+          href="../css/toast.css">
 
 </head>
 
+
 <body>
+
     <div class="back-button">
 
-    <a href="app.html">
-        ← Retour au carnet
-    </a>
-</div>
-<section class="chapter-page">
-
-    <div class="chapter-header">
-
-        <div class="chapter-number">Chapitre V</div>
-
-        <h1 class="chapter-title">Personnalisation</h1>
-
-        <div class="chapter-line"></div>
-
-        <p class="chapter-quote">
-            « Un carnet devient précieux lorsqu'il nous ressemble. »
-        </p>
+        <a href="app.html">
+            ← Retour au carnet
+        </a>
 
     </div>
 
-    <div class="chapter-text">
 
-        <p>
-            Le Carnet des Gagnants est conçu pour évoluer avec toi.
-        </p>
-
-        <p>
-            Cette rubrique permettra de personnaliser progressivement ton expérience.
-        </p>
-
-        <p>
-            Tu pourras modifier l'apparence du carnet, gérer tes sauvegardes,
-            organiser tes préférences et adapter les fonctionnalités à tes habitudes.
-        </p>
-
-        <p>
-            Chaque détail contribuera à faire de ce carnet un compagnon
-            unique au quotidien.
-        </p>
-
-    </div>
-    <footer class="chapter-footer">
-
-    <span class="chapter-book">
-        Le Carnet des Gagnants
-    </span>
-
-    <span class="chapter-page-number">
-        Page 5
-    </span>
-
-</footer>
-<div class="coming-soon">
-
-    🚧 Fonctionnalités en cours de développement
-
-</div>
+    <section class="chapter-page account-page">
 
 
-</section>
+        <div class="chapter-header">
+
+            <div class="chapter-number">
+                Chapitre V
+            </div>
+
+            <h1 class="chapter-title">
+                Mon compte
+            </h1>
+
+            <div class="chapter-line"></div>
+
+            <p class="chapter-quote">
+                « Un carnet devient précieux lorsqu'il nous ressemble. »
+            </p>
+
+        </div>
+
+
+        <!-- ==========================================
+             PHOTO DE PROFIL
+        =========================================== -->
+
+        <section class="account-profile">
+
+            <div class="account-photo-wrapper">
+
+                <img
+                    id="accountProfilePhoto"
+                    src="../assets/images/lydie.png"
+                    alt="Photo de profil"
+                    class="account-profile-photo">
+
+                <button
+                    type="button"
+                    id="changeAccountPhoto"
+                    class="account-photo-edit"
+                    title="Modifier la photo">
+
+                    ✏️
+
+                </button>
+
+            </div>
+
+            <h2 id="accountDisplayName">
+                Mon compte
+            </h2>
+
+            <p id="accountRole">
+                Utilisateur
+            </p>
+
+        </section>
+
+
+        <!-- ==========================================
+             INFORMATIONS PERSONNELLES
+        =========================================== -->
+
+        <section class="account-section">
+
+            <h2>
+                👤 Informations personnelles
+            </h2>
+
+            <div class="account-form">
+
+                <div class="form-group">
+
+                    <label for="accountFirstname">
+                        Prénom
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountFirstname"
+                        autocomplete="given-name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="accountLastname">
+                        Nom
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountLastname"
+                        autocomplete="family-name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="accountEmail">
+                        Adresse e-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="accountEmail"
+                        autocomplete="email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="accountUsername">
+                        Nom d'utilisateur
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountUsername"
+                        readonly>
+
+                    <small>
+                        Le nom d'utilisateur ne peut pas être modifié.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="accountRoleField">
+                        Rôle
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountRoleField"
+                        readonly>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             ENREGISTREMENT
+        =========================================== -->
+
+        <section class="account-actions">
+
+            <button
+                type="button"
+                id="saveAccount"
+                class="primary-button">
+
+                💾 Enregistrer les modifications
+
+            </button>
+
+        </section>
+
+
+        <!-- ==========================================
+             SÉCURITÉ
+        =========================================== -->
+
+        <section class="account-section account-security">
+
+            <h2>
+                🔐 Sécurité
+            </h2>
+
+            <p>
+                La gestion de votre mot de passe sera disponible ici.
+            </p>
+
+            <button
+                type="button"
+                id="changePassword"
+                class="secondary-button">
+
+                🔑 Modifier mon mot de passe
+
+            </button>
+
+        </section>
+
+
+        <footer class="chapter-footer">
+
+            <span class="chapter-book">
+                Le Carnet des Gagnants
+            </span>
+
+            <span class="chapter-page-number">
+                Mon compte
+            </span>
+
+        </footer>
+
+
+    </section>
+
+
+    <!-- JavaScript -->
+    <script src="../js/toast.js"></script>
+    <script src="../js/confirm.js"></script>
+    <script src="../js/parametres.js"></script>
 
 </body>
 

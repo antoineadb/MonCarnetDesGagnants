@@ -28,18 +28,23 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
     }
 
-    const user = db.prepare(`
-        SELECT
-            id,
-            username,
-            password_hash,
-            firstname,
-            lastname,
-            role
-        FROM users
-        WHERE username = ?
-    `).get(username);
+
+const user = db.prepare(`
+    SELECT
+        id,
+        username,
+        password_hash,
+        firstname,
+        lastname,
+        email,
+        profile_image,
+        role
+    FROM users
+    WHERE username = ?
+`).get(username);
+
     console.log("Utilisateur trouvé :", user);
+
     if (!user || !bcrypt.compareSync(password, user.password_hash)) {
 
         if (user) {
@@ -91,12 +96,15 @@ console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
         req.sessionID
 
     );
+
     req.session.user = {
 
         id: user.id,
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
+        email: user.email,
+        profile_image: user.profile_image,
         role: user.role
 
     };
@@ -289,5 +297,124 @@ router.post("/logout", (req, res) => {
     });
 
 });
+
+
+// =========================================
+// MODIFICATION DU COMPTE
+// =========================================
+
+router.put("/me", (req, res) => {
+
+    if (!req.session.user) {
+
+        return res.status(401).json({
+
+            success: false,
+            message: "Aucun utilisateur connecté."
+
+        });
+
+    }
+
+    const {
+        firstname,
+        lastname,
+        email
+    } = req.body || {};
+
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    if (!firstname || !firstname.trim()) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Le prénom est obligatoire."
+
+        });
+
+    }
+
+    if (!lastname || !lastname.trim()) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Le nom est obligatoire."
+
+        });
+
+    }
+
+
+    // =========================================
+    // MISE À JOUR DATABASE
+    // =========================================
+
+    db.prepare(`
+        UPDATE users
+        SET
+            firstname = ?,
+            lastname = ?,
+            email = ?
+        WHERE id = ?
+    `).run(
+
+        firstname.trim(),
+        lastname.trim(),
+        email?.trim() || null,
+        req.session.user.id
+
+    );
+
+
+    // =========================================
+    // MISE À JOUR SESSION
+    // =========================================
+
+    req.session.user.firstname =
+        firstname.trim();
+
+    req.session.user.lastname =
+        lastname.trim();
+
+    req.session.user.email =
+        email?.trim() || null;
+
+
+    req.session.save(err => {
+
+        if (err) {
+
+            console.error(
+                "Erreur sauvegarde session :",
+                err
+            );
+
+            return res.status(500).json({
+
+                success: false,
+                message: "Erreur lors de la sauvegarde."
+
+            });
+
+        }
+
+
+        res.json({
+
+            success: true,
+
+            user: req.session.user
+
+        });
+
+    });
+
+});
+
 
 module.exports = router;

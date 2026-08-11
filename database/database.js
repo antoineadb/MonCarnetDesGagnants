@@ -72,6 +72,26 @@ try {
 
 }
 
+
+// ======================================================
+// MIGRATION EMAIL
+// ======================================================
+
+try {
+
+    db.prepare(`
+        ALTER TABLE users
+        ADD COLUMN email TEXT
+    `).run();
+
+    console.log("✔ Colonne email ajoutée");
+
+} catch (e) {
+
+    // La colonne existe déjà
+
+}
+
 // ======================================================
 // TABLE JOURNAL
 // ======================================================

@@ -180,3 +180,302 @@
     box-shadow:0 3px 10px rgba(0,0,0,.08);
 
 }
+
+/* =========================================================
+   MON COMPTE
+========================================================= */
+
+.account-page {
+    max-width: 900px;
+
+    margin: 40px auto;
+
+    padding: 50px;
+
+    background:
+        linear-gradient(
+            rgba(248, 243, 232, 0.96),
+            rgba(242, 232, 211, 0.96)
+        );
+
+    border: 1px solid #d8c6a5;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 25px rgba(60, 40, 20, 0.15);
+
+    color: #43311d;
+}
+
+
+/* =========================================================
+   PROFIL
+========================================================= */
+
+.account-profile {
+    text-align: center;
+    margin: 30px 0 45px;
+}
+
+.account-photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.account-profile-photo {
+    width: 130px;
+    height: 130px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 5px solid rgba(110, 75, 40, 0.35);
+
+    box-shadow:
+        0 5px 15px rgba(50, 30, 15, 0.25);
+}
+
+
+/* Bouton crayon */
+
+.account-photo-edit {
+    position: absolute;
+
+    right: 4px;
+    bottom: 4px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #8b5e34;
+    color: white;
+
+    font-size: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform: scale(0.8);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.account-photo-wrapper:hover
+.account-photo-edit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.account-photo-edit:hover {
+    background: #6f4527;
+    transform: scale(1.08);
+}
+
+
+.account-profile h2 {
+    margin-top: 18px;
+    margin-bottom: 5px;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.account-profile p {
+    margin: 0;
+
+    font-style: italic;
+
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.account-section {
+    margin-top: 35px;
+    padding: 30px;
+
+    border-top: 1px solid rgba(90, 65, 40, 0.25);
+}
+
+.account-section h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 26px;
+    font-weight: 600;
+
+    color: #5a4029;
+}
+
+
+/* =========================================================
+   FORMULAIRE
+========================================================= */
+
+.account-form {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px 30px;
+}
+
+.account-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-form label {
+    margin-bottom: 7px;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #5a4029;
+}
+
+.account-form input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid rgba(90, 65, 40, 0.35);
+
+    border-radius: 5px;
+
+    background: rgba(255, 252, 240, 0.75);
+
+    color: #403124;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.account-form input:focus {
+    border-color: #8b5e34;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 94, 52, 0.12);
+}
+
+.account-form input[readonly] {
+    background: rgba(120, 100, 80, 0.08);
+
+    color: #6d6257;
+
+    cursor: not-allowed;
+}
+
+.account-form small {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    font-style: italic;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   BOUTONS
+========================================================= */
+
+.account-actions {
+    text-align: center;
+
+    margin: 35px 0;
+}
+
+.account-actions .primary-button,
+.account-security .secondary-button {
+    padding: 11px 22px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-family: Georgia, serif;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.account-actions .primary-button:hover,
+.account-security .secondary-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(60, 40, 20, 0.18);
+}
+
+
+/* =========================================================
+   SÉCURITÉ
+========================================================= */
+
+.account-security {
+    text-align: center;
+}
+
+.account-security p {
+    margin-bottom: 20px;
+
+    font-style: italic;
+
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .account-page {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+    .account-form {
+        grid-template-columns: 1fr;
+    }
+
+}
