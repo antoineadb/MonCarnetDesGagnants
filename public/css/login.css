@@ -1325,6 +1325,43 @@ input:-webkit-autofill:active{
 
 }
 
+/* ==========================================================
+   MOT DE PASSE OUBLIÉ
+========================================================== */
+
+.forgot-password {
+
+    display: block;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 16px;
+
+    font-style: italic;
+
+    color: rgba(245, 230, 200, .70);
+
+    text-decoration: none;
+
+    transition:
+        color .25s ease,
+        opacity .25s ease;
+
+}
+
+.forgot-password:hover {
+
+    color: #f5d48b;
+
+    opacity: 1;
+
+    text-decoration: underline;
+
+}
 
 /* ==========================================================
    FIN

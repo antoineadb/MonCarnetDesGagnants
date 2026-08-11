@@ -92,6 +92,35 @@ try {
 
 }
 
+
+// ======================================================
+// TABLE RÉINITIALISATION MOT DE PASSE
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    token_hash TEXT NOT NULL UNIQUE,
+
+    expires_at TEXT NOT NULL,
+
+    used_at TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+
+);
+
+`);
+
 // ======================================================
 // TABLE JOURNAL
 // ======================================================

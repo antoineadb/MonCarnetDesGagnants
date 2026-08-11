@@ -415,6 +415,159 @@ router.put("/me", (req, res) => {
     });
 
 });
+// =========================================
+// MOT DE PASSE OUBLIÉ
+// =========================================
 
+const crypto = require("crypto");
+
+
+router.post("/forgot-password", (req, res) => {
+
+    const { email } = req.body || {};
+
+    // =========================================
+    // RÉPONSE GÉNÉRIQUE
+    // =========================================
+
+    const genericResponse = {
+
+        success: true,
+
+        message:
+            "Si cette adresse e-mail correspond à un compte, un lien de réinitialisation va être envoyé."
+
+    };
+
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    if (!email || !email.trim()) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Veuillez saisir votre adresse e-mail."
+
+        });
+
+    }
+
+
+    const normalizedEmail =
+        email.trim().toLowerCase();
+
+
+    // =========================================
+    // RECHERCHE UTILISATEUR
+    // =========================================
+
+    const user = db.prepare(`
+        SELECT
+            id,
+            email
+        FROM users
+        WHERE LOWER(email) = ?
+    `).get(normalizedEmail);
+
+
+    // =========================================
+    // AUCUN COMPTE
+    // =========================================
+
+    if (!user) {
+
+        return res.json(genericResponse);
+
+    }
+
+
+    // =========================================
+    // GÉNÉRATION DU TOKEN
+    // =========================================
+
+    const token =
+        crypto.randomBytes(32).toString("hex");
+
+
+    const tokenHash =
+        crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex");
+
+
+    // =========================================
+    // EXPIRATION
+    // 30 MINUTES
+    // =========================================
+
+    const expiresAt =
+        new Date(
+            Date.now() + 30 * 60 * 1000
+        ).toISOString();
+
+
+    // =========================================
+    // SUPPRESSION DES ANCIENS TOKENS
+    // =========================================
+
+    db.prepare(`
+        DELETE FROM password_reset_tokens
+        WHERE user_id = ?
+    `).run(user.id);
+
+
+    // =========================================
+    // ENREGISTREMENT DU TOKEN
+    // =========================================
+
+    db.prepare(`
+        INSERT INTO password_reset_tokens (
+            user_id,
+            token_hash,
+            expires_at
+        )
+        VALUES (?, ?, ?)
+    `).run(
+
+        user.id,
+        tokenHash,
+        expiresAt
+
+    );
+
+
+    // =========================================
+    // POUR LE MOMENT :
+    // AFFICHAGE DANS LA CONSOLE
+    // =========================================
+
+    console.log(
+        "🔐 Token de réinitialisation généré"
+    );
+
+    console.log(
+        "Utilisateur :",
+        user.id
+    );
+
+    console.log(
+        "Token :",
+        token
+    );
+
+
+    // =========================================
+    // RÉPONSE
+    // =========================================
+
+    return res.json(genericResponse);
+
+});
 
 module.exports = router;
