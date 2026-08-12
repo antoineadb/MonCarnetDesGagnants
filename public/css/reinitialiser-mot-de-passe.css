@@ -1,0 +1,98 @@
+/* ==========================================================
+   RÉINITIALISATION DU MOT DE PASSE
+========================================================== */
+
+.reset-password-form {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: min(300px, 78%);
+
+    margin: 0 auto;
+
+}
+
+
+.reset-password-text {
+
+    width: 100%;
+
+    margin: 0 0 25px;
+
+    text-align: center;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 19px;
+
+    font-style: italic;
+
+    line-height: 1.4;
+
+    color: rgba(245, 230, 200, .85);
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, .5);
+
+}
+
+
+/* Champs */
+
+.reset-password-form .login-field {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* Bouton */
+
+.reset-password-form .login-button {
+
+    margin-top: 10px;
+
+}
+
+
+/* Retour */
+
+.reset-password-form .forgot-password-back {
+
+    margin-top: 18px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    color: rgba(245, 230, 200, .70);
+
+    text-decoration: none;
+
+    transition:
+        color .25s ease,
+        opacity .25s ease;
+
+}
+
+.reset-password-form .forgot-password-back:hover {
+
+    color: #f5d48b;
+
+    opacity: 1;
+
+}

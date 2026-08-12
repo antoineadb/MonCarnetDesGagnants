@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Nouveau mot de passe - Le Carnet des Gagnants
+    </title>
+
+
+    <!-- Google Fonts -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/variables.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/base.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/layout.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/components.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/login.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/toast.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/reinitialiser-mot-de-passe.css">
+
+</head>
+
+
+<body>
+
+<div class="background">
+
+    <div class="light"></div>
+
+
+    <main class="book">
+
+        <!-- Pages -->
+
+        <div class="book-pages">
+
+            <div class="book-page page-1"></div>
+            <div class="book-page page-2"></div>
+            <div class="book-page page-3"></div>
+
+        </div>
+
+
+        <!-- Tranche -->
+
+        <div class="book-spine"></div>
+
+
+        <!-- Couverture -->
+
+        <section class="book-cover">
+
+
+            <!-- En-tête -->
+
+            <div class="cover-header">
+
+                <h1 class="book-title">
+
+                    <span>Nouveau</span>
+                    <span>mot de passe</span>
+
+                </h1>
+
+                <div class="separator"></div>
+
+            </div>
+
+
+            <!-- Formulaire -->
+
+            <form
+                id="resetPasswordForm"
+                class="reset-password-form"
+                novalidate>
+
+
+                <p class="reset-password-text">
+
+                    Choisissez votre nouveau mot de passe.
+
+                </p>
+
+
+                <!-- Nouveau mot de passe -->
+
+                <div class="login-field">
+
+                    <i class="bi bi-lock"></i>
+
+                    <input
+                        id="newPassword"
+                        type="password"
+                        placeholder="Nouveau mot de passe"
+                        autocomplete="new-password"
+                        required>
+
+                </div>
+
+
+                <!-- Confirmation -->
+
+                <div class="login-field">
+
+                    <i class="bi bi-lock-fill"></i>
+
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Confirmer le mot de passe"
+                        autocomplete="new-password"
+                        required>
+
+                </div>
+
+
+                <div
+                    id="resetPasswordMessage"
+                    class="login-message">
+                </div>
+
+
+                <button
+                    id="resetPasswordButton"
+                    class="login-button"
+                    type="submit">
+
+                    Modifier le mot de passe
+
+                </button>
+
+
+                <a
+                    href="login.html"
+                    class="forgot-password-back">
+
+                    <i class="bi bi-arrow-left"></i>
+                    Retour à la connexion
+
+                </a>
+
+
+            </form>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="../js/toast.js"></script>
+<script src="../js/reinitialiser-mot-de-passe.js"></script>
+
+</body>
+
+</html>

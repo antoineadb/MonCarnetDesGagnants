@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
-
 const bcrypt = require("bcrypt");
-
+const crypto = require("crypto");
+const Brevo = require("@getbrevo/brevo");
 const db = require("../database/database");
-
 const profileUpload =
     require("../middlewares/profile-upload.middleware");
+
+const brevo = new Brevo.BrevoClient({
+    apiKey: process.env.BREVO_API_KEY
+});
 
 // =========================================
 // CONNEXION
@@ -419,10 +422,8 @@ router.put("/me", (req, res) => {
 // MOT DE PASSE OUBLIÉ
 // =========================================
 
-const crypto = require("crypto");
 
-
-router.post("/forgot-password", (req, res) => {
+router.post("/forgot-password", async (req, res) => {
 
     const { email } = req.body || {};
 
@@ -541,32 +542,518 @@ router.post("/forgot-password", (req, res) => {
 
     );
 
-
     // =========================================
-    // POUR LE MOMENT :
-    // AFFICHAGE DANS LA CONSOLE
-    // =========================================
+// ENVOI DE L'EMAIL DE RÉINITIALISATION
+// =========================================
 
-    console.log(
-        "🔐 Token de réinitialisation généré"
-    );
-
-    console.log(
-        "Utilisateur :",
-        user.id
-    );
-
-    console.log(
-        "Token :",
-        token
-    );
+const resetUrl =
+    `${process.env.APP_URL}/pages/reinitialiser-mot-de-passe.html?token=${token}`;
 
 
+    try {
+
+        await brevo.transactionalEmails.sendTransacEmail({
+
+            sender: {
+                name: "Le Carnet des Gagnants",
+                email: process.env.MAIL_FROM
+            },
+
+            to: [
+                {
+                    email: normalizedEmail
+                }
+            ],
+
+            subject:
+                "Réinitialisation de votre mot de passe",
+
+            htmlContent: `
+                <div style="
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: auto;
+                    padding: 30px;
+                    background: #f7f1e3;
+                    color: #3b2a1f;
+                ">
+
+                    <h2>
+                        Le Carnet des Gagnants
+                    </h2>
+
+                    <p>
+                        Vous avez demandé la réinitialisation
+                        de votre mot de passe.
+                    </p>
+
+                    <p>
+                        Cliquez sur le bouton ci-dessous
+                        pour choisir un nouveau mot de passe.
+                    </p>
+
+                    <p style="text-align:center; margin:30px 0;">
+
+                        <a
+                            href="${resetUrl}"
+                            style="
+                                display:inline-block;
+                                padding:14px 24px;
+                                background:#5a3825;
+                                color:#ffffff;
+                                text-decoration:none;
+                                border-radius:6px;
+                            "
+                        >
+                            Réinitialiser mon mot de passe
+                        </a>
+
+                    </p>
+
+                    <p>
+                        Ce lien est valable pendant
+                        <strong>30 minutes</strong>.
+                    </p>
+
+                    <p>
+                        Si vous n'êtes pas à l'origine de cette
+                        demande, vous pouvez ignorer cet e-mail.
+                    </p>
+
+                </div>
+            `
+
+        });
+
+        console.log(
+            "📧 E-mail de réinitialisation envoyé"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur envoi e-mail Brevo :",
+            error
+        );
+
+    }
     // =========================================
     // RÉPONSE
     // =========================================
 
     return res.json(genericResponse);
+
+});
+
+
+// =========================================
+// ENVOI DE L'EMAIL
+// =========================================
+
+const resetUrl =
+    `${process.env.APP_URL}/pages/reinitialiser-mot-de-passe.html?token=${token}`;
+
+
+try {
+
+    await brevo.transactionalEmails.sendTransacEmail({
+
+        sender: {
+            name: "Le Carnet des Gagnants",
+            email: process.env.MAIL_FROM
+        },
+
+        to: [
+            {
+                email: normalizedEmail
+            }
+        ],
+
+        subject:
+            "Réinitialisation de votre mot de passe",
+
+        htmlContent: `
+            <div style="
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: auto;
+                padding: 30px;
+                background: #f7f1e3;
+                color: #3b2a1f;
+            ">
+
+                <h2>
+                    Le Carnet des Gagnants
+                </h2>
+
+                <p>
+                    Vous avez demandé la réinitialisation
+                    de votre mot de passe.
+                </p>
+
+                <p>
+                    Cliquez sur le bouton ci-dessous
+                    pour choisir un nouveau mot de passe.
+                </p>
+
+                <p style="text-align:center; margin:30px 0;">
+
+                    <a
+                        href="${resetUrl}"
+                        style="
+                            display:inline-block;
+                            padding:14px 24px;
+                            background:#5a3825;
+                            color:#ffffff;
+                            text-decoration:none;
+                            border-radius:6px;
+                        "
+                    >
+                        Réinitialiser mon mot de passe
+                    </a>
+
+                </p>
+
+                <p>
+                    Ce lien est valable pendant
+                    <strong>30 minutes</strong>.
+                </p>
+
+                <p>
+                    Si vous n'êtes pas à l'origine de cette
+                    demande, vous pouvez ignorer cet e-mail.
+                </p>
+
+            </div>
+        `
+
+    });
+
+    console.log(
+        "📧 E-mail de réinitialisation envoyé à :",
+        normalizedEmail
+    );
+
+}
+catch (error) {
+
+    console.error(
+        "❌ Erreur envoi e-mail Brevo :",
+        error
+    );
+
+}
+// =========================================
+// VÉRIFICATION TOKEN RÉINITIALISATION
+// =========================================
+
+
+router.get("/verify-reset-token", (req, res) => {
+
+    const { token } = req.query;
+
+    if (!token) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message: "Token de réinitialisation manquant."
+
+        });
+
+    }
+
+
+    // =========================================
+    // HASH DU TOKEN REÇU
+    // =========================================
+
+    const tokenHash =
+        crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex");
+
+
+    // =========================================
+    // RECHERCHE DU TOKEN
+    // =========================================
+
+    const resetToken = db.prepare(`
+        SELECT
+            id,
+            user_id,
+            expires_at,
+            used_at
+        FROM password_reset_tokens
+        WHERE token_hash = ?
+    `).get(tokenHash);
+
+
+    // =========================================
+    // TOKEN INCONNU
+    // =========================================
+
+    if (!resetToken) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation est invalide."
+
+        });
+
+    }
+
+
+    // =========================================
+    // TOKEN DÉJÀ UTILISÉ
+    // =========================================
+
+    if (resetToken.used_at) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation a déjà été utilisé."
+
+        });
+
+    }
+
+
+    // =========================================
+    // TOKEN EXPIRÉ
+    // =========================================
+
+    if (
+        new Date(resetToken.expires_at) <= new Date()
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation a expiré."
+
+        });
+
+    }
+
+
+    // =========================================
+    // TOKEN VALIDE
+    // =========================================
+
+    return res.json({
+
+        success: true,
+
+        message:
+            "Le lien de réinitialisation est valide."
+
+    });
+
+});
+
+// =========================================
+// RÉINITIALISATION DU MOT DE PASSE
+// =========================================
+
+router.post("/reset-password", (req, res) => {
+
+    const {
+        token,
+        password,
+        confirmPassword
+    } = req.body || {};
+
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    if (!token) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Token de réinitialisation manquant."
+
+        });
+
+    }
+
+    if (!password || !confirmPassword) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Veuillez renseigner les deux mots de passe."
+
+        });
+
+    }
+
+    if (password !== confirmPassword) {
+
+        return res.status(400).json({
+
+            success: false,
+            message:
+                "Les deux mots de passe ne correspondent pas."
+
+        });
+
+    }
+
+    if (password.length < 8) {
+
+        return res.status(400).json({
+
+            success: false,
+            message:
+                "Le mot de passe doit contenir au moins 8 caractères."
+
+        });
+
+    }
+
+
+    // =========================================
+    // HASH DU TOKEN
+    // =========================================
+
+    const tokenHash =
+        crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex");
+
+
+    // =========================================
+    // RECHERCHE DU TOKEN
+    // =========================================
+
+    const resetToken = db.prepare(`
+        SELECT
+            id,
+            user_id,
+            expires_at,
+            used_at
+        FROM password_reset_tokens
+        WHERE token_hash = ?
+    `).get(tokenHash);
+
+
+    if (!resetToken) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation est invalide."
+
+        });
+
+    }
+
+
+    // =========================================
+    // TOKEN DÉJÀ UTILISÉ
+    // =========================================
+
+    if (resetToken.used_at) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation a déjà été utilisé."
+
+        });
+
+    }
+
+
+    // =========================================
+    // TOKEN EXPIRÉ
+    // =========================================
+
+    if (
+        new Date(resetToken.expires_at) <= new Date()
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Ce lien de réinitialisation a expiré."
+
+        });
+
+    }
+
+
+    // =========================================
+    // HASH DU NOUVEAU MOT DE PASSE
+    // =========================================
+
+    const passwordHash =
+        bcrypt.hashSync(password, 10);
+
+
+    // =========================================
+    // MISE À JOUR DU MOT DE PASSE
+    // =========================================
+
+    db.prepare(`
+        UPDATE users
+        SET password_hash = ?
+        WHERE id = ?
+    `).run(
+
+        passwordHash,
+        resetToken.user_id
+
+    );
+
+
+    // =========================================
+    // TOKEN UTILISÉ
+    // =========================================
+
+    db.prepare(`
+        UPDATE password_reset_tokens
+        SET used_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+    `).run(resetToken.id);
+
+
+    console.log(
+        "🔐 Mot de passe réinitialisé pour l'utilisateur :",
+        resetToken.user_id
+    );
+
+
+    return res.json({
+
+        success: true,
+
+        message:
+            "Votre mot de passe a été modifié avec succès."
+
+    });
 
 });
 
