@@ -1,0 +1,913 @@
+/* =========================================================
+   PAGE CATÉGORIES OBJECTIFS
+   ========================================================= */
+
+.categories-page {
+
+    max-width: 1100px;
+
+    margin: 40px auto;
+
+    padding: 40px 60px 60px;
+
+    min-height: calc(100vh - 80px);
+
+    background:
+        linear-gradient(
+            rgba(248, 243, 232, 0.96),
+            rgba(248, 243, 232, 0.96)
+        );
+
+    border: 1px solid #d8c6a5;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .12);
+
+}
+
+
+/* =========================================================
+   RETOUR
+   ========================================================= */
+
+.categories-back {
+
+    margin-bottom: 35px;
+
+}
+
+.categories-back a {
+
+    text-decoration: none;
+
+    color: #6f5134;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 15px;
+
+    transition: .25s;
+
+}
+
+.categories-back a:hover {
+
+    color: #3f2817;
+
+}
+
+
+/* =========================================================
+   EN-TÊTE
+   ========================================================= */
+
+.categories-header {
+
+    text-align: center;
+
+    margin-bottom: 55px;
+
+}
+
+.categories-chapter {
+
+    text-transform: uppercase;
+
+    letter-spacing: 5px;
+
+    color: #8b6d4b;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+}
+
+.categories-header h1 {
+
+    margin: 8px 0;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 58px;
+
+    font-weight: 600;
+
+    color: #5b3b1b;
+
+}
+
+.categories-line {
+
+    width: 180px;
+
+    height: 1px;
+
+    margin: 20px auto;
+
+    background: #b99667;
+
+}
+
+.categories-subtitle {
+
+    margin: 0;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 22px;
+
+    font-style: italic;
+
+    color: #8b6d4b;
+
+}
+
+
+/* =========================================================
+   COLLECTION
+   ========================================================= */
+
+.categories-collection {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 35px;
+
+    align-items: stretch;
+
+}
+
+
+/* =========================================================
+   PAPYRUS
+   ========================================================= */
+
+.category-papyrus {
+
+    position: relative;
+
+    min-height: 240px;
+
+    padding: 35px 25px;
+
+    border: 1px solid #cdb58e;
+
+    border-radius: 4px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f3e4c3,
+            #e8d2a6 45%,
+            #f5e8ca
+        );
+
+    box-shadow:
+        0 8px 16px rgba(75, 48, 24, .16);
+
+    text-align: center;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    overflow: hidden;
+
+}
+
+
+/* texture légère */
+
+.category-papyrus::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .18;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 7px,
+            rgba(91, 59, 27, .15) 8px
+        );
+
+}
+
+
+/* effet feuille */
+
+.category-papyrus:nth-child(1) {
+
+    transform: rotate(-1.2deg);
+
+}
+
+.category-papyrus:nth-child(2) {
+
+    transform: rotate(.8deg);
+
+}
+
+.category-papyrus:nth-child(3) {
+
+    transform: rotate(-.5deg);
+
+}
+
+
+.category-papyrus:hover {
+
+    transform:
+        translateY(-7px)
+        rotate(0deg);
+
+    box-shadow:
+        0 14px 25px rgba(75, 48, 24, .23);
+
+}
+
+
+/* =========================================================
+   SYMBOLE
+   ========================================================= */
+
+.category-symbol {
+
+    position: relative;
+
+    font-family:
+        "Times New Roman",
+        serif;
+
+    font-size: 42px;
+
+    line-height: 1.2;
+
+    color: #5a3820;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================================================
+   NOM ÉGYPTIEN
+   ========================================================= */
+
+.category-egyptian {
+
+    position: relative;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    color: #8b6d4b;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =========================================================
+   NOM FRANÇAIS
+   ========================================================= */
+
+.category-papyrus h2 {
+
+    position: relative;
+
+    margin: 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 32px;
+
+    font-weight: 600;
+
+    color: #4c301c;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.category-actions {
+
+    position: absolute;
+
+    right: 14px;
+
+    bottom: 12px;
+
+    display: flex;
+
+    gap: 6px;
+
+    opacity: 0;
+
+    transform: translateY(5px);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+}
+
+.category-papyrus:hover .category-actions {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+.category-action {
+
+    width: 30px;
+
+    height: 30px;
+
+    border: 1px solid #b99667;
+
+    border-radius: 50%;
+
+    background: rgba(248, 243, 232, .65);
+
+    color: #654322;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.category-action:hover {
+
+    background: #e8d2a6;
+
+    transform: scale(1.08);
+
+}
+
+
+/* =========================================================
+   NOUVELLE CATÉGORIE
+   ========================================================= */
+
+.new-category-papyrus {
+
+    min-height: 240px;
+
+    padding: 35px 25px;
+
+    border: 2px dashed #c6a675;
+
+    border-radius: 5px;
+
+    background: rgba(246, 231, 200, .45);
+
+    cursor: pointer;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #795632;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.new-category-papyrus:hover {
+
+    background: #f1dfbd;
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 20px rgba(75, 48, 24, .14);
+
+}
+
+
+.new-category-symbol {
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 55px;
+
+    line-height: 1;
+
+}
+
+
+.new-category-title {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 27px;
+
+    font-weight: 600;
+
+}
+
+
+.new-category-text {
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 13px;
+
+    opacity: .75;
+
+}
+
+
+/* =========================================================
+   PIED DE PAGE
+   ========================================================= */
+
+.categories-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 70px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #d8c6a5;
+
+    color: #8b6d4b;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .categories-page {
+
+        margin: 20px;
+
+        padding: 30px;
+
+    }
+
+    .categories-collection {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .categories-page {
+
+        margin: 10px;
+
+        padding: 25px 18px;
+
+    }
+
+    .categories-header h1 {
+
+        font-size: 44px;
+
+    }
+
+    .categories-collection {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .categories-footer {
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        text-align: center;
+
+    }
+
+}
+
+/* =========================================================
+   MODAL CATÉGORIE
+   ========================================================= */
+
+.category-modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(55, 34, 18, .62);
+
+    backdrop-filter:
+        blur(3px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+
+.category-modal-overlay.visible {
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* =========================================================
+   FEUILLE
+   ========================================================= */
+
+.category-modal {
+
+    position: relative;
+
+    width: min(560px, 100%);
+
+    padding: 45px 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4e4bf,
+            #ead2a2,
+            #f5e8c9
+        );
+
+    border: 1px solid #c6a675;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, .35);
+
+    transform:
+        translateY(20px)
+        scale(.97);
+
+    transition:
+        transform .3s ease;
+}
+
+
+.category-modal-overlay.visible
+.category-modal {
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   FERMER
+   ========================================================= */
+
+.category-modal-close {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 18px;
+
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #684523;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   TITRE
+   ========================================================= */
+
+.category-modal-symbol {
+
+    text-align: center;
+
+    font-size: 45px;
+
+    margin-bottom: 5px;
+}
+
+
+.category-modal-title {
+
+    margin: 0;
+
+    text-align: center;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 38px;
+
+    color: #563619;
+}
+
+
+.category-modal-subtitle {
+
+    margin:
+        8px 0 30px;
+
+    text-align: center;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 19px;
+
+    font-style: italic;
+
+    color: #8b6d4b;
+}
+
+
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+
+.category-form-group {
+
+    margin-bottom: 20px;
+}
+
+
+.category-form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    color: #674522;
+}
+
+
+.category-form-group input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid #c5a474;
+
+    border-radius: 3px;
+
+    outline: none;
+
+    background:
+        rgba(255, 250, 235, .65);
+
+    color: #4e321d;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 20px;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+}
+
+
+.category-form-group input:focus {
+
+    border-color: #8e6437;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(142, 100, 55, .12);
+}
+
+
+/* =========================================================
+   BOUTONS
+   ========================================================= */
+
+.category-modal-buttons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+
+.category-cancel,
+.category-save {
+
+    padding: 11px 20px;
+
+    border-radius: 3px;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.category-cancel {
+
+    border: 1px solid #b89462;
+
+    background: transparent;
+
+    color: #694725;
+}
+
+
+.category-cancel:hover {
+
+    background:
+        rgba(255, 255, 255, .3);
+}
+
+
+.category-save {
+
+    border: 1px solid #684523;
+
+    background: #684523;
+
+    color: #f8eedc;
+}
+
+
+.category-save:hover {
+
+    background: #4e321d;
+
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   RÉORDONNANCEMENT DES CATÉGORIES
+   ========================================================= */
+
+.category-papyrus {
+    cursor: grab;
+}
+
+.category-papyrus:active {
+    cursor: grabbing;
+}
+
+/* Petit indicateur de déplacement */
+
+.category-drag-handle {
+
+    position: absolute;
+
+    left: 14px;
+    bottom: 14px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #b99667;
+    border-radius: 50%;
+
+    background: rgba(248, 243, 232, .65);
+
+    color: #795632;
+
+    font-size: 18px;
+
+    opacity: 0;
+
+    transition: opacity .25s ease;
+}
+
+.category-papyrus:hover .category-drag-handle {
+    opacity: 1;
+}
+
+/* Papyrus en cours de déplacement */
+
+.category-papyrus.dragging {
+
+    opacity: .45;
+
+    transform:
+        rotate(1deg)
+        scale(.98);
+
+}
+
+/* Zone au-dessus de laquelle on dépose */
+
+.category-papyrus.drag-over {
+
+    transform:
+        translateY(-8px)
+        rotate(0deg);
+
+    box-shadow:
+        0 18px 30px rgba(75, 48, 24, .28);
+
+}
