@@ -136,7 +136,67 @@ ON categories_objectifs(user_id);
 
 console.log("✔ Table categories_objectifs vérifiée");
 
+// ======================================================
+// TABLE OBJECTIFS
+// ======================================================
 
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS objectifs (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    categorie_id INTEGER NOT NULL,
+
+    titre TEXT NOT NULL,
+
+    description TEXT,
+
+    progression INTEGER NOT NULL DEFAULT 0,
+
+    statut TEXT NOT NULL DEFAULT 'a_commencer',
+
+    ordre INTEGER NOT NULL DEFAULT 0,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY(categorie_id)
+        REFERENCES categories_objectifs(id)
+        ON DELETE CASCADE
+
+);
+
+`);
+
+// Index pour accélérer les recherches par utilisateur
+
+db.exec(`
+
+CREATE INDEX IF NOT EXISTS idx_objectifs_user_id
+
+ON objectifs(user_id);
+
+`);
+
+// Index pour accélérer les recherches par catégorie
+
+db.exec(`
+
+CREATE INDEX IF NOT EXISTS idx_objectifs_categorie_id
+
+ON objectifs(categorie_id);
+
+`);
+
+console.log("✔ Table objectifs vérifiée");
 // ======================================================
 // TABLE RÉINITIALISATION MOT DE PASSE
 // ======================================================
