@@ -8,12 +8,14 @@ const {
 
 const categories =
     require("../controllers/categories-objectifs.controller");
-
+console.log("🔥 ROUTES CATEGORIES OBJECTIFS CHARGÉES");
 
 router.use(requireLogin);
 
 
-/* Récupérer toutes les catégories */
+/* ======================================================
+   RÉCUPÉRER LES CATÉGORIES
+   ====================================================== */
 
 router.get(
     "/",
@@ -21,7 +23,9 @@ router.get(
 );
 
 
-/* Créer */
+/* ======================================================
+   CRÉER
+   ====================================================== */
 
 router.post(
     "/",
@@ -29,15 +33,26 @@ router.post(
 );
 
 
-/* Modifier */
+/* ======================================================
+   MODIFIER L'ORDRE
+   ====================================================== */
+router.put(
+    "/reorder",
+    categories.reorder
+);
 
+/* ======================================================
+   MODIFIER
+   ====================================================== */
 router.put(
     "/:id",
     categories.update
 );
 
 
-/* Supprimer */
+/* ======================================================
+   SUPPRIMER
+   ====================================================== */
 
 router.delete(
     "/:id",
@@ -47,10 +62,7 @@ router.delete(
 
 /* Modifier l'ordre */
 
-router.put(
-    "/reorder",
-    categories.reorder
-);
+
 
 
 module.exports = router;

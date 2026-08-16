@@ -11,7 +11,7 @@ const Navigation = {
     },
 
     objectifs() {
-        Navigation.go("objectifs.html");
+        Navigation.go("categories-objectifs.html");
     },
 
     journal() {

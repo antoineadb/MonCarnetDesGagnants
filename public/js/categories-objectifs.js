@@ -1,42 +1,11 @@
-
 /* =========================================================
    GESTION DES CATÉGORIES D'OBJECTIFS
-   Version interface - sans SQLite pour le moment
+   Version SQLite / API
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
-
-    console.log("🏺 Test API catégories...");
-
-    fetch("/api/categories-objectifs")
-        .then(response => {
-
-            console.log(
-                "📡 Statut API catégories :",
-                response.status
-            );
-
-            return response.json();
-
-        })
-        .then(data => {
-
-            console.log(
-                "📜 Catégories reçues :",
-                data
-            );
-
-        })
-        .catch(error => {
-
-            console.error(
-                "❌ Erreur API catégories :",
-                error
-            );
-
-        });
-
+    console.log("🏺 Initialisation des catégories d'objectifs...");
 
     const collection = document.querySelector(".categories-collection");
 
@@ -47,61 +16,96 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       DONNÉES DES CATÉGORIES
+       DONNÉES
        ===================================================== */
 
     let categories = [];
 
 
     /* =====================================================
-       RÉCUPÉRATION DES CATÉGORIES PRÉSENTES DANS LE HTML
+       CHARGER LES CATÉGORIES DEPUIS SQLITE
        ===================================================== */
 
-  function chargerCategoriesDepuisHTML() {
+    async function chargerCategories() {
 
-        categories = [];
+        try {
 
-        const papyrus = collection.querySelectorAll(
-            ".category-papyrus"
-        );
+            console.log("📡 Chargement des catégories...");
 
-        papyrus.forEach((element, index) => {
+            const response =
+                await fetch("/api/categories-objectifs");
 
-            const symbole =
-                element.querySelector(
-                    ".category-symbol"
-                )?.textContent.trim() || "";
+            console.log(
+                "📡 Statut API :",
+                response.status
+            );
 
-            const egyptien =
-                element.querySelector(
-                    ".category-egyptian"
-                )?.textContent.trim() || "";
+            const data = await response.json();
 
-            const nom =
-                element.querySelector(
-                    "h2"
-                )?.textContent.trim() || "";
+            if (!response.ok) {
 
-            const id = Date.now() + index;
+                console.error(
+                    "❌ Erreur API :",
+                    data
+                );
 
-            // Très important :
-            // on associe l'ID à l'élément HTML
-            element.dataset.id = String(id);
+                return;
+            }
 
-            categories.push({
 
-                id: id,
+            /*
+             * L'API renvoie directement le tableau
+             * des catégories.
+             */
 
-                nom: nom,
+            if (!Array.isArray(data)) {
 
-                egyptien: egyptien,
+                console.error(
+                    "❌ Format inattendu reçu de l'API :",
+                    data
+                );
 
-                symbole: symbole
+                return;
+            }
 
-            });
 
-        });
-}
+            categories = data.map(category => ({
+
+                id: Number(category.id),
+
+                nom: category.nom || "",
+
+                egyptien: category.egyptien || "",
+
+                symbole:
+                    category.symbole || "𓂀",
+
+                ordre:
+                    Number(category.ordre) || 0
+
+            }));
+
+
+            console.log(
+                "📜 Catégories chargées :",
+                categories
+            );
+
+
+            afficherCategories();
+
+        } catch (error) {
+
+            console.error(
+                "❌ Erreur chargement catégories :",
+                error
+            );
+
+        }
+
+    }
+
+
     /* =====================================================
        AFFICHAGE
        ===================================================== */
@@ -109,29 +113,42 @@ document.addEventListener("DOMContentLoaded", () => {
     function afficherCategories() {
 
         const boutonAjouter =
-            collection.querySelector(".new-category-papyrus");
+            collection.querySelector(
+                ".new-category-papyrus"
+            );
 
-        // On supprime uniquement les anciennes cartes
+
+        /*
+         * Supprimer uniquement les anciennes cartes
+         */
+
         collection
             .querySelectorAll(".category-papyrus")
             .forEach(element => element.remove());
 
+
+        /*
+         * Créer les cartes
+         */
 
         categories.forEach(category => {
 
             const papyrus =
                 document.createElement("article");
 
-            papyrus.className = "category-papyrus";
+            papyrus.className =
+                "category-papyrus";
 
-            papyrus.dataset.id = category.id;
+            papyrus.dataset.id =
+                String(category.id);
+
 
             papyrus.innerHTML = `
-
 
                 <div class="category-symbol">
                     ${category.symbole}
                 </div>
+
                 <div class="category-egyptian">
                     ${category.egyptien}
                 </div>
@@ -141,6 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 </h2>
 
                 <div class="category-actions">
+
+                    <button
+                        type="button"
+                        class="category-action move-up"
+                        title="Monter"
+                    >
+                        ↑
+                    </button>
+
+                    <button
+                        type="button"
+                        class="category-action move-down"
+                        title="Descendre"
+                    >
+                        ↓
+                    </button>
 
                     <button
                         type="button"
@@ -161,15 +194,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-                // Insérer avant le bouton Nouvelle catégorie
-                collection.insertBefore(
-                    papyrus,
-                    boutonAjouter
-                );
-            });
+
+            collection.insertBefore(
+                papyrus,
+                boutonAjouter
+            );
+
+        });
 
 
         ajouterEvenements();
+
     }
 
 
@@ -179,15 +214,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function creerModal() {
 
-        if (document.querySelector(".category-modal-overlay")) {
+        if (
+            document.querySelector(
+                ".category-modal-overlay"
+            )
+        ) {
             return;
         }
+
 
         const overlay =
             document.createElement("div");
 
         overlay.className =
             "category-modal-overlay";
+
 
         overlay.innerHTML = `
 
@@ -287,6 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
 
+
         document.body.appendChild(overlay);
 
 
@@ -294,22 +336,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         overlay
             .querySelector(".category-modal-close")
-            .addEventListener("click", fermerModal);
+            .addEventListener(
+                "click",
+                fermerModal
+            );
 
 
         overlay
             .querySelector(".category-cancel")
-            .addEventListener("click", fermerModal);
+            .addEventListener(
+                "click",
+                fermerModal
+            );
 
 
-        // Cliquer sur le fond ferme également
-        overlay.addEventListener("click", event => {
+        overlay.addEventListener(
+            "click",
+            event => {
 
-            if (event.target === overlay) {
-                fermerModal();
+                if (event.target === overlay) {
+                    fermerModal();
+                }
+
             }
+        );
 
-        });
     }
 
 
@@ -321,30 +372,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
         creerModal();
 
+
         const overlay =
             document.querySelector(
                 ".category-modal-overlay"
             );
+
 
         const title =
             overlay.querySelector(
                 ".category-modal-title"
             );
 
+
         const form =
             overlay.querySelector(
                 ".category-form"
             );
+
 
         const nameInput =
             overlay.querySelector(
                 "#category-name"
             );
 
+
         const egyptianInput =
             overlay.querySelector(
                 "#category-egyptian"
             );
+
 
         const symbolInput =
             overlay.querySelector(
@@ -352,45 +409,58 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        /* Mode modification */
-
         if (category) {
+
+            /* ================================
+               MODE MODIFICATION
+               ================================ */
 
             title.textContent =
                 "Modifier la catégorie";
 
+
             nameInput.value =
                 category.nom;
+
 
             egyptianInput.value =
                 category.egyptien;
 
+
             symbolInput.value =
                 category.symbole;
 
+
             form.dataset.editId =
-                category.id;
+                String(category.id);
 
-        }
+        } else {
 
-        /* Mode création */
-
-        else {
+            /* ================================
+               MODE CRÉATION
+               ================================ */
 
             title.textContent =
                 "Nouvelle catégorie";
 
+
             form.reset();
 
+
             delete form.dataset.editId;
+
         }
 
 
         overlay.classList.add("visible");
 
+
         setTimeout(() => {
+
             nameInput.focus();
+
         }, 100);
+
     }
 
 
@@ -405,35 +475,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 ".category-modal-overlay"
             );
 
+
         if (!overlay) {
             return;
         }
 
-        overlay.classList.remove("visible");
+
+        overlay.classList.remove(
+            "visible"
+        );
+
     }
 
 
     /* =====================================================
-       ENREGISTREMENT
+       ENREGISTRER UNE CATÉGORIE
        ===================================================== */
 
-    function enregistrerCategorie(event) {
+    async function enregistrerCategorie(event) {
 
         event.preventDefault();
 
-        const form = event.currentTarget;
+
+        const form =
+            event.currentTarget;
+
 
         const nom =
-            form.querySelector("#category-name")
-                .value.trim();
+            form
+                .querySelector("#category-name")
+                .value
+                .trim();
+
 
         const egyptien =
-            form.querySelector("#category-egyptian")
-                .value.trim();
+            form
+                .querySelector("#category-egyptian")
+                .value
+                .trim();
+
 
         const symbole =
-            form.querySelector("#category-symbol")
-                .value.trim();
+            form
+                .querySelector("#category-symbol")
+                .value
+                .trim();
 
 
         if (!nom) {
@@ -443,54 +529,149 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             return;
+
         }
 
 
-        /* Modification */
+        const editId =
+            form.dataset.editId;
 
-        if (form.dataset.editId) {
 
-            const id =
-                Number(form.dataset.editId);
+        try {
 
-            const category =
-                categories.find(
-                    item => item.id === id
+            let response;
+
+
+            /* =================================================
+               MODIFICATION
+               ================================================= */
+
+            if (editId) {
+
+                console.log(
+                    "✏️ Modification catégorie :",
+                    editId
                 );
 
-            if (category) {
 
-                category.nom = nom;
-                category.egyptien = egyptien;
-                category.symbole =
-                    symbole || "𓂀";
+                response =
+                    await fetch(
+                        `/api/categories-objectifs/${editId}`,
+                        {
+
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                nom,
+                                egyptien,
+                                symbole:
+                                    symbole || "𓂀"
+
+                            })
+
+                        }
+                    );
+
             }
 
+
+            /* =================================================
+               CRÉATION
+               ================================================= */
+
+            else {
+
+                console.log(
+                    "➕ Création catégorie :",
+                    nom
+                );
+
+
+                response =
+                    await fetch(
+                        "/api/categories-objectifs",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                nom,
+                                egyptien,
+                                symbole:
+                                    symbole || "𓂀"
+
+                            })
+
+                        }
+                    );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                console.error(
+                    "❌ Erreur enregistrement :",
+                    data
+                );
+
+                alert(
+                    data.error ||
+                    "Impossible d'enregistrer la catégorie."
+                );
+
+                return;
+
+            }
+
+
+            console.log(
+                "✅ Catégorie enregistrée :",
+                data
+            );
+
+
+            /*
+             * On recharge depuis SQLite.
+             * Cela garantit que l'interface correspond
+             * réellement à la base.
+             */
+
+            await chargerCategories();
+
+
+            fermerModal();
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Erreur réseau :",
+                error
+            );
+
+            alert(
+                "Impossible de communiquer avec le serveur."
+            );
+
         }
 
-        /* Nouvelle catégorie */
-
-        else {
-
-            categories.push({
-
-                id: Date.now(),
-
-                nom: nom,
-
-                egyptien:
-                    egyptien || "",
-
-                symbole:
-                    symbole || "𓂀"
-
-            });
-        }
-
-
-        afficherCategories();
-
-        fermerModal();
     }
 
 
@@ -500,209 +681,382 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function supprimerCategorie(id) {
 
-        console.log("🗑️ Suppression demandée :", id);
-
-        const category = categories.find(
-            item => item.id === id
+        console.log(
+            "🗑️ Suppression demandée :",
+            id
         );
 
+
+        const category =
+            categories.find(
+                item => item.id === id
+            );
+
+
         if (!category) {
-            console.log("❌ Catégorie introuvable");
+
+            console.error(
+                "❌ Catégorie introuvable :",
+                id
+            );
+
             return;
+
         }
 
-        console.log("📜 Catégorie :", category);
 
-        const ok = await Confirm.show({
+        const ok =
+            await Confirm.show({
 
-            title: "Supprimer la catégorie",
+                title:
+                    "Supprimer la catégorie",
 
-            message:
-                `Voulez-vous vraiment supprimer la catégorie « ${category.nom} » ?`,
+                message:
+                    `Voulez-vous vraiment supprimer la catégorie « ${category.nom} » ?`,
 
-            confirmText: "Supprimer",
+                confirmText:
+                    "Supprimer",
 
-            cancelText: "Annuler"
+                cancelText:
+                    "Annuler"
 
-        });
+            });
 
-        console.log("✅ Réponse Confirm :", ok);
+
+        console.log(
+            "✅ Réponse Confirm :",
+            ok
+        );
+
 
         if (!ok) {
             return;
         }
 
-        categories = categories.filter(
-            item => item.id !== id
-        );
 
-        afficherCategories();
+        try {
+
+            const response =
+                await fetch(
+                    `/api/categories-objectifs/${id}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                console.error(
+                    "❌ Erreur suppression :",
+                    data
+                );
+
+                alert(
+                    data.error ||
+                    "Impossible de supprimer la catégorie."
+                );
+
+                return;
+
+            }
+
+
+            console.log(
+                "✅ Catégorie supprimée"
+            );
+
+
+            await chargerCategories();
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Erreur réseau suppression :",
+                error
+            );
+
+        }
 
     }
 
-    function deplacerCategorie(id, direction) {
 
-        const index = categories.findIndex(
-            category => category.id === id
-        );
+    /* =====================================================
+       DÉPLACER UNE CATÉGORIE
+       ===================================================== */
+
+    async function deplacerCategorie(
+        id,
+        direction
+    ) {
+
+        const index =
+            categories.findIndex(
+                category =>
+                    category.id === id
+            );
+
 
         if (index === -1) {
             return;
         }
 
 
-        const nouvellePosition = index + direction;
+        const nouvellePosition =
+            index + direction;
 
 
-        // Déjà tout en haut ou tout en bas
         if (
             nouvellePosition < 0 ||
             nouvellePosition >= categories.length
         ) {
+
             return;
+
         }
 
 
-        // Échange des deux catégories
-        const temp = categories[index];
+        /*
+         * On échange localement les deux éléments
+         */
+
+        const temp =
+            categories[index];
+
 
         categories[index] =
             categories[nouvellePosition];
+
 
         categories[nouvellePosition] =
             temp;
 
 
-        // Réaffichage
-        afficherCategories();
+        /*
+         * On envoie le nouvel ordre à SQLite
+         */
+
+        try {
+
+           const response =
+            await fetch(
+                "/api/categories-objectifs/reorder",
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        categories: categories.map(category => ({
+                            id: category.id
+                        }))
+                    })
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                console.error(
+                    "❌ Erreur réorganisation :",
+                    data
+                );
+
+                /*
+                 * En cas d'erreur,
+                 * on recharge l'ordre réel
+                 * depuis SQLite.
+                 */
+
+                await chargerCategories();
+
+                return;
+
+            }
+
+
+            console.log(
+                "✅ Nouvel ordre enregistré"
+            );
+
+
+            /*
+             * Réaffichage
+             */
+
+            afficherCategories();
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Erreur réseau réorganisation :",
+                error
+            );
+
+
+            /*
+             * On revient à l'état réel de SQLite
+             */
+
+            await chargerCategories();
+
+        }
 
     }
+
+
     /* =====================================================
        ÉVÉNEMENTS DES CARTES
        ===================================================== */
 
     function ajouterEvenements() {
 
-        const cartes = collection.querySelectorAll(
-            ".category-papyrus"
-        );
+        const cartes =
+            collection.querySelectorAll(
+                ".category-papyrus"
+            );
+
 
         cartes.forEach(card => {
 
-            const id = Number(card.dataset.id);
+            const id =
+                Number(card.dataset.id);
+
 
             if (Number.isNaN(id)) {
+
                 console.error(
-                    "❌ ID invalide pour cette catégorie :",
+                    "❌ ID invalide :",
                     card
                 );
+
                 return;
+
             }
 
 
             /* =================================================
-            MODIFIER
-            ================================================= */
+               MODIFIER
+               ================================================= */
 
-            const editButton = card.querySelector(".edit");
+            const editButton =
+                card.querySelector(".edit");
 
-            editButton.addEventListener("click", event => {
 
-                event.stopPropagation();
+            if (editButton) {
 
-                const category = categories.find(
-                    item => item.id === id
+                editButton.addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+
+                        const category =
+                            categories.find(
+                                item =>
+                                    item.id === id
+                            );
+
+
+                        if (category) {
+                            ouvrirModal(category);
+                        }
+
+                    }
                 );
 
-                if (category) {
-                    ouvrirModal(category);
-                }
-
-            });
+            }
 
 
             /* =================================================
-            SUPPRIMER
-            ================================================= */
+               SUPPRIMER
+               ================================================= */
 
-            const deleteButton = card.querySelector(".delete");
-
-            deleteButton.addEventListener("click", event => {
-
-                event.stopPropagation();
-
-                supprimerCategorie(id);
-
-            });
+            const deleteButton =
+                card.querySelector(".delete");
 
 
-            /* =================================================
-            BOUTON MONTER
-            ================================================= */
+            if (deleteButton) {
 
-            const upButton = document.createElement("button");
+                deleteButton.addEventListener(
+                    "click",
+                    event => {
 
-            upButton.type = "button";
-            upButton.className = "category-action move-up";
-            upButton.title = "Monter";
-            upButton.textContent = "↑";
+                        event.stopPropagation();
+
+                        supprimerCategorie(id);
+
+                    }
+                );
+
+            }
 
 
             /* =================================================
-            BOUTON DESCENDRE
-            ================================================= */
+               MONTER
+               ================================================= */
 
-            const downButton = document.createElement("button");
-
-            downButton.type = "button";
-            downButton.className = "category-action move-down";
-            downButton.title = "Descendre";
-            downButton.textContent = "↓";
+            const upButton =
+                card.querySelector(".move-up");
 
 
-            /* =================================================
-            AJOUT DES BOUTONS
-            ================================================= */
+            if (upButton) {
 
-            const actions = card.querySelector(
-                ".category-actions"
-            );
+                upButton.addEventListener(
+                    "click",
+                    event => {
 
-            actions.insertBefore(
-                upButton,
-                actions.firstChild
-            );
+                        event.stopPropagation();
 
-            actions.insertBefore(
-                downButton,
-                actions.children[1]
-            );
+                        deplacerCategorie(
+                            id,
+                            -1
+                        );
+
+                    }
+                );
+
+            }
 
 
             /* =================================================
-            MONTER
-            ================================================= */
+               DESCENDRE
+               ================================================= */
 
-            upButton.addEventListener("click", event => {
-
-                event.stopPropagation();
-
-                deplacerCategorie(id, -1);
-
-            });
+            const downButton =
+                card.querySelector(".move-down");
 
 
-            /* =================================================
-            DESCENDRE
-            ================================================= */
+            if (downButton) {
 
-            downButton.addEventListener("click", event => {
+                downButton.addEventListener(
+                    "click",
+                    event => {
 
-                event.stopPropagation();
+                        event.stopPropagation();
 
-                deplacerCategorie(id, 1);
+                        deplacerCategorie(
+                            id,
+                            1
+                        );
 
-            });
+                    }
+                );
+
+            }
 
         });
 
@@ -710,7 +1064,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NOUVELLE CATÉGORIE
+       BOUTON NOUVELLE CATÉGORIE
        ===================================================== */
 
     const boutonAjouter =
@@ -742,17 +1096,25 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    form.addEventListener(
-        "submit",
-        enregistrerCategorie
-    );
+    if (form) {
+
+        form.addEventListener(
+            "submit",
+            enregistrerCategorie
+        );
+
+    }
 
 
     /* =====================================================
-       INITIALISATION
+       CHARGEMENT INITIAL
        ===================================================== */
 
-    chargerCategoriesDepuisHTML();
-        ajouterEvenements();
+    await chargerCategories();
+
+
+    console.log(
+        "🚀 Gestion des catégories prête."
+    );
 
 });
