@@ -16,6 +16,8 @@ const loginHistoryRoutes = require("./routes/login-history.routes");
 const booksRoutes = require("./routes/books.routes");
 const categoriesObjectifsRoutes =
     require("./routes/categories-objectifs.routes");
+const objectifsRoutes =
+    require("./routes/objectifs.routes");
 
 // Route principale
 app.get("/", (req, res) => {
@@ -73,6 +75,10 @@ app.use("/api/journal", journalRoutes);
 app.use("/api/progression", progressionRoutes);
 app.use("/api/gratitude", gratitudeRoutes);
 app.use( "/api/categories-objectifs", categoriesObjectifsRoutes);
+app.use(
+    "/api/objectifs",
+    objectifsRoutes
+);
 app.use("/api/history", historyRoutes);
 app.use("/api/login-history", loginHistoryRoutes);
 app.use("/api/books", booksRoutes);
