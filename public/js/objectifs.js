@@ -103,85 +103,92 @@ async function chargerCategories() {
    AFFICHER LES CATÉGORIES
    ====================================================== */
 
+/* ======================================================
+   AFFICHER LES CATÉGORIES
+   ====================================================== */
+
 function afficherCategories(
     container,
     categories
 ) {
 
-
-    if (!categories.length) {
-
-        container.innerHTML = `
-
-            <div class="objectifs-empty">
-
-                Aucune catégorie d'objectif
-                n'a encore été créée.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
     container.innerHTML = `
 
-    <div class="objectifs-categories">
+        <div class="objectifs-categories">
 
-        <h2 class="objectifs-section-title">
-            Mes catégories
-        </h2>
+            <h2 class="objectifs-section-title">
+                Mes catégories
+            </h2>
 
-        <div class="categories-grid">
 
-            ${categories.map(
-                categorie => `
+            ${
+                categories.length === 0
 
-                    <button
-                        class="categorie-card"
-                        type="button"
-                        data-categorie-id="${categorie.id}"
-                    >
-                        
-                        <span class="categorie-symbole">
+                    ? `
 
-                            ${categorie.symbole || "🏺"}
+                        <div class="objectifs-empty">
 
-                        </span>
+                            Aucune catégorie d'objectif
+                            n'a encore été créée.
 
-                        <span class="categorie-nom">
+                        </div>
 
-                            ${echapperHTML(
-                                categorie.nom
-                            )}
+                    `
 
-                        </span>
+                    : `
 
-                    </button>
+                        <div class="categories-grid">
 
-                `
-            ).join("")}
+                            ${categories.map(
+                                categorie => `
+
+                                    <button
+                                        class="categorie-card"
+                                        type="button"
+                                        data-categorie-id="${categorie.id}"
+                                    >
+
+                                        <span class="categorie-symbole">
+
+                                            ${categorie.symbole || "🏺"}
+
+                                        </span>
+
+
+                                        <span class="categorie-nom">
+
+                                            ${echapperHTML(
+                                                categorie.nom
+                                            )}
+
+                                        </span>
+
+                                    </button>
+
+                                `
+                            ).join("")}
+
+                        </div>
+
+                    `
+            }
+
+
+            <!-- GESTION DES CATÉGORIES -->
+
+            <button
+                type="button"
+                class="gerer-categories"
+                id="gerer-categories"
+            >
+                ⚙️ Gérer mes catégories
+            </button>
+
 
         </div>
 
+    `;
 
-        <!-- GESTION DES CATÉGORIES -->
-
-        <button
-            type="button"
-            class="gerer-categories"
-            id="gerer-categories"
-        >
-            ⚙️ Gérer mes catégories
-        </button>
-
-
-    </div>
-
-`;
 
     document
         .getElementById("gerer-categories")
@@ -200,7 +207,9 @@ function afficherCategories(
         "✅ Catégories affichées."
     );
 
+
     initialiserClicCategories();
+
 }
 
 /* ======================================================
