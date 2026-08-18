@@ -998,9 +998,14 @@ document
     );
 
 
-    document
-        .getElementById("objectif-titre")
-        .focus();
+    const champTitre =
+    document.getElementById("objectif-titre");
+
+    if (champTitre) {
+
+        champTitre.focus();
+
+    }
 
 }
 
@@ -1172,7 +1177,7 @@ function initialiserBoutonsObjectifs(container) {
                         "✅ Objectif supprimé :",
                         objectifId
                     );
-                    
+
                     Toast.show(
                         "Objectif supprimé avec succès."
                     );
@@ -1618,11 +1623,14 @@ function afficherFormulaireModification(
        FOCUS SUR LE TITRE
        ================================================== */
 
-    document
-        .getElementById(
-            "objectif-titre-modification"
-        )
-        .focus();
+    const champTitreModification =
+    document.getElementById("objectif-titre-modification");
+
+    if (champTitreModification) {
+
+        champTitreModification.focus();
+
+    }
 
 /* ======================================================
    PROTECTION HTML
