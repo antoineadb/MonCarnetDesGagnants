@@ -129,47 +129,71 @@ function afficherCategories(
 
     container.innerHTML = `
 
-        <div class="objectifs-categories">
+    <div class="objectifs-categories">
 
-            <h2 class="objectifs-section-title">
-                Mes catégories
-            </h2>
+        <h2 class="objectifs-section-title">
+            Mes catégories
+        </h2>
 
-            <div class="categories-grid">
+        <div class="categories-grid">
 
-                ${categories.map(
-                    categorie => `
+            ${categories.map(
+                categorie => `
 
-                        <button
-                            class="categorie-card"
-                            type="button"
-                            data-categorie-id="${categorie.id}"
-                        >
-                            
-                            <span class="categorie-symbole">
+                    <button
+                        class="categorie-card"
+                        type="button"
+                        data-categorie-id="${categorie.id}"
+                    >
+                        
+                        <span class="categorie-symbole">
 
-                                ${categorie.symbole || "🏺"}
+                            ${categorie.symbole || "🏺"}
 
-                            </span>
+                        </span>
 
-                            <span class="categorie-nom">
+                        <span class="categorie-nom">
 
-                                ${echapperHTML(
-                                    categorie.nom
-                                )}
+                            ${echapperHTML(
+                                categorie.nom
+                            )}
 
-                            </span>
+                        </span>
 
-                        </button>
+                    </button>
 
-                    `
-                ).join("")}
-
-            </div>
+                `
+            ).join("")}
 
         </div>
 
-    `;
+
+        <!-- GESTION DES CATÉGORIES -->
+
+        <button
+            type="button"
+            class="gerer-categories"
+            id="gerer-categories"
+        >
+            ⚙️ Gérer mes catégories
+        </button>
+
+
+    </div>
+
+`;
+
+    document
+        .getElementById("gerer-categories")
+        .addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "/pages/categories-objectifs.html";
+
+            }
+        );
 
 
     console.log(
@@ -1037,6 +1061,144 @@ function initialiserBoutonsObjectifs(container) {
                     container,
                     objectif
                 );
+
+            }
+        );
+
+    });
+
+        /* ==================================================
+       SUPPRIMER UN OBJECTIF
+       ================================================== */
+
+    const boutonsSupprimer =
+        document.querySelectorAll(
+            ".objectif-btn-supprimer"
+        );
+
+
+    boutonsSupprimer.forEach(bouton => {
+
+        bouton.addEventListener(
+            "click",
+            async () => {
+
+                const objectifId =
+                    Number(
+                        bouton.dataset.objectifId
+                    );
+
+
+                const objectif =
+                    window.objectifsActuels.find(
+                        objectif =>
+                            Number(objectif.id) ===
+                            objectifId
+                    );
+
+
+                if (!objectif) {
+
+                    console.error(
+                        "❌ Objectif introuvable :",
+                        objectifId
+                    );
+
+                    return;
+                }
+
+
+                const ok = await Confirm.show({
+
+                    icon: "⚠️",
+
+                    title: "Supprimer cet objectif",
+
+                    message:
+                        `Voulez-vous vraiment supprimer l'objectif « ${objectif.titre} » ?`,
+
+                    confirmText: "Supprimer",
+
+                    cancelText: "Annuler"
+
+                });
+
+
+                if (!ok) {
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "🗑️ Suppression de l'objectif :",
+                    objectifId
+                );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `/api/objectifs/${objectifId}`,
+                            {
+                                method: "DELETE"
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    console.log(
+                        "📡 Statut suppression :",
+                        response.status
+                    );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.error ||
+                            "Impossible de supprimer l'objectif."
+                        );
+
+                    }
+
+
+                    console.log(
+                        "✅ Objectif supprimé :",
+                        objectifId
+                    );
+                    
+                    Toast.show(
+                        "Objectif supprimé avec succès."
+                    );
+
+                    /*
+                     * Recharger les objectifs
+                     * de la catégorie
+                     */
+
+                    afficherObjectifsCategorie(
+                        window.objectifCategorieId
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "❌ Erreur suppression objectif :",
+                        error
+                    );
+
+                    alert(
+                        error.message
+                    );
+
+                }
 
             }
         );

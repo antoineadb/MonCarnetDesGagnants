@@ -932,3 +932,47 @@
 
     transform: translateY(-1px);
 }
+
+/* ======================================================
+   BOUTON GÉRER LES CATÉGORIES
+   ====================================================== */
+
+.gerer-categories {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin: 24px auto 0;
+    padding: 9px 18px;
+
+    background: transparent;
+
+    border: 1px solid #d4bd96;
+    border-radius: 20px;
+
+    color: #68451f;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.gerer-categories:hover {
+    background: #f0e1c5;
+
+    border-color: #b89052;
+
+    box-shadow:
+        0 3px 8px rgba(80, 50, 20, 0.10);
+
+    transform: translateY(-1px);
+}
