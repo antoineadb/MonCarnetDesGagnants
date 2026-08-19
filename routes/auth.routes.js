@@ -19,6 +19,8 @@ router.post("/login", (req, res) => {
 console.log("🔥 ROUTE LOGIN APPELÉE 🔥");
 
     const { username, password } = req.body || {};
+    
+    console.log( "🔐 Login reçu :", JSON.stringify(username) );
 
     if (!username || !password) {
 
