@@ -956,7 +956,6 @@ function afficherFormulaireObjectif( container,categorieId, categorie ) {
             )
         );
 
-
 document
     .getElementById("objectif-form")
     .addEventListener(
@@ -1728,3 +1727,12 @@ function echapperHTML(texte) {
     return div.innerHTML;
 
 }
+document
+    .querySelector(".btn-retour-carnet")
+    .addEventListener(
+        "click",
+        () => {
+            window.location.href = "/pages/app.html";
+        }
+    );
+    

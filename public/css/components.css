@@ -264,3 +264,32 @@
 .book-detail-modal[hidden] {
     display: none !important;
 }
+
+/* ======================================================
+   BOUTON RETOUR AU CARNET
+   ====================================================== */
+
+.btn-retour-carnet {
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    background: white;
+
+    font-weight: 600;
+
+    transition: .25s;
+
+}
+
+
+.btn-retour-carnet:hover {
+
+    transform: translateY(-2px);
+
+}

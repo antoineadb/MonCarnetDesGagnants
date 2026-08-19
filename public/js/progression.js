@@ -1404,5 +1404,12 @@ document.addEventListener(
 );
 
 
+document.querySelector(".btn-retour-carnet").addEventListener(
+        "click",
+        () => {
+            window.location.href = "/pages/app.html";
+        }
+    );
+
 
 
