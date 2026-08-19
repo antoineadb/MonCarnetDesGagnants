@@ -282,6 +282,54 @@ async function afficherObjectifsCategorie(categorieId) {
 
     try {
 
+        /* ==================================================
+           RÉCUPÉRER LES CATÉGORIES
+           ================================================== */
+
+        const categoriesResponse =
+            await fetch("/api/categories-objectifs");
+
+
+        if (!categoriesResponse.ok) {
+
+            throw new Error(
+                `Erreur HTTP catégories ${categoriesResponse.status}`
+            );
+
+        }
+
+
+        const categories =
+            await categoriesResponse.json();
+
+
+        const categorie =
+            categories.find(
+                categorie =>
+                    Number(categorie.id) ===
+                    Number(categorieId)
+            );
+
+
+        if (!categorie) {
+
+            throw new Error(
+                "Catégorie introuvable."
+            );
+
+        }
+
+
+        console.log(
+            "🏺 Catégorie sélectionnée :",
+            categorie
+        );
+
+
+        /* ==================================================
+           RÉCUPÉRER LES OBJECTIFS
+           ================================================== */
+
         const response =
             await fetch("/api/objectifs");
 
@@ -328,7 +376,8 @@ async function afficherObjectifsCategorie(categorieId) {
         afficherListeObjectifs(
             container,
             categorieId,
-            objectifsCategorie
+            objectifsCategorie,
+            categorie
         );
 
 
@@ -359,7 +408,7 @@ async function afficherObjectifsCategorie(categorieId) {
    AFFICHER LA LISTE DES OBJECTIFS
    ====================================================== */
 
-    function afficherListeObjectifs( container, categorieId, objectifs ) {
+    function afficherListeObjectifs( container, categorieId, objectifs, categorie ) {
 
         window.objectifCategorieId =  Number(categorieId);
 
@@ -381,6 +430,17 @@ async function afficherObjectifsCategorie(categorieId) {
                     Mes objectifs
                 </h2>
 
+                <div class="objectif-categorie-selectionnee">
+
+                    <span class="objectif-categorie-symbole">
+                        ${categorie.symbole || "🏺"}
+                    </span>
+
+                    <span class="objectif-categorie-nom">
+                        ${echapperHTML(categorie.nom)}
+                    </span>
+
+                </div>
                 ${
                     objectifs.length === 0
 
@@ -522,7 +582,8 @@ async function afficherObjectifsCategorie(categorieId) {
             "click",
             () => afficherFormulaireObjectif(
                 container,
-                categorieId
+                categorieId,
+                categorie
             )
         );
 
@@ -759,10 +820,7 @@ async function sauvegarderProgression(slider) {
    FORMULAIRE DE CRÉATION D'OBJECTIF
    ====================================================== */
 
-function afficherFormulaireObjectif(
-    container,
-    categorieId
-) {
+function afficherFormulaireObjectif( container,categorieId, categorie ) {
 
     console.log(
         "✍️ Création d'un objectif pour la catégorie :",
@@ -786,6 +844,18 @@ function afficherFormulaireObjectif(
             <h2 class="objectifs-section-title">
                 Nouvel objectif
             </h2>
+
+            <div class="objectif-categorie-selectionnee">
+
+                <span class="objectif-categorie-symbole">
+                    ${categorie.symbole || "🏺"}
+                </span>
+
+                <span class="objectif-categorie-nom">
+                    ${echapperHTML(categorie.nom)}
+                </span>
+
+            </div>
 
 
             <form

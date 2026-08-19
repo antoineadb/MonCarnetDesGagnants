@@ -976,3 +976,40 @@
 
     transform: translateY(-1px);
 }
+/* ======================================================
+   CATÉGORIE SÉLECTIONNÉE
+   ====================================================== */
+
+.objectif-categorie-selectionnee {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: -8px 0 24px;
+
+    color: #8a6a3f;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+}
+
+
+.objectif-categorie-symbole {
+
+    font-size: 20px;
+
+}
+
+
+.objectif-categorie-nom {
+
+    letter-spacing: 0.2px;
+
+}
