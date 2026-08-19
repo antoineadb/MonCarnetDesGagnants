@@ -938,7 +938,8 @@ function afficherFormulaireObjectif( container,categorieId, categorie ) {
             () => afficherListeObjectifs(
                 container,
                 categorieId,
-                []
+                [],
+                categorie
             )
         );
 
@@ -950,7 +951,8 @@ function afficherFormulaireObjectif( container,categorieId, categorie ) {
             () => afficherListeObjectifs(
                 container,
                 categorieId,
-                []
+                [],
+                categorie
             )
         );
 
