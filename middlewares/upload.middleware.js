@@ -6,19 +6,27 @@ const storage = multer.diskStorage({
 
     destination: (req, file, cb) => {
 
-        const uploadDir = "/var/data/books";
-
-        fs.mkdirSync(
-            uploadDir,
-            {
-                recursive: true
-            }
+    const uploadDir =
+        process.env.UPLOAD_DIR ||
+        path.join(
+            __dirname,
+            "..",
+            "public",
+            "assets",
+            "images",
+            "books"
         );
 
-        cb(null, uploadDir);
+    fs.mkdirSync(
+        uploadDir,
+        {
+            recursive: true
+        }
+    );
 
-    },
+    cb(null, uploadDir);
 
+},
     filename: (req, file, cb) => {
 
         const extension =

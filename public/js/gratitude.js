@@ -79,7 +79,9 @@ class Gratitude {
 
         await this.gallery.init();
 
-        // ======================================================
+        
+        // ==
+        // ====================================================
         // Événements
         // ======================================================
 
@@ -170,7 +172,7 @@ class Gratitude {
                 card => this.deleteCard(card)
 
             );
-    
+            
     }
 
     async showGallery() {
@@ -366,7 +368,6 @@ class Gratitude {
         }
 
     }    
-
   
 }
 
@@ -378,11 +379,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-document
-    .querySelector(".btn-retour-carnet")
-    .addEventListener(
+document.querySelector(".btn-retour-carnet").addEventListener(
         "click",
         () => {
             window.location.href = "/pages/app.html";
         }
-    );
+);

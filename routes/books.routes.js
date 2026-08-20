@@ -54,10 +54,9 @@ router.post(
 // Modifier un livre
 router.put(
     "/:id",
-     upload.single("cover"),
+    upload.single("cover"),
     book.update
 );
-
 
 // Supprimer un livre
 router.delete(

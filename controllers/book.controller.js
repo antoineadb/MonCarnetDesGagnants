@@ -176,9 +176,9 @@ exports.update = (req, res) => {
 
     if (req.file) {
 
-        data.cover =
-            `/uploads/books/${req.file.filename}`;
-            
+    data.cover =
+        `/assets/images/books/${req.file.filename}`;
+
     }
 
     const book = BookModel.update(

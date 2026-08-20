@@ -16,6 +16,16 @@ class Dashboard {
 
         this.loadProfilePhoto();
 
+        this.loadObjectifsCount();
+
+        this.loadGratitudeCount();
+
+        this.loadLectureCount();
+
+        this.loadJournalCount();
+
+        this.loadProgressionCount();
+
 
     }
 
@@ -149,6 +159,192 @@ class Dashboard {
 
     }
 
+    async loadObjectifsCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/objectifs");
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Erreur HTTP ${response.status}`
+            );
+
+        }
+
+        const objectifs =
+            await response.json();
+
+        const enCours =
+            objectifs.filter(
+                objectif =>
+                    objectif.statut !== "atteint" &&
+                    objectif.statut !== "abandonne"
+            );
+
+        const element =
+            document.getElementById("objectifsStatut");
+
+        if (!element) {
+            return;
+        }
+
+        const nombre =
+            enCours.length;
+
+        element.textContent =
+            `${nombre} objectif${nombre > 1 ? "s" : ""} en cours`;
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur compteur objectifs :",
+            error
+        );
+
+    }
+
+    
+
+}    
+async loadGratitudeCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/gratitude");
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Erreur HTTP ${response.status}`
+            );
+
+        }
+
+        const cartes =
+            await response.json();
+
+        const element =
+            document.getElementById("gratitudeStatut");
+
+        if (!element) {
+            return;
+        }
+
+        const nombre =
+            cartes.length;
+
+        element.textContent =
+            `${nombre} pensée${nombre > 1 ? "s" : ""} positive${nombre > 1 ? "s" : ""}.`;
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur compteur gratitude :",
+            error
+        );
+
+    }
+
+}
+async loadLectureCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/books", {
+                credentials: "include"
+            });
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Erreur HTTP ${response.status}`
+            );
+
+        }
+
+        const livres =
+            await response.json();
+
+        const livresEnCours =
+            livres.filter(
+                livre =>
+                    livre.status === "reading"
+            );
+
+        const element =
+            document.getElementById("lectureStatut");
+
+        if (!element) {
+            return;
+        }
+
+        const nombre =
+            livresEnCours.length;
+
+        element.textContent =
+            `${nombre} livre${nombre > 1 ? "s" : ""} en cours`;
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur compteur lecture :",
+            error
+        );
+
+    }
+
+}
+async loadJournalCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/journal");
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Erreur HTTP ${response.status}`
+            );
+
+        }
+
+        const entries =
+            await response.json();
+
+        const element =
+            document.getElementById("journalStatut");
+
+        if (!element) {
+            return;
+        }
+
+        const nombre =
+            entries.length;
+
+        element.textContent =
+            `${nombre} note${nombre > 1 ? "s" : ""} dans le journal`;
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur compteur journal :",
+            error
+        );
+
+    }
+
+}
+
     async loadProfilePhoto() {
 
         try {
@@ -195,6 +391,52 @@ class Dashboard {
         }
 
     }
+
+    async loadProgressionCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/progression/1");
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Erreur HTTP ${response.status}`
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        const progress =
+            data.state?.progress ?? 0;
+
+        const percent =
+            Math.round(progress * 100);
+
+        const element =
+            document.getElementById("progressionStatut");
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent =
+            `Progression : ${percent}%`;
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Erreur compteur progression :",
+            error
+        );
+
+    }
+
+}
 
 
 }
