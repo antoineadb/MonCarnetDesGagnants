@@ -40,27 +40,54 @@ async function chargerCategories() {
 
     try {
 
-        const response =
-            await fetch("/api/categories-objectifs");
+        const [
+            categoriesResponse,
+            objectifsResponse
+        ] = await Promise.all([
+
+            fetch("/api/categories-objectifs"),
+
+            fetch("/api/objectifs")
+
+        ]);
 
 
         console.log(
-            "📡 Statut API :",
-            response.status
+            "📡 Statut API catégories :",
+            categoriesResponse.status
         );
 
 
-        if (!response.ok) {
+        console.log(
+            "📡 Statut API objectifs :",
+            objectifsResponse.status
+        );
+
+
+        if (!categoriesResponse.ok) {
 
             throw new Error(
-                `Erreur HTTP ${response.status}`
+                `Erreur HTTP catégories ${categoriesResponse.status}`
+            );
+
+        }
+
+
+        if (!objectifsResponse.ok) {
+
+            throw new Error(
+                `Erreur HTTP objectifs ${objectifsResponse.status}`
             );
 
         }
 
 
         const categories =
-            await response.json();
+            await categoriesResponse.json();
+
+
+        const objectifs =
+            await objectifsResponse.json();
 
 
         console.log(
@@ -69,9 +96,16 @@ async function chargerCategories() {
         );
 
 
+        console.log(
+            "🎯 Objectifs chargés :",
+            objectifs
+        );
+
+
         afficherCategories(
             container,
-            categories
+            categories,
+            objectifs
         );
 
 
@@ -109,7 +143,8 @@ async function chargerCategories() {
 
 function afficherCategories(
     container,
-    categories
+    categories,
+    objectifs
 ) {
 
     container.innerHTML = `
@@ -140,32 +175,62 @@ function afficherCategories(
                         <div class="categories-grid">
 
                             ${categories.map(
-                                categorie => `
+                                categorie => {
 
-                                    <button
-                                        class="categorie-card"
-                                        type="button"
-                                        data-categorie-id="${categorie.id}"
-                                    >
+                                    const nombreObjectifs =
+                                        objectifs.filter(
+                                            objectif =>
+                                                Number(objectif.categorie_id) ===
+                                                Number(categorie.id)
+                                        ).length;
 
-                                        <span class="categorie-symbole">
+                                    return `
 
-                                            ${categorie.symbole || "🏺"}
+                                        <button
+                                            class="categorie-card"
+                                            type="button"
+                                            data-categorie-id="${categorie.id}"
+                                        >
 
-                                        </span>
+                                            <span class="categorie-symbole">
 
+                                                ${categorie.symbole || "🏺"}
 
-                                        <span class="categorie-nom">
+                                            </span>
 
-                                            ${echapperHTML(
-                                                categorie.nom
-                                            )}
+                                            <span class="categorie-nom">
 
-                                        </span>
+                                                ${echapperHTML(
+                                                    categorie.nom
+                                                )}
 
-                                    </button>
+                                            </span>
 
-                                `
+                                            <span class="categorie-meta">
+
+                                                ${
+                                                    nombreObjectifs > 0
+                                                        ? `<span class="categorie-point"></span>`
+                                                        : ""
+                                                }
+
+                                                ${
+                                                    nombreObjectifs === 0
+                                                        ? "Aucun objectif"
+                                                        : `${nombreObjectifs} ${
+                                                            nombreObjectifs > 1
+                                                                ? "objectifs"
+                                                                : "objectif"
+                                                        }`
+                                                }
+
+                                            </span>
+
+                                        </button>
+
+                                    `;
+
+                                }
                             ).join("")}
 
                         </div>

@@ -1013,3 +1013,48 @@
     letter-spacing: 0.2px;
 
 }
+/* ======================================================
+   INFORMATIONS DE LA CATÉGORIE
+   ====================================================== */
+
+.categorie-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 10px;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+    color: #7a624b;
+
+}
+
+
+/* ======================================================
+   POINT DORÉ
+   ====================================================== */
+
+.categorie-point {
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #c8a96b;
+
+    box-shadow:
+        0 0 5px rgba(200, 169, 107, 0.45);
+
+    flex-shrink: 0;
+
+}
