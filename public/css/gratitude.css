@@ -1,5 +1,5 @@
 /* ===========================================================
-   LE COFFRE DE GRATITUDE
+   LA BIBLIOTHÈQUE DE GRATITUDE
    =========================================================== */
 
 :root{
@@ -217,7 +217,7 @@
 }
 
 /* ===========================================================
-   COFFRE VIDE
+   Bibliothèque VIDE
    =========================================================== */
 
 .gratitude-empty{
@@ -460,7 +460,7 @@
 }
 
 /* ==========================================================
-   SCENE DU COFFRE
+   SCENE DE LA Bibliothèque
    ========================================================== */
 
 .chest-scene{
@@ -590,4 +590,464 @@
 }
 .btn-retour-carnet {
     margin: 30px 0 0 40px;
+}
+
+/* ===========================================================
+   BIBLIOTHÈQUE DE GRATITUDE
+   =========================================================== */
+
+.gratitude-library {
+
+    position: relative;
+
+    width: min(1000px, 92vw);
+
+    margin: 45px auto 25px;
+
+    padding: 35px 35px 25px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #3e291f 0%,
+            #684735 8%,
+            #5a3c2d 50%,
+            #684735 92%,
+            #3e291f 100%
+        );
+
+    border: 12px solid #3a251c;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.28),
+        inset 0 0 25px rgba(0,0,0,.35);
+
+}
+
+
+/* ===========================================================
+   PARTIE SUPÉRIEURE
+   =========================================================== */
+
+.library-top {
+
+    height: 45px;
+
+    margin: -20px -15px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #76513b,
+            #4c3226
+        );
+
+    border-radius: 5px;
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.08),
+        0 5px 8px rgba(0,0,0,.25);
+
+}
+
+.library-top span {
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    color: #d8bd83;
+
+    text-shadow:
+        0 1px 2px rgba(0,0,0,.6);
+
+}
+
+
+/* ===========================================================
+   ÉTAGÈRES
+   =========================================================== */
+
+.library-shelf {
+
+    position: relative;
+
+    min-height: 190px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 25px;
+
+    padding: 20px 25px 28px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #684735,
+            #513426
+        );
+
+    border-bottom: 15px solid #321f18;
+
+    box-shadow:
+        inset 0 -5px 8px rgba(0,0,0,.35);
+
+}
+
+
+/* ===========================================================
+   LIVRES DÉCORATIFS
+   =========================================================== */
+
+.library-books {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 5px;
+
+    flex-shrink: 0;
+
+}
+
+
+.book {
+
+    display: block;
+
+    width: 24px;
+
+    border-radius: 2px 2px 0 0;
+
+    box-shadow:
+        2px 0 3px rgba(0,0,0,.3);
+
+}
+
+
+/* différentes hauteurs */
+
+.book-brown {
+
+    height: 105px;
+
+    background: #704936;
+
+}
+
+.book-green {
+
+    height: 125px;
+
+    background: #435342;
+
+}
+
+.book-red {
+
+    height: 92px;
+
+    background: #743d36;
+
+}
+
+.book-dark {
+
+    height: 118px;
+
+    background: #353d3b;
+
+}
+
+.book-gold {
+
+    height: 100px;
+
+    background: #8b7042;
+
+}
+
+
+/* ===========================================================
+   ZONE DES CARTES
+   =========================================================== */
+
+.library-cards {
+
+    flex: 1;
+
+    min-height: 135px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    gap: 20px;
+
+}
+
+
+/* ===========================================================
+   RÉSUMÉ
+   =========================================================== */
+
+.gratitude-library-summary {
+
+    width: min(1000px, 92vw);
+
+    margin: 25px auto 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ===========================================================
+   COMPTEUR
+   =========================================================== */
+
+.gratitude-count {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-right: 15px;
+
+    color: #705943;
+
+}
+
+.gratitude-count-icon {
+
+    font-size: 28px;
+
+}
+
+.gratitude-count strong {
+
+    display: block;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 25px;
+
+    color: #5b4030;
+
+}
+
+.gratitude-count div span {
+
+    font-size: 14px;
+
+    color: #8a7562;
+
+}
+
+
+/* ===========================================================
+   BOUTONS
+   =========================================================== */
+
+.library-button {
+
+    border: 1px solid #b78b2d;
+
+    border-radius: 10px;
+
+    padding: 12px 20px;
+
+    background: #fffdf7;
+
+    color: #654936;
+
+    font-family: "Inter", sans-serif;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        background .25s;
+
+}
+
+.library-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.15);
+
+    background: #fffaf0;
+
+}
+
+
+.library-button-dark {
+
+    background: #5c4033;
+
+    color: #fffdf7;
+
+}
+
+.library-button-dark:hover {
+
+    background: #4a3025;
+
+}
+/* ===========================================================
+   CARTES DANS LA BIBLIOTHÈQUE
+   =========================================================== */
+
+.library-cards .gratitude-card {
+
+    position: static !important;
+
+    left: auto !important;
+    top: auto !important;
+
+    transform: none !important;
+
+    /* Taille originale de la petite carte */
+    width: 150px !important;
+    height: 125px !important;
+
+    margin: 0;
+
+    flex-shrink: 0;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.45),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #eee5d3 0%,
+            #e8dcc6 45%,
+            #e4d5bc 100%
+        );
+
+    border: 1px solid rgba(120, 91, 55, 0.22);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 22px rgba(0,0,0,.18);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+/* ===========================================================
+   PAS D'IMAGE
+   =========================================================== */
+
+.library-cards .gratitude-card .postcard-image {
+
+    display: none !important;
+
+}
+
+
+/* ===========================================================
+   ZONE DU TITRE
+   =========================================================== */
+
+.library-cards .gratitude-card .postcard-footer {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    padding: 12px !important;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Titre */
+
+.library-cards .gratitude-card .postcard-footer h3 {
+    margin: 0 !important;
+
+    color: #5a4939;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 15px !important;
+    font-weight: 500;
+
+    line-height: 1.15;
+
+    text-align: center;
+
+    white-space: normal;
+}
+
+
+/* Date */
+
+.library-cards .gratitude-card .postcard-footer small {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #8a7359;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 10px !important;
+    font-weight: 400;
+
+    text-align: center;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* On cache le contenu */
+
+.library-cards .gratitude-card .postcard-footer p {
+    display: none !important;
 }

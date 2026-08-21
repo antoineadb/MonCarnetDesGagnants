@@ -20,5 +20,5 @@ Pourquoi BetterSQLite3 ?
 
 Décision n°003
 
-Pourquoi un Coffre de Gratitude
+Pourquoi une Bibliothèque de Gratitude
 plutôt qu'une simple liste ?

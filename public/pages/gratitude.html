@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/toast.css">
-    <link rel="stylesheet" href="../css/confirm.css">
+    <link rel="stylesheet" href="../css/confirm.css">f
     <link rel="stylesheet" href="../css/gratitude.css">
 
 </head>
@@ -52,22 +52,120 @@
 
     <div class="gratitude-scene">
 
-        <h1>🗝️ Le Coffre de Gratitude</h1>
+        <h1>📚 La Bibliothèque de Gratitude</h1>
 
         <p class="gratitude-subtitle">
-            Chaque carte est un souvenir précieux que vous avez choisi de conserver.
+            Les petits bonheurs méritent une place dans notre mémoire.
         </p>
 
-        <div id="gratitudeChest"></div>
-        
-        <div id="gratitudeChestMenu"></div>
 
+        <div class="gratitude-library">f
+
+            <div class="library-top">
+                <span>MES SOUVENIRS</span>
+            </div>
+
+
+            <!-- ÉTAGÈRE 1 -->
+            <div class="library-shelf">
+
+                <div class="library-books">
+                    <span class="book book-brown"></span>
+                    <span class="book book-green"></span>
+                    <span class="book book-red"></span>
+                </div>
+
+                <div
+                    class="library-cards"
+                    id="gratitudeLibraryCards1"
+                ></div>
+
+            </div>
+
+
+            <!-- ÉTAGÈRE 2 -->
+            <div class="library-shelf">
+
+                <div class="library-books">
+                    <span class="book book-dark"></span>
+                    <span class="book book-gold"></span>
+                </div>
+
+                <div
+                    class="library-cards"
+                    id="gratitudeLibraryCards2"
+                ></div>
+
+            </div>
+
+
+            <!-- ÉTAGÈRE 3 -->
+            <div class="library-shelf">
+
+                <div class="library-books">
+                    <span class="book book-red"></span>
+                    <span class="book book-brown"></span>
+                </div>
+
+                <div
+                    class="library-cards"
+                    id="gratitudeLibraryCards3"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="gratitude-library-summary">
+
+            <div class="gratitude-count">
+
+                <span class="gratitude-count-icon">💌</span>
+
+                <div>
+
+                    <strong id="gratitudeCount">
+                        0
+                    </strong>
+
+                    <span>
+                        souvenirs conservés
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="btnVoirToutesCartes"
+                class="library-button library-button-dark"
+            >
+                📖 Voir toutes mes cartes
+            </button>
+
+
+            <button
+                type="button"
+                id="btnAjouterGratitude"
+                class="library-button"
+            >
+                ✒️ Ajouter une pensée
+            </button>
+
+        </div>
+
+
+        <!-- Galerie existante -->
+        <div id="gratitudeCards" class="hidden"></div>
+
+        <!-- Formulaire existant -->
         <div id="gratitudePostcard"></div>
 
     </div>
-
-    <div id="gratitudeCards" class="hidden"></div>
-
+    
     <div id="gratitudeViewerContainer"></div>
 
     <footer class="chapter-footer">

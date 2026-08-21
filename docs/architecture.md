@@ -241,7 +241,7 @@ Le projet est composé des modules suivants :
 - Authentification
 - Journal
 - Progression
-- Coffre de Gratitude
+- Bibliothèque de Gratitude
 
 ---
 

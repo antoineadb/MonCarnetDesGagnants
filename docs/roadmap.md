@@ -7,7 +7,7 @@
 - Authentification
 - Journal
 - Progression
-- Coffre de Gratitude (base)
+- Bibliothèque de Gratitude (base)
 - Architecture Express
 - SQLite
 
@@ -16,7 +16,7 @@
 ## Version 1.0
 
 - UI Kit
-- Coffre de Gratitude Premium
+- Bibliothèque de Gratitude Premium
 - Journal Premium
 - Tableau de Bord
 - Objectifs

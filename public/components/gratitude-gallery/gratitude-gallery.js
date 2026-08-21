@@ -65,7 +65,7 @@ export default class GratitudeGallery extends Component {
 
                     <h2>📮</h2>
 
-                    <p>Votre coffre est vide.</p>
+                    <p>Votre Bibliothèque est vide.</p>
 
                     <p>Créez votre première carte postale.</p>
 
@@ -118,7 +118,7 @@ export default class GratitudeGallery extends Component {
             ${
                 card.image
                     ? `<img src="${card.image}" alt="">`
-                    : `<div class="postcard-placeholder">📮</div>`
+                    : ``
             }
 
         </div>

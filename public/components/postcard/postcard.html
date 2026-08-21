@@ -32,12 +32,6 @@
 
         <section class="postcard-back">
 
-            <div class="postcard-header">
-
-                Aujourd'hui je remercie...
-
-            </div>
-
             <!-- ================================= -->
             <!-- MODE ÉDITION                      -->
             <!-- ================================= -->
@@ -46,12 +40,13 @@
                 id="gratitudeEditor"
                 class="gratitude-editor">
 
-                <input
+                <textarea
                     id="gratitudeTitle"
                     class="gratitude-title"
                     type="text"
                     maxlength="60"
-                    placeholder="Titre de votre gratitude">
+                    placeholder="Titre de votre gratitude"
+                ></textarea>
 
                 <textarea
                     id="gratitudeMessage"
@@ -86,7 +81,15 @@
                     id="saveGratitude"
                     class="postcard-save">
 
-                    📮 Déposer dans le coffre
+                    📮 Déposer
+
+                </button>
+
+                <button
+                    id="cancelEdit"
+                    class="postcard-cancel">
+
+                    ↩ Annuler
 
                 </button>
 
@@ -117,18 +120,6 @@
                    🗝 Retirer
 
                 </button>
-
-            </div>
-
-            <div class="postcard-bottom">
-
-                <div class="signature">
-
-                    Signature
-
-                </div>
-
-                <div class="stamp"></div>
 
             </div>
 

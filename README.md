@@ -14,7 +14,7 @@ L'objectif est de créer un compagnon numérique qui accompagne son utilisateur 
 
 - 📖 Journal
 - 🚀 Progression
-- 📮 Coffre de Gratitude
+- 📮 Bibliothèque de Gratitude
 - 🎯 Objectifs (à venir)
 - 🏆 Défis (à venir)
 - 📊 Tableau de Bord (à venir)

@@ -6,10 +6,9 @@
  * ==========================================================
  */
 
-import Chest from "/components/chest/chest.js";
+
 import EventBus from "/js/core/EventBus.js";
 import Postcard from "/components/postcard/postcard.js";
-import ChestMenu from "/components/chest-menu/chest-menu.js";
 import GratitudeGallery from "/components/gratitude-gallery/gratitude-gallery.js";
 import GratitudeViewer from "/components/gratitude-viewer/gratitude-viewer.js";
 
@@ -17,8 +16,9 @@ class Gratitude {
 
     constructor() {
 
-        this.chest = null;
         this.postcard = null;
+        this.gallery = null;
+        this.viewer = null;
 
     }
     
@@ -26,20 +26,8 @@ class Gratitude {
     async init() {
 
         // ======================================================
-        // Conteneurs
-        // ======================================================
-
-        // ======================================================
         // Composants
         // ======================================================
-
-        this.chest = new Chest(
-            document.getElementById("gratitudeChest")
-        );
-
-        this.chestMenu = new ChestMenu(
-            document.getElementById("gratitudeChestMenu")
-        );
 
         this.postcard = new Postcard(
 
@@ -57,12 +45,6 @@ class Gratitude {
         // Initialisation
         // ======================================================
 
-        this.initChest();
-
-        await this.chest.init();
-
-        await this.chestMenu.init();
-
         await this.postcard.init();
 
         this.gallery = new GratitudeGallery(
@@ -79,39 +61,38 @@ class Gratitude {
 
         await this.gallery.init();
 
-        
-        // ==
-        // ====================================================
-        // Événements
+        this.renderLibrary();
+
+        // ======================================================
+        // Bouton : ajouter une pensée
         // ======================================================
 
-        EventBus.on(
+        document
+            .getElementById("btnAjouterGratitude")
+            .addEventListener(
+                "click",
+                async () => {
 
-            "gratitude.write",
+                    await this.postcard.reveal();
 
-            async () => {
+                }
+            );
 
-                this.chestMenu.hide();
 
-                await this.postcard.reveal();
+        // ======================================================
+        // Bouton : voir toutes les cartes
+        // ======================================================
 
-            }
+        document
+            .getElementById("btnVoirToutesCartes")
+            .addEventListener(
+                "click",
+                () => {
 
-        );
+                    this.showGallery();
 
-        EventBus.on(
-
-            "gratitude.gallery",
-
-            () => {
-
-                this.chestMenu.hide();
-
-                this.showGallery();
-
-            }
-
-        );
+                }
+            );
 
         EventBus.on(
 
@@ -179,28 +160,11 @@ class Gratitude {
 
         await this.gallery.loadCards();
 
+        this.renderLibrary();
+
         this.gallery.show();
 
     }
-    
-    initChest() {
-
-        EventBus.on(
-
-            "chest.open",
-
-            () => {
-
-                console.log("Chest ouvert");
-
-                this.chestMenu.show();
-
-            }
-
-        );
-
-    }
-
 
     async saveCard(data) {
 
@@ -260,15 +224,16 @@ class Gratitude {
 
                 isUpdate
 
-                    ? "Souvenir mis à jour ✨"
-
-                    : "Carte déposée dans le coffre ✨"
+                ? "Souvenir mis à jour ✨"
+                : "Carte conservée dans la bibliothèque ✨"
 
             );
             
             await this.postcard.deposit();
 
            await this.gallery.loadCards();
+
+           this.renderLibrary();
 
         }
 
@@ -294,9 +259,9 @@ class Gratitude {
 
             icon: "🗝️",
 
-            title: "Retirer du coffre",
+            title: "Retirer de la bibliothèque",
 
-            message: "Voulez-vous vraiment retirer ce souvenir du Coffre de Gratitude ? Cette action est définitive.",
+            message: "Voulez-vous vraiment retirer ce souvenir de la Bibliothèque de Gratitude ? Cette action est définitive.",
 
             confirmText: "🗝 Retirer",
 
@@ -353,6 +318,8 @@ class Gratitude {
 
             await this.gallery.loadCards();
 
+            this.renderLibrary();
+
         }
 
         catch (error) {
@@ -364,6 +331,49 @@ class Gratitude {
                 "Impossible de supprimer le souvenir."
 
             );
+
+        }
+
+    }    
+
+    renderLibrary() {
+
+        const shelves = [
+
+            document.getElementById("gratitudeLibraryCards1"),
+            document.getElementById("gratitudeLibraryCards2"),
+            document.getElementById("gratitudeLibraryCards3")
+
+        ];
+
+        // Vider les étagères
+        shelves.forEach(shelf => {
+
+            shelf.innerHTML = "";
+
+        });
+
+        // Les 9 cartes les plus récentes
+        const cards = this.gallery.cards.slice(0, 9);
+
+        cards.forEach((card, index) => {
+
+            const shelfIndex = Math.floor(index / 3);
+
+            const shelf = shelves[shelfIndex];
+
+            const element = this.gallery.createCard(card);
+
+            shelf.appendChild(element);
+
+        });
+
+        // Compteur
+        const count = document.getElementById("gratitudeCount");
+
+        if (count) {
+
+            count.textContent = this.gallery.cards.length;
 
         }
 

@@ -51,6 +51,8 @@ export default class Postcard extends Component {
 
         this.deleteButton = this.$("#deleteCard");
 
+        this.cancelEditButton = this.$("#cancelEdit");
+
     }
 
     bindEvents() {
@@ -65,6 +67,30 @@ export default class Postcard extends Component {
                     "postcard.save",
                     this.getData()
                 );
+
+            }
+
+        );
+
+        this.cancelEditButton.addEventListener(
+
+            "click",
+
+            async () => {
+
+                // Restaurer les valeurs originales
+                this.title.value = this.cardData.title || "";
+                this.message.value = this.cardData.message || "";
+
+                // Restaurer l'affichage lecture
+                this.titleView.textContent = this.cardData.title || "";
+                this.messageView.textContent = this.cardData.message || "";
+
+                // Revenir en mode lecture
+                this.setMode("view");
+
+                // Refermer la carte
+                this.hide();
 
             }
 
@@ -123,7 +149,7 @@ export default class Postcard extends Component {
             }
 
         );
-
+    
     }
 
     async show() {
@@ -135,7 +161,7 @@ export default class Postcard extends Component {
         // Laisse le navigateur afficher la carte
         await this.sleep(20);
 
-        // La carte sort du coffre
+        // La carte sort de la Bibliothèque
         this.card.classList.add("show");
 
         // Attendre la fin de la montée
@@ -183,7 +209,7 @@ export default class Postcard extends Component {
 
         await this.sleep(500);
 
-        // Elle redescend dans le coffre
+        // Elle redescend dans lA Bibliothèque
         this.card.classList.remove("show");
 
         await this.sleep(1200);
@@ -249,8 +275,8 @@ export default class Postcard extends Component {
         this.message.disabled = isLoading;
 
         this.saveButton.textContent = isLoading
-            ? "⏳ Dépôt dans le coffre..."
-            : "📮 Déposer dans le coffre";
+            ? "⏳ Dépôt dans la Bibliothèque..."
+            : "📮 Déposer dans lA Bibliothèque";
 
     }
 
