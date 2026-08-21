@@ -74,27 +74,26 @@ export default class Postcard extends Component {
 
         this.cancelEditButton.addEventListener(
 
-            "click",
+                "click",
 
-            async () => {
+                async () => {
 
-                // Restaurer les valeurs originales
-                this.title.value = this.cardData.title || "";
-                this.message.value = this.cardData.message || "";
+                    // Restaurer les données originales
+                    this.title.value = this.cardData.title || "";
+                    this.message.value = this.cardData.message || "";
 
-                // Restaurer l'affichage lecture
-                this.titleView.textContent = this.cardData.title || "";
-                this.messageView.textContent = this.cardData.message || "";
+                    this.titleView.textContent = this.cardData.title || "";
+                    this.messageView.textContent = this.cardData.message || "";
 
-                // Revenir en mode lecture
-                this.setMode("view");
+                    // Fermer complètement la carte
+                    this.hide();
 
-                // Refermer la carte
-                this.hide();
+                    // Réinitialiser le composant pour la prochaine ouverture
+                    this.setMode("view");
 
-            }
+                }
 
-        );
+            );
 
         this.editButton.addEventListener(
 
@@ -156,41 +155,43 @@ export default class Postcard extends Component {
 
         console.log("Postcard.show()");
 
+        // Réinitialiser l'état visuel
         this.card.classList.remove("hidden");
+        this.card.classList.remove("flip");
+        this.card.classList.remove("expand");
 
-        // Laisse le navigateur afficher la carte
+        // La carte doit pouvoir recevoir les clics
+        if (this.card.parentElement) {
+            this.card.parentElement.style.pointerEvents = "auto";
+        }
+
         await this.sleep(20);
 
-        // La carte sort de la Bibliothèque
         this.card.classList.add("show");
 
-        // Attendre la fin de la montée
         await this.sleep(1400);
 
-        // Petite pause
         await this.sleep(300);
 
-        // Retourner la carte
         this.flip();
 
         await this.sleep(900);
 
         this.expand();
 
-        // La carte est maintenant interactive
-        this.card.parentElement.style.pointerEvents = "auto";
-
     }
-
     hide() {
 
         this.card.classList.remove("show");
-
         this.card.classList.remove("flip");
-
         this.card.classList.remove("expand");
 
         this.card.classList.add("hidden");
+
+        // La carte ne doit plus intercepter les clics
+        if (this.card.parentElement) {
+            this.card.parentElement.style.pointerEvents = "none";
+        }
 
     }
     

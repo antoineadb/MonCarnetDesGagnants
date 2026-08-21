@@ -913,8 +913,8 @@
 
     #gratitudePostcard .postcard.expand {
 
-        width: 1000px !important;
-        height: 665px !important;
+        width: 1080px !important;
+        height: 720px !important;
 
         transform:
             translateX(-50%)
