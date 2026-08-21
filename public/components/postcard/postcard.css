@@ -94,10 +94,12 @@
 }
 
 #gratitudePostcard .postcard.expand {
+
     transform:
         translateX(-50%)
         translateY(-100px)
-        scale(1.05);
+        scale(1.2);
+
 }
 
 /* ==========================================
@@ -599,20 +601,6 @@
         scale(.48);
 }
 
-/* ===========================================================
-   EXPANSION
-   =========================================================== */
-
-#gratitudePostcard .postcard.expand{
-
-       transform:
-        translateX(-50%)
-        translateY(-95px)
-        scale(.90);
-
-
-}
-
 .chapter-quote{
 
     margin-top:-25px;
@@ -916,3 +904,22 @@
 
 }
 
+/* TEST TEMPORAIRE */
+#gratitudePostcard .postcard.expand {
+    width: 1100px !important;
+    height: 730px !important;
+
+    transform:
+        translateX(-50%)
+        translateY(-100px)
+        scale(1) !important;
+}
+
+@media (max-width: 1200px) {
+
+    #gratitudePostcard .postcard.expand {
+        width: 850px !important;
+        height: 565px !important;
+    }
+
+}
