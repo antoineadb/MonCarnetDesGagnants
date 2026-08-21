@@ -96,8 +96,8 @@
 #gratitudePostcard .postcard.expand {
     transform:
         translateX(-50%)
-        translateY(-95px)
-        scale(.72);
+        translateY(-100px)
+        scale(1.05);
 }
 
 /* ==========================================
@@ -906,17 +906,13 @@
         box-shadow .2s ease;
 
 }
+/* ===========================================================
+   ÉLÉMENTS CACHÉS DANS LA CARTE
+   =========================================================== */
 
+.postcard .hidden {
 
-/* ==========================
-   CARTE LECTURE
-========================== */
-
-#gratitudePostcard .postcard.expand {
-
-    transform:
-        translateX(-50%)
-        translateY(-70px)
-        scale(.72);
+    display: none !important;
 
 }
+
