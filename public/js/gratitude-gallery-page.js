@@ -375,6 +375,25 @@ class GratitudeGalleryPage {
             );
 
         }
+        const searchButton =
+            document.getElementById(
+                "gallerySearchButton"
+            );
+
+        if (searchButton) {
+
+            searchButton.addEventListener(
+                "click",
+                () => {
+
+                    this.search(
+                        searchInput.value
+                    );
+
+                }
+            );
+
+        }
 
 
         // ==============================================

@@ -136,7 +136,7 @@
 .gallery-search {
     position: relative;
 
-    width: min(760px, 90vw);
+    width: min(500px, 85vw);
 
     display: flex;
     align-items: center;
@@ -145,9 +145,23 @@
 .gallery-search-icon {
     position: absolute;
 
-    left: -25px;
+    right: 10px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
 
     font-size: 23px;
+
+    cursor: pointer;
 
     z-index: 2;
 }
@@ -160,9 +174,9 @@
 
     padding:
         0
-        25px
+        55px
         0
-        28px;
+        25px;
 
     border: 1px solid #d6c19d;
     border-radius: 32px;
@@ -571,4 +585,77 @@
     line-height: 1;
 
     pointer-events: none;
+}
+.gallery-search-button {
+    margin-left: 12px;
+
+    padding: 12px 22px;
+
+    border: 1px solid #c7a96f;
+    border-radius: 25px;
+
+    background: #68432a;
+    color: #f8f0e2;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.gallery-search-button:hover {
+    background: #7a5234;
+    transform: translateY(-2px);
+}
+/* ==========================================================
+   BOUTON RECHERCHE
+   ========================================================== */
+
+.gallery-search-button {
+    flex-shrink: 0;
+
+    margin-right: 8px;
+
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 20px;
+
+    background: #68432a;
+    color: #f8f0e2;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(45, 25, 15, 0.20);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.gallery-search-button:hover {
+    background: #7a5234;
+    transform: translateY(-1px);
+}
+
+.gallery-search-button:active {
+    transform: translateY(0);
 }
