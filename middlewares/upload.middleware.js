@@ -8,14 +8,7 @@ const storage = multer.diskStorage({
 
     const uploadDir =
         process.env.UPLOAD_DIR ||
-        path.join(
-            __dirname,
-            "..",
-            "public",
-            "assets",
-            "images",
-            "books"
-        );
+        "/var/data/books";
 
     fs.mkdirSync(
         uploadDir,
