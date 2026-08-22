@@ -59,7 +59,7 @@ exports.create = (req, res) => {
     const userId = req.session.user.id;
     const cover =
     req.file
-        ? `/assets/images/books/${req.file.filename}`
+        ? `/uploads/books/${req.file.filename}`
         : null;
 
     const {
@@ -177,7 +177,7 @@ exports.update = (req, res) => {
     if (req.file) {
 
     data.cover =
-        `/assets/images/books/${req.file.filename}`;
+        `/uploads/books/${req.file.filename}`;
 
     }
 
