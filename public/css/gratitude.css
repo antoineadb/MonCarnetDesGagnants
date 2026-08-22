@@ -501,7 +501,7 @@
 
 .gratitude-subtitle{
 
-    color:#7b5d42;
+    color:#ead9bf;
 
     font-style:italic;
 
@@ -830,17 +830,17 @@
    =========================================================== */
 
 .gratitude-count {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
     margin-right: 15px;
+    color: #ead9bf;
+}
 
-    color: #705943;
-
+.gratitude-count div {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
 }
 
 .gratitude-count-icon {
@@ -851,13 +851,13 @@
 
 .gratitude-count strong {
 
-    display: block;
+    display: inline;
 
     font-family: "Cormorant Garamond", serif;
 
     font-size: 25px;
 
-    color: #5b4030;
+    color: #f3e8d2;
 
 }
 
@@ -865,7 +865,7 @@
 
     font-size: 14px;
 
-    color: #8a7562;
+    color: #d9c4a5;
 
 }
 
@@ -1050,4 +1050,162 @@
 
 .library-cards .gratitude-card .postcard-footer p {
     display: none !important;
+}
+
+/* ===========================================================
+   VUE — TOUTES MES CARTES
+   =========================================================== */
+
+#gratitudeCards {
+
+    position: relative;
+
+    width: min(1200px, 92vw);
+
+    height: auto;
+
+    margin: 40px auto 80px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 35px;
+
+    justify-items: center;
+
+}
+
+
+/* Cartes de la galerie complète */
+
+#gratitudeCards .gratitude-card {
+
+    position: relative !important;
+
+    left: auto !important;
+    top: auto !important;
+
+    width: 300px;
+
+    height: 390px;
+
+    transform: rotate(var(--rotation));
+
+}
+
+
+/* Pas d'image dans la galerie */
+
+#gratitudeCards .postcard-image {
+
+    display: none;
+
+}
+
+
+/* Contenu */
+
+#gratitudeCards .postcard-footer {
+
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+}
+
+
+/* Titre */
+
+#gratitudeCards .postcard-footer h3 {
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 24px;
+
+    color: #5a4939;
+
+    text-align: center;
+
+}
+
+
+/* Texte */
+
+#gratitudeCards .postcard-footer p {
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    color: #6b5848;
+
+}
+
+
+/* Date */
+
+#gratitudeCards .postcard-footer small {
+
+    text-align: center;
+
+    color: #8a7359;
+
+}
+
+
+/* Adaptation portable */
+
+@media (max-width: 1100px) {
+
+    #gratitudeCards {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 25px;
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    #gratitudeCards {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+/* ==========================================================
+   Les cartes complètes sont maintenant affichées
+   uniquement dans la page "Toutes mes cartes".
+   Le composant GratitudeGallery reste chargé pour
+   conserver ses fonctions, mais son affichage est masqué.
+   ========================================================== */
+
+#gratitudeCards {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
 }

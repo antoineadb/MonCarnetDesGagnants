@@ -9,6 +9,8 @@ export default class Postcard extends Component {
 
         this.mode = options.mode || "edit";
 
+        this.gallery = options.gallery || false;
+
     }
 
     async init() {
@@ -72,34 +74,74 @@ export default class Postcard extends Component {
 
         );
 
+        if (this.gallery) {
+
+                    this.card.addEventListener(
+                        "click",
+                        () => {
+
+                            if (
+                                this.mode === "view" &&
+                                !this.card.classList.contains("flip")
+                            ) {
+
+                                this.flip();
+
+                            }
+
+                        }
+                    );
+
+                }
+
         this.cancelEditButton.addEventListener(
 
-                "click",
+            "click",
 
-                async () => {
+            async () => {
 
-                    // Restaurer les données originales
+                // --------------------------------------------------
+                // Modification d'une carte existante
+                // --------------------------------------------------
+
+                if (this.cardData?.id) {
+
                     this.title.value = this.cardData.title || "";
                     this.message.value = this.cardData.message || "";
 
                     this.titleView.textContent = this.cardData.title || "";
                     this.messageView.textContent = this.cardData.message || "";
 
-                    // Fermer complètement la carte
                     this.hide();
 
-                    // Réinitialiser le composant pour la prochaine ouverture
+                    // La carte reste une carte en lecture
                     this.setMode("view");
 
+                    return;
                 }
 
-            );
+                // --------------------------------------------------
+                // Nouvelle pensée : rien à restaurer
+                // --------------------------------------------------
+
+                this.clear();
+
+                this.hide();
+
+                // On reste en mode édition pour la prochaine pensée
+                this.setMode("edit");
+
+            }
+
+        );
 
         this.editButton.addEventListener(
 
             "click",
 
-            () => {
+            event => {
+
+                event.stopPropagation();
 
                 EventBus.emit(
                     "postcard.edit",
@@ -114,7 +156,9 @@ export default class Postcard extends Component {
 
             "click",
 
-            () => {
+            event => {
+
+                event.stopPropagation();
 
                 EventBus.emit(
                     "postcard.delete",
@@ -129,11 +173,14 @@ export default class Postcard extends Component {
 
             "click",
 
-            () => {
+            event => {
+
+                event.stopPropagation();
 
                 console.log("CLICK FAVORI");
 
-                this.cardData.favorite = !this.cardData.favorite;
+                this.cardData.favorite =
+                    !this.cardData.favorite;
 
                 this.refreshFavorite();
 
@@ -148,6 +195,8 @@ export default class Postcard extends Component {
             }
 
         );
+
+       
     
     }
 
@@ -171,15 +220,19 @@ export default class Postcard extends Component {
 
         await this.sleep(1400);
 
-        await this.sleep(300);
+        if (!this.gallery) {
 
-        this.flip();
+            await this.sleep(300);
 
-        await this.sleep(900);
+            this.flip();
+
+            await this.sleep(900);
+
+        }
 
         this.expand();
-
     }
+
     hide() {
 
         this.card.classList.remove("show");
@@ -277,7 +330,7 @@ export default class Postcard extends Component {
 
         this.saveButton.textContent = isLoading
             ? "⏳ Dépôt dans la Bibliothèque..."
-            : "📮 Déposer dans lA Bibliothèque";
+            : "📮 Déposer dans la Bibliothèque";
 
     }
 
@@ -359,7 +412,9 @@ export default class Postcard extends Component {
 
         this.messageView.textContent = "";
 
-    }   
+        this.cardData = null;
+
+    }
  
     refreshFavorite(){
 

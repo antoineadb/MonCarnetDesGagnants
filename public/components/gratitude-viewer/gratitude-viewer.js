@@ -15,12 +15,11 @@ export default class GratitudeViewer extends Component{
 
         this.postcard = new Postcard(
 
-        this.content,
+            this.content,
 
             {
-
-                mode: "view"
-
+                mode: "view",
+                gallery: true
             }
 
         );
@@ -64,13 +63,15 @@ export default class GratitudeViewer extends Component{
 
     }
 
-    showCard(card){
+    async showCard(card){
 
         this.postcard.fill(card);
 
         this.postcard.setMode("view");
 
         this.show();
+
+        await this.postcard.show();
 
     }
 

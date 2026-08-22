@@ -73,6 +73,11 @@ class Gratitude {
                 "click",
                 async () => {
 
+                    // Nouvelle pensée : on repart sur une carte vide
+                    this.postcard.clear();
+
+                    this.postcard.setMode("edit");
+
                     await this.postcard.reveal();
 
                 }
@@ -89,11 +94,11 @@ class Gratitude {
                 "click",
                 () => {
 
-                    this.showGallery();
+                    window.location.href =
+                        "/pages/gratitude-gallery.html";
 
                 }
             );
-
         EventBus.on(
 
             "gratitude.view",
@@ -156,15 +161,6 @@ class Gratitude {
             
     }
 
-    async showGallery() {
-
-        await this.gallery.loadCards();
-
-        this.renderLibrary();
-
-        this.gallery.show();
-
-    }
 
     async saveCard(data) {
 
@@ -347,37 +343,60 @@ class Gratitude {
         ];
 
         // Vider les étagères
+
         shelves.forEach(shelf => {
 
-            shelf.innerHTML = "";
+            if (shelf) {
+                shelf.innerHTML = "";
+            }
 
         });
 
+
         // Les 9 cartes les plus récentes
-        const cards = this.gallery.cards.slice(0, 9);
+
+        const cards =
+            this.gallery.cards.slice(0, 9);
+
 
         cards.forEach((card, index) => {
 
-            const shelfIndex = Math.floor(index / 3);
+            const shelfIndex =
+                Math.floor(index / 3);
 
-            const shelf = shelves[shelfIndex];
 
-            const element = this.gallery.createCard(card);
+            const shelf =
+                shelves[shelfIndex];
+
+
+            if (!shelf) return;
+
+
+            const element =
+                this.gallery.createCard(card);
+
 
             shelf.appendChild(element);
 
         });
 
+
         // Compteur
-        const count = document.getElementById("gratitudeCount");
+
+        const count =
+            document.getElementById(
+                "gratitudeCount"
+            );
+
 
         if (count) {
 
-            count.textContent = this.gallery.cards.length;
+            count.textContent =
+                this.gallery.cards.length;
 
         }
 
-    }    
+    }
   
 }
 

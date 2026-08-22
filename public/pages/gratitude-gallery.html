@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Toutes mes cartes</title>
+
+    <!-- Google Fonts -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS commun -->
+
+    <link
+        rel="stylesheet"
+        href="../css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/base.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/toast.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/confirm.css"
+    >
+
+    <!-- CSS spécifique -->
+
+    <link
+        rel="stylesheet"
+        href="../css/gratitude-gallery.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<section class="chapter-page">
+
+
+    <!-- Retour -->
+
+    <button
+        type="button"
+        id="btnRetourBibliotheque"
+        class="btn-retour-carnet"
+    >
+        ← Retour à la bibliothèque
+    </button>
+
+
+    <!-- En-tête -->
+
+    <header class="gallery-page-header">
+
+        <h1>
+            📖 Toutes mes cartes
+        </h1>
+
+        <div class="gallery-page-line"></div>
+
+        <p>
+            Retrouvez tous les souvenirs conservés
+            dans votre Bibliothèque de Gratitude.
+        </p>
+
+    </header>
+
+
+    <!-- Recherche -->
+
+    <section class="gallery-search-section">
+
+        <div class="gallery-search">
+
+            <span class="gallery-search-icon">
+                🔎
+            </span>
+
+            <input
+                type="search"
+                id="gallerySearch"
+                placeholder="Rechercher un titre, un souvenir ou une date..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- Informations -->
+
+    <div
+        id="galleryCount"
+        class="gallery-count"
+    >
+        0 souvenirs conservés
+    </div>
+
+
+    <!-- Cartes -->
+
+    <main
+        id="allCardsGrid"
+        class="all-cards-grid"
+    ></main>
+
+
+    <!-- Pagination -->
+
+    <nav
+        id="galleryPagination"
+        class="gallery-pagination"
+        aria-label="Pagination"
+    ></nav>
+
+
+    <!-- Viewer -->
+
+    <div
+        id="gratitudeViewerContainer"
+    ></div>
+
+
+    <footer class="chapter-footer">
+
+        <span class="chapter-book">
+            Le Carnet des Gagnants
+        </span>
+
+        <span class="chapter-page-number">
+            Bibliothèque
+        </span>
+
+    </footer>
+
+
+</section>
+
+
+<script src="/js/confirm.js"></script>
+
+<script src="/js/toast.js"></script>
+
+<script
+    type="module"
+    src="/js/gratitude-gallery-page.js"
+></script>
+
+
+</body>
+
+</html>
