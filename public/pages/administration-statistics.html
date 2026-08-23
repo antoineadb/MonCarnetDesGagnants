@@ -292,16 +292,11 @@
             </div>
 
 
-            <div class="statistics-placeholder">
+            <div class="statistics-chronicle" id="statisticsChronicle">
 
-                <div class="statistics-placeholder-icon">
-                    ✦
+                <div class="statistics-chronicle-loading">
+                    Consultation des chroniques…
                 </div>
-
-                <p>
-                    Les chroniques détaillées du Carnet
-                    apparaîtront ici.
-                </p>
 
             </div>
 
@@ -325,11 +320,11 @@
             </div>
 
 
-            <div class="statistics-chart-placeholder">
+            <div class="statistics-chart" id="statisticsEvolution">
 
-                <span>
-                    Les graphiques seront inscrits ici…
-                </span>
+                <div class="statistics-chart-loading">
+                    Chargement de l'évolution…
+                </div>
 
             </div>
 
@@ -402,6 +397,10 @@ document.addEventListener(
 
         try {
 
+            /* =================================================
+               STATISTIQUES GÉNÉRALES
+               ================================================= */
+
             const response =
                 await fetch("/api/admin/statistics");
 
@@ -443,6 +442,525 @@ document.addEventListener(
             document.getElementById("statsLifeBooks").textContent =
                 data.statistics.lifeBooks;
 
+            // =====================================================
+            // ÉVOLUTION DU CARNET
+            // =====================================================
+
+            const evolutionResponse =
+                await fetch("/api/admin/evolution");
+
+            const evolutionData =
+                await evolutionResponse.json();
+
+            const chart =
+                document.getElementById("statisticsEvolution");
+
+            if (
+                !evolutionData.success ||
+                !evolutionData.evolution.length
+            ) {
+
+                chart.innerHTML = `
+                    <div class="statistics-chart-loading">
+                        Pas encore assez de données pour afficher l'évolution.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            // =====================================================
+            // HISTOGRAMME D'ÉVOLUTION
+            // =====================================================
+
+            const evolution =
+                evolutionData.evolution;
+
+
+            // -----------------------------------------------------
+            // Dimensions
+            // -----------------------------------------------------
+
+            const width = 1100;
+            const height = 390;
+
+            const marginLeft = 65;
+            const marginRight = 30;
+            const marginTop = 25;
+            const marginBottom = 75;
+
+            const graphWidth =
+                width - marginLeft - marginRight;
+
+            const graphHeight =
+                height - marginTop - marginBottom;
+
+
+            // -----------------------------------------------------
+            // Transformation des cumuls en ajouts par date
+            // -----------------------------------------------------
+
+            const dailyEvolution =
+                evolution.map((item, index) => {
+
+                    const previous =
+                        index > 0
+                            ? evolution[index - 1]
+                            : {
+                                books: 0,
+                                gratitude: 0,
+                                journal: 0
+                            };
+
+                    return {
+
+                        date: item.date,
+
+                        books:
+                            item.books - previous.books,
+
+                        gratitude:
+                            item.gratitude - previous.gratitude,
+
+                        journal:
+                            item.journal - previous.journal
+
+                    };
+
+                });
+
+
+            // -----------------------------------------------------
+            // Valeur maximale
+            // -----------------------------------------------------
+
+            const maxValue =
+                Math.max(
+                    ...dailyEvolution.map(item =>
+                        Math.max(
+                            item.books,
+                            item.gratitude,
+                            item.journal
+                        )
+                    )
+                );
+
+            const maxY =
+                Math.max(1, maxValue);
+
+
+            // -----------------------------------------------------
+            // Positionnement
+            // -----------------------------------------------------
+
+            const groupWidth =
+                graphWidth / dailyEvolution.length;
+
+            const barWidth =
+                Math.min(28, groupWidth * 0.20);
+
+
+            const getX = index => {
+
+                return (
+                    marginLeft +
+                    index * groupWidth +
+                    groupWidth / 2
+                );
+
+            };
+
+
+            const getY = value => {
+
+                return (
+                    marginTop +
+                    graphHeight -
+                    (
+                        value / maxY
+                    ) *
+                    graphHeight
+                );
+
+            };
+
+
+            const getBarHeight = value => {
+
+                return (
+                    (
+                        value / maxY
+                    ) *
+                    graphHeight
+                );
+
+            };
+
+
+            // -----------------------------------------------------
+            // Grille + axe Y
+            // -----------------------------------------------------
+
+            let grid = "";
+
+            const gridSteps =
+                Math.max(1, maxY);
+
+
+            for (let value = 0; value <= maxY; value++) {
+
+                const y =
+                    getY(value);
+
+                grid += `
+
+                    <line
+                        x1="${marginLeft}"
+                        y1="${y}"
+                        x2="${width - marginRight}"
+                        y2="${y}"
+                        stroke="#b89b6a"
+                        stroke-opacity="0.30"
+                    />
+
+                    <text
+                        x="${marginLeft - 12}"
+                        y="${y + 5}"
+                        text-anchor="end"
+                        font-size="14"
+                        fill="#80694c"
+                    >
+                        ${value}
+                    </text>
+
+                `;
+
+            }
+
+
+            // -----------------------------------------------------
+            // Axe horizontal
+            // -----------------------------------------------------
+
+            const axisY =
+                marginTop + graphHeight;
+
+
+            let bars = "";
+
+
+            // -----------------------------------------------------
+            // Barres
+            // -----------------------------------------------------
+
+            dailyEvolution.forEach((item, index) => {
+
+                const centerX =
+                    getX(index);
+
+
+                // LIVRES
+
+                const booksHeight =
+                    getBarHeight(item.books);
+
+                bars += `
+
+                    <rect
+                        x="${centerX - barWidth * 1.5}"
+                        y="${getY(item.books)}"
+                        width="${barWidth}"
+                        height="${booksHeight}"
+                        rx="2"
+                        fill="#C47A5A"
+                    />
+
+                    <text
+                        x="${centerX - barWidth}"
+                        y="${getY(item.books) - 8}"
+                        text-anchor="middle"
+                        font-size="14"
+                        fill="#C47A5A"
+                    >
+                        ${item.books}
+                    </text>
+
+                `;
+
+
+                // GRATITUDES
+
+                const gratitudeHeight =
+                    getBarHeight(item.gratitude);
+
+                bars += `
+
+                    <rect
+                        x="${centerX - barWidth / 2}"
+                        y="${getY(item.gratitude)}"
+                        width="${barWidth}"
+                        height="${gratitudeHeight}"
+                        rx="2"
+                        fill="#9A7BB5"
+                    />
+
+                    <text
+                        x="${centerX}"
+                        y="${getY(item.gratitude) - 8}"
+                        text-anchor="middle"
+                        font-size="14"
+                        fill="#9A7BB5"
+                    >
+                        ${item.gratitude}
+                    </text>
+
+                `;
+
+
+                // JOURNAL
+
+                const journalHeight =
+                    getBarHeight(item.journal);
+
+                bars += `
+
+                    <rect
+                        x="${centerX + barWidth / 2}"
+                        y="${getY(item.journal)}"
+                        width="${barWidth}"
+                        height="${journalHeight}"
+                        rx="2"
+                        fill="#6F9B78"
+                    />
+
+                    <text
+                        x="${centerX + barWidth}"
+                        y="${getY(item.journal) - 8}"
+                        text-anchor="middle"
+                        font-size="14"
+                        fill="#6F9B78"
+                    >
+                        ${item.journal}
+                    </text>
+
+                `;
+
+
+                // DATE
+
+                const formattedDate =
+                    new Date(item.date)
+                        .toLocaleDateString(
+                            "fr-FR",
+                            {
+                                day: "2-digit",
+                                month: "long"
+                            }
+                        );
+
+
+                bars += `
+
+                    <text
+                        x="${centerX}"
+                        y="${axisY + 30}"
+                        text-anchor="middle"
+                        font-size="15"
+                        fill="#80694c"
+                    >
+                        ${formattedDate}
+                    </text>
+
+                `;
+
+            });
+
+
+            // -----------------------------------------------------
+            // Affichage
+            // -----------------------------------------------------
+
+            chart.innerHTML = `
+
+                <div class="statistics-chart-container">
+
+                    <svg
+                        viewBox="0 0 ${width} ${height}"
+                        class="statistics-evolution-svg"
+                    >
+
+                        ${grid}
+
+                        <!-- Axe vertical -->
+
+                        <line
+                            x1="${marginLeft}"
+                            y1="${marginTop}"
+                            x2="${marginLeft}"
+                            y2="${axisY}"
+                            stroke="#80694c"
+                            stroke-width="1.5"
+                        />
+
+                        <!-- Axe horizontal -->
+
+                        <line
+                            x1="${marginLeft}"
+                            y1="${axisY}"
+                            x2="${width - marginRight}"
+                            y2="${axisY}"
+                            stroke="#80694c"
+                            stroke-width="1.5"
+                        />
+
+                        ${bars}
+
+                    </svg>
+
+                    <div class="statistics-chart-legend">
+
+                        <span>
+                            <strong style="color:#C47A5A;">●</strong>
+                            <span class="legend-icon">📚</span> Livres
+                        </span>
+
+                        <span>
+                            <strong style="color:#9A7BB5;">●</strong>
+                            <span class="legend-icon">💌</span> Gratitudes
+                        </span>
+
+                        <span>
+                            <strong style="color:#6F9B78;">●</strong>
+                            <span class="legend-icon">📔</span> Journal
+                        </span>
+
+                    </div>
+
+                    <div class="statistics-chart-explanation">
+
+                        Chaque barre représente le nombre
+                        d'éléments ajoutés ce jour-là.
+
+                    </div>
+                    
+
+                </div>
+
+            `;
+
+
+            
+            /* =================================================
+               VIE DU CARNET
+               ================================================= */
+
+            const chronicleResponse =
+                await fetch("/api/admin/chronicle");
+
+            const chronicleData =
+                await chronicleResponse.json();
+
+            const chronicle =
+                document.getElementById("statisticsChronicle");
+
+            if (!chronicleData.success) {
+
+                chronicle.innerHTML = `
+                    <div class="statistics-chronicle-empty">
+                        Impossible de consulter les chroniques.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            if (!chronicleData.activities.length) {
+
+                chronicle.innerHTML = `
+                    <div class="statistics-chronicle-empty">
+                        Le Carnet n'a pas encore laissé de traces.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            chronicle.innerHTML =
+                chronicleData.activities
+                    .map(activity => {
+
+                        let icon = "✦";
+                        let label = "Activité";
+                        if (activity.type === "book") {
+
+                            label = "Livre";
+
+                            icon = activity.cover
+                                ? `<img
+                                    src="${activity.cover}"
+                                    alt="Couverture de ${activity.title || "livre"}"
+                                    class="statistics-chronicle-cover"
+                                >`
+                                : `<img
+                                    src="/assets/images/books/default-cover.svg"
+                                    alt="Couverture par défaut"
+                                    class="statistics-chronicle-cover"
+                                >`;
+                        }
+
+                        if (activity.type === "gratitude") {
+                            icon = "💌";
+                            label = "Gratitude";
+                        }
+
+                        if (activity.type === "journal") {
+                            icon = "📔";
+                            label = "Journal";
+                        }
+
+                        const date =
+                            new Date(activity.date)
+                                .toLocaleDateString(
+                                    "fr-FR",
+                                    {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric"
+                                    }
+                                );
+
+                        return `
+                            <div class="statistics-chronicle-item">
+
+                                <div class="statistics-chronicle-icon">
+                                    ${icon}
+                                </div>
+
+                                <div class="statistics-chronicle-content">
+
+                                    <div class="statistics-chronicle-date">
+                                        ${date}
+                                    </div>
+
+                                    <div class="statistics-chronicle-label">
+                                        ${label}
+                                    </div>
+
+                                    <div class="statistics-chronicle-title">
+                                        ${activity.title || "Sans titre"}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        `;
+
+                    })
+                    .join("");
+
         }
 
         catch (error) {
@@ -458,5 +976,4 @@ document.addEventListener(
 );
 
 </script>
-
 </html>

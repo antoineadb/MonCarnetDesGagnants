@@ -440,5 +440,209 @@ router.get("/statistics", requireAdmin, (req, res) => {
 
 });
 
+router.get("/chronicle", requireAdmin, (req, res) => {
+
+    try {
+
+        const activities = [
+
+            ...db.prepare(`
+                SELECT
+                    'book' AS type,
+                    title AS title,
+                     cover AS cover,
+                    created_at AS date
+                FROM books
+                ORDER BY created_at DESC
+                LIMIT 8
+            `).all(),
+
+            ...db.prepare(`
+                SELECT
+                    'gratitude' AS type,
+                    title AS title,
+                    created_at AS date
+                FROM gratitude_cards
+                WHERE deleted = 0
+                ORDER BY created_at DESC
+                LIMIT 8
+            `).all(),
+
+            ...db.prepare(`
+                SELECT
+                    'journal' AS type,
+                    title AS title,
+                    created_at AS date
+                FROM journal
+                ORDER BY created_at DESC
+                LIMIT 8
+            `).all()
+
+        ];
+
+        activities.sort(
+            (a, b) =>
+                new Date(b.date) - new Date(a.date)
+        );
+
+        res.json({
+
+            success: true,
+
+            activities:
+                activities.slice(0, 8)
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Erreur chronique :",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Impossible de récupérer la chronique."
+
+        });
+
+    }
+
+});
+
+// ======================================================
+// ÉVOLUTION DU CARNET
+// ======================================================
+
+router.get("/evolution", requireAdmin, (req, res) => {
+
+    try {
+
+        const activities = [
+
+            ...db.prepare(`
+                SELECT
+                    'book' AS type,
+                    created_at AS date
+                FROM books
+            `).all(),
+
+            ...db.prepare(`
+                SELECT
+                    'gratitude' AS type,
+                    created_at AS date
+                FROM gratitude_cards
+                WHERE deleted = 0
+            `).all(),
+
+            ...db.prepare(`
+                SELECT
+                    'journal' AS type,
+                    created_at AS date
+                FROM journal
+            `).all()
+
+        ];
+
+
+        const days = {};
+
+
+        activities.forEach(activity => {
+
+            const day =
+                activity.date.substring(0, 10);
+
+            if (!days[day]) {
+
+                days[day] = {
+                    books: 0,
+                    gratitude: 0,
+                    journal: 0
+                };
+
+            }
+
+            if (activity.type === "book") {
+                days[day].books++;
+            }
+
+            if (activity.type === "gratitude") {
+                days[day].gratitude++;
+            }
+
+            if (activity.type === "journal") {
+                days[day].journal++;
+            }
+
+        });
+
+
+        const dates =
+            Object.keys(days).sort();
+
+
+        let books = 0;
+        let gratitude = 0;
+        let journal = 0;
+
+
+        const evolution =
+            dates.map(date => {
+
+                books += days[date].books;
+                gratitude += days[date].gratitude;
+                journal += days[date].journal;
+
+                return {
+
+                    date,
+
+                    books,
+
+                    gratitude,
+
+                    journal
+
+                };
+
+            });
+
+
+        res.json({
+
+            success: true,
+
+            evolution
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Erreur évolution :",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Impossible de récupérer l'évolution."
+
+        });
+
+    }
+
+});
 
 module.exports = router;

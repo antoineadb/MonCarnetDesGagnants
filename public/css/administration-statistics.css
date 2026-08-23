@@ -662,3 +662,370 @@
     line-height: 1.1;
     color: #68432a;
 }
+/* ==========================================================
+   VIE DU CARNET — CHRONIQUE DÉFILANTE
+   ========================================================== */
+
+.statistics-chronicle {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 20px;
+}
+/* ==========================================================
+   ASCENSEUR DE LA CHRONIQUE
+   ========================================================== */
+
+.statistics-chronicle::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+.statistics-chronicle::-webkit-scrollbar-track {
+
+    background:
+        rgba(255, 248, 230, 0.25);
+
+    border-radius: 6px;
+
+}
+
+.statistics-chronicle::-webkit-scrollbar-thumb {
+
+    background:
+        #b89b6a;
+
+    border-radius: 6px;
+
+}
+
+.statistics-chronicle::-webkit-scrollbar-thumb:hover {
+
+    background:
+        #8f7048;
+
+}
+
+/* Une ligne verticale très discrète */
+
+.statistics-chronicle::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 52px;
+
+    top: 15px;
+
+    bottom: 15px;
+
+    width: 1px;
+
+    background: #b89b6a;
+
+    opacity: 0.45;
+
+}
+
+
+/* ----------------------------------------------------------
+   ÉVÉNEMENT
+   ---------------------------------------------------------- */
+
+.statistics-chronicle-item {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 22px;
+
+    padding: 14px 10px;
+
+}
+
+
+/* ----------------------------------------------------------
+   ICÔNE
+   ---------------------------------------------------------- */
+
+.statistics-chronicle-icon {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #ead8b4;
+
+    border: 1px solid #b89b6a;
+
+    border-radius: 50%;
+
+    font-size: 20px;
+
+}
+
+
+/* ----------------------------------------------------------
+   CONTENU
+   ---------------------------------------------------------- */
+
+.statistics-chronicle-content {
+
+    padding-top: 2px;
+
+}
+
+
+/* DATE */
+
+.statistics-chronicle-date {
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    color: #80694c;
+
+    margin-bottom: 3px;
+
+}
+
+
+/* TYPE */
+
+.statistics-chronicle-label {
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    color: #a88959;
+
+    margin-bottom: 3px;
+
+}
+
+
+/* TITRE */
+
+.statistics-chronicle-title {
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 18px;
+
+    color: #3f2b20;
+
+}
+
+
+/* ----------------------------------------------------------
+   ÉTAT VIDE
+   ---------------------------------------------------------- */
+
+.statistics-chronicle-empty {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    color: #80694c;
+
+}
+
+/* ==========================================================
+   COUVERTURES DES LIVRES — CHRONIQUE
+   ========================================================== */
+
+.statistics-chronicle-cover {
+
+    width: 42px;
+
+    height: 58px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border: 1px solid #a88959;
+
+    box-shadow:
+        2px 2px 5px rgba(63, 43, 32, 0.25);
+
+}
+/* ==========================================================
+   GRAPHIQUE — ÉVOLUTION
+   ========================================================== */
+.statistics-chart {
+
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    overflow: visible;
+
+}
+
+
+#statisticsEvolutionChart {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+.statistics-chart svg {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+}
+
+.statistics-chart-loading {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #80694c;
+
+    font-size: 18px;
+
+    font-style: italic;
+
+}
+
+
+/* ==========================================================
+   HISTOGRAMME D'ÉVOLUTION
+   ========================================================== */
+
+.statistics-chart-container {
+
+    width: 100%;
+
+    overflow: hidden;
+
+}
+
+
+.statistics-evolution-svg {
+
+    display: block;
+
+    width: 100%;
+
+    height: 320px;
+
+    overflow: visible;
+
+}
+
+
+/* ==========================================================
+   LÉGENDE DU GRAPHIQUE
+   ========================================================== */
+
+.statistics-chart-legend {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 35px;
+
+    margin-top: 8px;
+
+    font-size: 16px;
+
+    color: #80694c;
+
+}
+
+
+.statistics-chart-legend span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.statistics-chart-legend strong {
+
+    font-size: 20px;
+
+}
+
+
+/* ==========================================================
+   EXPLICATION DU GRAPHIQUE
+   ========================================================== */
+
+.statistics-chart-explanation {
+
+    text-align: center;
+
+    margin-top: 8px;
+
+    padding-bottom: 10px;
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    color: #9a8060;
+
+}
+.statistics-chart-legend .legend-icon {
+
+    font-size: 32px;
+
+    line-height: 1;
+
+}
