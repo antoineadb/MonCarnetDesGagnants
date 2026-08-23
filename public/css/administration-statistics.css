@@ -1,0 +1,664 @@
+/* ==========================================================
+   STATISTIQUES — REGISTRE ANCIEN
+   ========================================================== */
+
+.statistics-page {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255,255,255,0.10),
+            transparent 70%
+        ),
+        #2f2119;
+
+    color: #eadcc7;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    padding-bottom: 50px;
+}
+
+
+/* ==========================================================
+   EN-TÊTE
+   ========================================================== */
+
+.statistics-header {
+
+    position: relative;
+
+    padding:
+        25px
+        35px
+        30px;
+
+    border-bottom:
+        1px solid
+        rgba(184,155,106,0.45);
+}
+
+
+.statistics-back {
+
+    border:
+        1px solid
+        #9d8055;
+
+    border-radius: 20px;
+
+    padding:
+        8px
+        16px;
+
+    background:
+        rgba(60,38,25,0.85);
+
+    color:
+        #e8d7b5;
+
+    font-family:
+        inherit;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.statistics-back:hover {
+
+    background:
+        #4b3024;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.statistics-title {
+
+    text-align: center;
+
+    margin-top: 15px;
+}
+
+
+.statistics-ornament {
+
+    font-size: 24px;
+
+    color:
+        #b89b6a;
+
+    margin-bottom: 5px;
+}
+
+
+.statistics-title h1 {
+
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 500;
+
+    letter-spacing: 1px;
+
+    color:
+        #eadcc7;
+}
+
+
+.statistics-title p {
+
+    margin:
+        5px
+        0
+        0;
+
+    font-size: 18px;
+
+    font-style: italic;
+
+    color:
+        #bda98b;
+}
+
+
+/* ==========================================================
+   CONTENU
+   ========================================================== */
+
+.statistics-content {
+
+    width:
+        min(1100px, 92%);
+
+    margin:
+        35px
+        auto;
+}
+
+
+/* ==========================================================
+   INTRODUCTION
+   ========================================================== */
+
+.statistics-introduction {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding:
+        20px
+        25px;
+
+    margin-bottom: 30px;
+
+    background:
+        #e8d7b5;
+
+    color:
+        #3b2a20;
+
+    border:
+        1px solid
+        #b89b6a;
+
+    box-shadow:
+        0 6px 15px
+        rgba(0,0,0,0.25);
+}
+
+
+.statistics-introduction-icon {
+
+    font-size: 34px;
+}
+
+
+.statistics-introduction h2 {
+
+    margin:
+        0
+        0
+        4px;
+
+    font-size: 25px;
+
+    font-weight: 600;
+}
+
+
+.statistics-introduction p {
+
+    margin: 0;
+
+    font-size: 17px;
+}
+
+
+/* ==========================================================
+   CARTES PRINCIPALES
+   ========================================================== */
+
+.statistics-overview {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 35px;
+}
+
+
+.statistics-card {
+
+    position: relative;
+
+    text-align: center;
+
+    padding:
+        24px
+        15px;
+
+    background:
+        #e3cfaa;
+
+    color:
+        #3b2a20;
+
+    border:
+        1px solid
+        #a88959;
+
+    box-shadow:
+        0 5px 12px
+        rgba(0,0,0,0.22);
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.statistics-card:hover {
+
+    transform:
+        translateY(-3px);
+}
+
+
+.statistics-card-icon {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+
+.statistics-card-label {
+
+    margin-top: 7px;
+
+    font-size: 21px;
+
+    font-weight: 600;
+}
+
+
+.statistics-card-note {
+
+    margin-top: 3px;
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    color:
+        #80694c;
+}
+
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+
+.statistics-section {
+
+    margin-bottom: 35px;
+
+    padding:
+        25px;
+
+    background:
+        rgba(232,215,181,0.97);
+
+    color:
+        #3b2a20;
+
+    border:
+        1px solid
+        #a88959;
+
+    box-shadow:
+        0 6px 15px
+        rgba(0,0,0,0.22);
+}
+
+
+.statistics-section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-bottom:
+        12px;
+
+    margin-bottom:
+        20px;
+
+    border-bottom:
+        1px solid
+        #b89b6a;
+}
+
+
+.statistics-section-title span {
+
+    font-size: 24px;
+}
+
+
+.statistics-section-title h2 {
+
+    margin: 0;
+
+    font-size: 27px;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================================
+   LECTURE
+   ========================================================== */
+
+.statistics-reading-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+.statistics-reading-item {
+
+    text-align: center;
+
+    padding:
+        18px
+        10px;
+
+    border:
+        1px solid
+        rgba(168,137,89,0.65);
+
+    background:
+        rgba(255,248,230,0.35);
+}
+
+
+.statistics-reading-value {
+
+    display: block;
+
+    font-size: 32px;
+
+    color:
+        #68432a;
+}
+
+
+.statistics-reading-label {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   PLACEHOLDER
+   ========================================================== */
+
+.statistics-placeholder {
+
+    text-align: center;
+
+    padding:
+        35px;
+
+    border:
+        1px dashed
+        #a88959;
+
+    background:
+        rgba(255,248,230,0.25);
+}
+
+
+.statistics-placeholder-icon {
+
+    font-size: 30px;
+
+    color:
+        #b89b6a;
+
+    margin-bottom: 8px;
+}
+
+
+.statistics-placeholder p {
+
+    margin: 0;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    color:
+        #80694c;
+}
+
+
+/* ==========================================================
+   GRAPHIQUE
+   ========================================================== */
+
+.statistics-chart-placeholder {
+
+    height: 220px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px dashed
+        #a88959;
+
+    background:
+        rgba(255,248,230,0.25);
+
+    color:
+        #80694c;
+
+    font-size: 18px;
+
+    font-style: italic;
+}
+
+
+/* ==========================================================
+   PIED DE PAGE
+   ========================================================== */
+
+.statistics-footer {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 45px;
+
+    color:
+        #a88c67;
+
+    font-size: 15px;
+
+    font-style: italic;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .statistics-overview {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .statistics-reading-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .statistics-header {
+
+        padding:
+            20px
+            15px;
+
+    }
+
+    .statistics-title h1 {
+
+        font-size: 30px;
+
+    }
+
+    .statistics-overview {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .statistics-reading-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .statistics-section {
+
+        padding:
+            18px;
+
+    }
+
+}
+
+/* ==========================================================
+   BOUTON RETOUR À L'ADMINISTRATION
+   ========================================================== */
+
+#btnRetour {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 22px;
+
+    border: 1px solid #b8955c;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ead9b5 0%,
+            #f2e4c4 50%,
+            #dfc99e 100%
+        );
+
+    color: #4b3020;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(35, 20, 10, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+/* Survol */
+#btnRetour:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #f0dfbb 0%,
+            #f6e9cb 50%,
+            #e5d0a5 100%
+        );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(35, 20, 10, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* Clic */
+#btnRetour:active {
+    transform: translateY(1px);
+
+    box-shadow:
+        0 2px 5px rgba(35, 20, 10, 0.25);
+}
+
+/* =====================================================
+   CHRONIQUE DU CARNET — chiffres principaux
+   ===================================================== */
+
+/* Suppression du trait au-dessus des chiffres */
+.statistics-card-value::before {
+    display: none !important;
+    content: none !important;
+}
+
+/* Chiffres plus imposants */
+.statistics-card-value {
+    font-size: 2rem;
+    line-height: 1.1;
+    color: #68432a;
+}

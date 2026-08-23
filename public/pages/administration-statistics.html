@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Statistiques — Le Carnet des Gagnants</title>
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/administration.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/administration-statistics.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="statistics-page">
+
+    <!-- =====================================================
+         EN-TÊTE
+         ===================================================== -->
+
+    <header class="statistics-header">
+
+        <button
+            id="btnRetour"
+            class="statistics-back"
+            type="button"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Retour à l'administration
+        </button>
+
+
+        <div class="statistics-title">
+
+            <div class="statistics-ornament">
+                ✦
+            </div>
+
+            <h1>
+                Registre des statistiques
+            </h1>
+
+            <p>
+                Les traces laissées dans le Carnet
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENU
+         ===================================================== -->
+
+    <main class="statistics-content">
+
+
+        <!-- INTRODUCTION -->
+
+        <section class="statistics-introduction">
+
+            <div class="statistics-introduction-icon">
+                📖
+            </div>
+
+            <div>
+
+                <h2>
+                    Chronique du Carnet
+                </h2>
+
+                <p>
+                    Retrouvez ici les chiffres et les traces
+                    de votre parcours dans Le Carnet des Gagnants.
+                </p>
+
+            </div>
+
+        </section>
+<!-- =================================================
+     INDICATEURS PRINCIPAUX
+     ================================================= -->
+
+    <section class="statistics-overview">
+
+
+        <article class="statistics-card">
+
+            <div class="statistics-card-icon">
+                📚
+            </div>
+
+            <div class="statistics-card-value" id="statsBooks"></div>
+
+            <div class="statistics-card-label">
+                Livres
+            </div>
+
+            <div class="statistics-card-note">
+                ouvrages enregistrés
+            </div>
+
+        </article>
+
+
+        <article class="statistics-card">
+
+            <div class="statistics-card-icon">
+                💌
+            </div>
+
+            <div class="statistics-card-value" id="statsGratitude"></div>
+
+            <div class="statistics-card-label">
+                Gratitudes
+            </div>
+
+            <div class="statistics-card-note">
+                souvenirs conservés
+            </div>
+
+        </article>
+
+
+        <article class="statistics-card">
+
+            <div class="statistics-card-icon">
+                📔
+            </div>
+
+            <div class="statistics-card-value" id="statsJournal"></div>
+
+            <div class="statistics-card-label">
+                Journal
+            </div>
+
+            <div class="statistics-card-note">
+                pages écrites
+            </div>
+
+        </article>
+
+
+        <article class="statistics-card">
+
+            <div class="statistics-card-icon">
+                👤
+            </div>
+
+            <div class="statistics-card-value" id="statsUsers"></div>
+
+            <div class="statistics-card-label">
+                Utilisateurs
+            </div>
+
+            <div class="statistics-card-note">
+                membres du Carnet
+            </div>
+
+        </article>
+        
+
+
+            </section>
+
+
+            <!-- =================================================
+                CHRONIQUE DE LECTURE
+                ================================================= -->
+
+            <section class="statistics-section">
+
+                <div class="statistics-section-title">
+
+                    <span>📚</span>
+
+                    <h2>
+                        Chronique de lecture
+                    </h2>
+
+                </div>
+
+
+                <div class="statistics-reading-grid">
+
+
+                    <div class="statistics-reading-item">
+
+                        <span
+                            class="statistics-reading-value"
+                            id="statsFinished"
+                        >
+                            —
+                        </span>
+
+                        <span class="statistics-reading-label">
+                            Livres terminés
+                        </span>
+
+                    </div>
+
+
+                    <div class="statistics-reading-item">
+
+                    <span
+                            class="statistics-reading-value"
+                            id="statsReading"
+                        >
+                            —
+                        </span>
+                        <span class="statistics-reading-label">
+                            Livres en cours
+                        </span>
+
+                    </div>
+
+
+                    <div class="statistics-reading-item">
+
+                        <span
+                            class="statistics-reading-value"
+                            id="statsToRead"
+                        >
+                            —
+                        </span>
+
+                        <span class="statistics-reading-label">
+                            Livres à lire
+                        </span>
+
+                    </div>
+
+
+                    <div class="statistics-reading-item">
+
+                        <span
+                            class="statistics-reading-value"
+                            id="statsLifeBooks"
+                        >
+                            —
+                        </span>
+
+                        <span class="statistics-reading-label">
+                            Livres de Vie
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        <!-- =================================================
+             VIE DU CARNET
+             ================================================= -->
+
+        <section class="statistics-section">
+
+            <div class="statistics-section-title">
+
+                <span>🕯️</span>
+
+                <h2>
+                    Vie du Carnet
+                </h2>
+
+            </div>
+
+
+            <div class="statistics-placeholder">
+
+                <div class="statistics-placeholder-icon">
+                    ✦
+                </div>
+
+                <p>
+                    Les chroniques détaillées du Carnet
+                    apparaîtront ici.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             GRAPHIQUES — FUTURE VERSION
+             ================================================= -->
+
+        <section class="statistics-section">
+
+            <div class="statistics-section-title">
+
+                <span>📜</span>
+
+                <h2>
+                    Évolution
+                </h2>
+
+            </div>
+
+
+            <div class="statistics-chart-placeholder">
+
+                <span>
+                    Les graphiques seront inscrits ici…
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         PIED DE PAGE
+         ===================================================== -->
+
+    <footer class="statistics-footer">
+
+        <span>
+            ✦
+        </span>
+
+        <span>
+            Le Carnet des Gagnants
+        </span>
+
+        <span>
+            ✦
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const btnRetour =
+            document.getElementById("btnRetour");
+
+        if (btnRetour) {
+
+            btnRetour.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        "administration.html";
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        try {
+
+            const response =
+                await fetch("/api/admin/statistics");
+
+            const data =
+                await response.json();
+
+            if (!data.success) {
+
+                console.error(
+                    "❌ Impossible de charger les statistiques :",
+                    data.message
+                );
+
+                return;
+
+            }
+
+            document.getElementById("statsBooks").textContent =
+                data.statistics.books;
+
+            document.getElementById("statsGratitude").textContent =
+                data.statistics.gratitude;
+
+            document.getElementById("statsJournal").textContent =
+                data.statistics.journal;
+
+            document.getElementById("statsUsers").textContent =
+                data.statistics.users;
+
+            document.getElementById("statsFinished").textContent =
+                data.statistics.finished;
+
+            document.getElementById("statsReading").textContent =
+                data.statistics.reading;
+
+            document.getElementById("statsToRead").textContent =
+                data.statistics.toRead;
+
+            document.getElementById("statsLifeBooks").textContent =
+                data.statistics.lifeBooks;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "❌ Erreur chargement statistiques :",
+                error
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</html>

@@ -48,3 +48,12 @@ document
             "/pages/administration-login-history.html";
 
     });
+
+document
+    .getElementById("cardStats")
+    .addEventListener("click", () => {
+
+        window.location.href =
+            "administration-statistics.html";
+
+    });

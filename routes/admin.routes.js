@@ -334,7 +334,111 @@ router.get("/users/:id", requireAdmin, (req, res) => {
 });
 
 
+// ======================================================
+// STATISTIQUES GÉNÉRALES
+// ======================================================
 
+router.get("/statistics", requireAdmin, (req, res) => {
+
+    try {
+
+        const books =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM books
+            `).get().count;
+
+
+        const gratitude =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM gratitude_cards
+                WHERE deleted = 0
+            `).get().count;
+
+
+        const journal =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM journal
+            `).get().count;
+
+
+        const users =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM users
+            `).get().count;
+
+        const finished =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM books
+                WHERE status = 'finished'
+            `).get().count;
+
+        const reading =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM books
+                WHERE status = 'reading'
+            `).get().count;
+
+        const toRead =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM books
+                WHERE status = 'to-read'
+            `).get().count;
+
+        const lifeBooks =
+            db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM books
+                WHERE life_book = 1
+            `).get().count;
+
+        res.json({
+
+            success: true,
+
+            statistics: {
+
+                books,
+                gratitude,
+                journal,
+                users,
+
+                finished,
+                reading,
+                toRead,
+                lifeBooks
+
+            }
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Erreur statistiques :",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Impossible de récupérer les statistiques."
+
+        });
+
+    }
+
+});
 
 
 module.exports = router;
