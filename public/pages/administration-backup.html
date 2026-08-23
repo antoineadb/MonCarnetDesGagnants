@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Sauvegardes — Le Carnet des Gagnants
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/css/administration.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/administration-statistics.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="statistics-page">
+
+    <!-- =====================================================
+         EN-TÊTE
+         ===================================================== -->
+
+    <header class="statistics-header">
+
+        <button
+            type="button"
+            id="btnRetour"
+            class="statistics-back"
+        >
+            ← Retour
+        </button>
+
+        <div class="statistics-header-title">
+
+            <span>💾</span>
+
+            <h1>
+                Sauvegardes
+            </h1>
+
+        </div>
+
+        <div></div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENU
+         ===================================================== -->
+
+    <main class="statistics-main">
+
+        <section class="statistics-section">
+
+            <div class="statistics-section-title">
+
+                <span>🛡️</span>
+
+                <h2>
+                    Sauvegarde du Carnet
+                </h2>
+
+            </div>
+
+
+            <div class="statistics-placeholder">
+
+                <div class="statistics-placeholder-icon">
+                    💾
+                </div>
+
+                <p>
+                    Sauvegardez l'intégralité de la base de données de votre Carnet.
+                </p>
+
+                <button
+                    type="button"
+                    id="btnBackup"
+                    class="statistics-back"
+                >
+                    💾 Créer une sauvegarde
+                </button>
+
+                <p
+                    id="backupMessage"
+                    style="display:none;"
+                ></p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         PIED DE PAGE
+         ===================================================== -->
+
+    <footer class="statistics-footer">
+
+        <span>✦</span>
+
+        <span>
+            Le Carnet des Gagnants
+        </span>
+
+        <span>✦</span>
+
+    </footer>
+
+</div>
+
+    <script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            // =========================================
+            // RETOUR
+            // =========================================
+
+            const btnRetour =
+                document.getElementById("btnRetour");
+
+            if (btnRetour) {
+
+                btnRetour.addEventListener(
+                    "click",
+                    () => {
+
+                        window.location.href =
+                            "administration.html";
+
+                    }
+                );
+
+            }
+
+
+            // =========================================
+            // SAUVEGARDE
+            // =========================================
+
+            const btnBackup =
+                document.getElementById("btnBackup");
+
+            const backupMessage =
+                document.getElementById("backupMessage");
+
+
+            if (btnBackup) {
+
+                btnBackup.addEventListener(
+                    "click",
+                    async () => {
+
+                        btnBackup.disabled = true;
+
+                        btnBackup.textContent =
+                            "⏳ Création de la sauvegarde...";
+
+
+                        try {
+
+                            const response =
+                                await fetch("/api/admin/backup");
+
+
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Erreur lors de la sauvegarde."
+                                );
+
+                            }
+
+
+                            const blob =
+                                await response.blob();
+
+
+                            // =================================
+                            // Récupération du nom du fichier
+                            // =================================
+
+                            const disposition =
+                                response.headers.get(
+                                    "Content-Disposition"
+                                );
+
+                            let filename =
+                                "carnet-sauvegarde.db";
+
+
+                            if (disposition) {
+
+                                const match =
+                                    disposition.match(
+                                        /filename="?([^"]+)"?/i
+                                    );
+
+                                if (match && match[1]) {
+
+                                    filename =
+                                        match[1];
+
+                                }
+
+                            }
+
+
+                            // =================================
+                            // Téléchargement
+                            // =================================
+
+                            const url =
+                                window.URL.createObjectURL(blob);
+
+                            const link =
+                                document.createElement("a");
+
+                            link.href = url;
+
+                            link.download =
+                                filename;
+
+                            document.body.appendChild(link);
+
+                            link.click();
+
+                            link.remove();
+
+                            window.URL.revokeObjectURL(url);
+
+
+                            // =================================
+                            // Message
+                            // =================================
+
+                            backupMessage.textContent =
+                                "✓ Sauvegarde créée avec succès.";
+
+                            backupMessage.style.display =
+                                "block";
+
+                            backupMessage.style.color =
+                                "#6F8064";
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "Erreur sauvegarde :",
+                                error
+                            );
+
+
+                            backupMessage.textContent =
+                                "❌ Impossible de créer la sauvegarde.";
+
+                            backupMessage.style.display =
+                                "block";
+
+                            backupMessage.style.color =
+                                "#9A5A4A";
+
+                        }
+
+
+                        btnBackup.disabled =
+                            false;
+
+                        btnBackup.textContent =
+                            "💾 Créer une sauvegarde";
+
+                    }
+
+                );
+
+            }
+
+        }
+    );
+
+    </script>
+
+</body>
+
+</html>

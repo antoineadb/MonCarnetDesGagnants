@@ -3,6 +3,9 @@ const router = express.Router();
 const db = require("../database/database");
 const { requireAdmin } = require("../middlewares/auth.middleware");
 const bcrypt = require("bcrypt");
+const path = require("path");
+const fs = require("fs");
+
 
 // Historique
 const { logHistory } = require("./history.routes");
@@ -638,6 +641,85 @@ router.get("/evolution", requireAdmin, (req, res) => {
 
             message:
                 "Impossible de récupérer l'évolution."
+
+        });
+
+    }
+
+});
+
+// ======================================================
+// SAUVEGARDE DE LA BASE SQLITE
+// ======================================================
+
+router.get("/backup", requireAdmin, async (req, res) => {
+
+    try {
+
+        const maintenant = new Date();
+
+        const date =
+            maintenant.getFullYear() +
+            "-" +
+            String(maintenant.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(maintenant.getDate()).padStart(2, "0");
+
+        const heure =
+            String(maintenant.getHours()).padStart(2, "0") +
+            "-" +
+            String(maintenant.getMinutes()).padStart(2, "0");
+
+        const filename =
+            `carnet-sauvegarde-${date}-${heure}.db`;
+
+        const backupPath =
+            path.join(require("os").tmpdir(), filename);
+
+        console.log("💾 Création de la sauvegarde :", filename);
+
+        await db.backup(backupPath);
+
+        console.log("✔ Sauvegarde créée :", backupPath);
+
+        res.download(
+            backupPath,
+            filename,
+            (error) => {
+
+                // Suppression du fichier temporaire
+                // après téléchargement
+
+                fs.unlink(
+                    backupPath,
+                    () => {}
+                );
+
+                if (error) {
+
+                    console.error(
+                        "❌ Erreur téléchargement sauvegarde :",
+                        error
+                    );
+
+                }
+
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Erreur sauvegarde SQLite :",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Impossible de créer la sauvegarde."
 
         });
 

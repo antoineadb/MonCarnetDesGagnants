@@ -57,3 +57,12 @@ document
             "administration-statistics.html";
 
     });
+
+ document
+    .getElementById("cardBackup")
+    .addEventListener("click", () => {
+
+        window.location.href =
+            "administration-backup.html";
+
+    });
