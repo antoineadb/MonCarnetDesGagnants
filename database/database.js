@@ -1027,4 +1027,31 @@ console.log("📁 Base :", dbPath);
 console.log("✅ Base SQLite ouverte");
 console.log("======================================");
 console.log("");
+
+
+// ======================================================
+// TABLE HISTORIQUE DES SAUVEGARDES
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS backup_history (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    filename TEXT,
+
+    size INTEGER,
+
+    status TEXT NOT NULL,
+
+    error_message TEXT
+
+);
+
+`);
+
+console.log("✔ Table backup_history vérifiée");
 module.exports = db;

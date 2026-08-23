@@ -649,10 +649,63 @@ router.get("/evolution", requireAdmin, (req, res) => {
 });
 
 // ======================================================
+// HISTORIQUE DES SAUVEGARDES
+// ======================================================
+
+router.get("/backup-history", requireAdmin, (req, res) => {
+
+    try {
+
+        const backups = db.prepare(`
+            SELECT
+                id,
+                created_at,
+                filename,
+                size,
+                status,
+                error_message
+            FROM backup_history
+            ORDER BY created_at DESC
+        `).all();
+
+        res.json({
+
+            success: true,
+
+            backups
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Erreur historique sauvegardes :",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Impossible de récupérer l'historique des sauvegardes."
+
+        });
+
+    }
+
+});
+
+// ======================================================
 // SAUVEGARDE DE LA BASE SQLITE
 // ======================================================
 
 router.get("/backup", requireAdmin, async (req, res) => {
+
+    let filename = null;
+    let backupPath = null;
 
     try {
 
@@ -670,17 +723,68 @@ router.get("/backup", requireAdmin, async (req, res) => {
             "-" +
             String(maintenant.getMinutes()).padStart(2, "0");
 
-        const filename =
+        filename =
             `carnet-sauvegarde-${date}-${heure}.db`;
 
-        const backupPath =
-            path.join(require("os").tmpdir(), filename);
+        backupPath =
+            path.join(
+                require("os").tmpdir(),
+                filename
+            );
 
-        console.log("💾 Création de la sauvegarde :", filename);
+        console.log(
+            "💾 Création de la sauvegarde :",
+            filename
+        );
+
+        // --------------------------------------------------
+        // Création de la sauvegarde SQLite
+        // --------------------------------------------------
 
         await db.backup(backupPath);
 
-        console.log("✔ Sauvegarde créée :", backupPath);
+        // --------------------------------------------------
+        // Récupération de la taille du fichier
+        // --------------------------------------------------
+
+        const stats =
+            fs.statSync(backupPath);
+
+        const size =
+            stats.size;
+
+        console.log(
+            "✔ Sauvegarde créée :",
+            backupPath
+        );
+
+        console.log(
+            "📦 Taille :",
+            size,
+            "octets"
+        );
+
+        // --------------------------------------------------
+        // Enregistrement de la sauvegarde réussie
+        // --------------------------------------------------
+
+        db.prepare(`
+            INSERT INTO backup_history
+            (
+                filename,
+                size,
+                status
+            )
+            VALUES (?, ?, ?)
+        `).run(
+            filename,
+            size,
+            "OK"
+        );
+
+        // --------------------------------------------------
+        // Téléchargement
+        // --------------------------------------------------
 
         res.download(
             backupPath,
@@ -688,7 +792,6 @@ router.get("/backup", requireAdmin, async (req, res) => {
             (error) => {
 
                 // Suppression du fichier temporaire
-                // après téléchargement
 
                 fs.unlink(
                     backupPath,
@@ -707,12 +810,47 @@ router.get("/backup", requireAdmin, async (req, res) => {
             }
         );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(
             "❌ Erreur sauvegarde SQLite :",
             error
         );
+
+        // --------------------------------------------------
+        // Enregistrement de l'échec
+        // --------------------------------------------------
+
+        try {
+
+            db.prepare(`
+                INSERT INTO backup_history
+                (
+                    filename,
+                    size,
+                    status,
+                    error_message
+                )
+                VALUES (?, ?, ?, ?)
+            `).run(
+                filename,
+                null,
+                "KO",
+                error.message
+            );
+
+        }
+
+        catch (historyError) {
+
+            console.error(
+                "❌ Impossible d'enregistrer l'échec :",
+                historyError
+            );
+
+        }
 
         res.status(500).json({
 

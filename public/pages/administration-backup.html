@@ -79,36 +79,66 @@
             </div>
 
 
-            <div class="statistics-placeholder">
-
-                <div class="statistics-placeholder-icon">
-                    💾
-                </div>
-
-                <p>
-                    Sauvegardez l'intégralité de la base de données de votre Carnet.
-                </p>
-
-                <button
-                    type="button"
-                    id="btnBackup"
-                    class="statistics-back"
-                >
-                    💾 Créer une sauvegarde
-                </button>
-
-                <p
-                    id="backupMessage"
-                    style="display:none;"
-                ></p>
-
-            </div>
+            
 
         </section>
 
     </main>
 
+<div class="statistics-placeholder">
 
+    <div class="statistics-placeholder-icon">
+        💾
+    </div>
+
+    <p>
+        Sauvegardez l'intégralité de la base de données de votre Carnet.
+    </p>
+
+    <button
+        type="button"
+        id="btnBackup"
+        class="statistics-back"
+    >
+        💾 Créer une sauvegarde
+    </button>
+
+    <p
+        id="backupMessage"
+        style="display:none;"
+    ></p>
+
+</div>
+
+
+<!-- =====================================================
+     HISTORIQUE DES SAUVEGARDES
+     ===================================================== -->
+
+<section class="statistics-section">
+
+    <div class="statistics-section-title">
+
+        <span>📋</span>
+
+        <h2>
+            Historique des sauvegardes
+        </h2>
+
+    </div>
+
+    <div
+        id="backupHistory"
+        class="backup-history"
+    >
+
+        <div class="statistics-chart-loading">
+            Chargement de l'historique…
+        </div>
+
+    </div>
+
+</section>
     <!-- =====================================================
          PIED DE PAGE
          ===================================================== -->
@@ -153,7 +183,147 @@
                 );
 
             }
+            // =========================================
+            // HISTORIQUE DES SAUVEGARDES
+            // =========================================
 
+            const backupHistory =
+                document.getElementById("backupHistory");
+
+
+            async function chargerHistorique() {
+
+                try {
+
+                    const response =
+                        await fetch("/api/admin/backup-history");
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Impossible de charger l'historique."
+                        );
+
+                    }
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (
+                        !data.success ||
+                        !data.backups.length
+                    ) {
+
+                        backupHistory.innerHTML = `
+                            <div class="backup-history-empty">
+                                Aucune sauvegarde enregistrée.
+                            </div>
+                        `;
+
+                        return;
+
+                    }
+
+
+                    backupHistory.innerHTML = `
+
+                        <div class="backup-history-header">
+
+                            <span>Date</span>
+                            <span>Fichier</span>
+                            <span>Taille</span>
+                            <span>Statut</span>
+
+                        </div>
+
+                        ${data.backups.map(backup => {
+
+                            const date =
+                                new Date(
+                                    backup.created_at
+                                ).toLocaleString(
+                                    "fr-FR",
+                                    {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    }
+                                );
+
+
+                            const taille =
+                                backup.size
+                                    ? (
+                                        backup.size / 1024
+                                      ).toFixed(1) + " Ko"
+                                    : "—";
+
+
+                            const statut =
+                                backup.status === "OK"
+                                    ? "✓ OK"
+                                    : "✕ KO";
+
+
+                            return `
+
+                                <div class="backup-history-row">
+
+                                    <span>
+                                        ${date}
+                                    </span>
+
+                                    <span>
+                                        ${backup.filename}
+                                    </span>
+
+                                    <span>
+                                        ${taille}
+                                    </span>
+
+                                    <span class="${
+                                        backup.status === "OK"
+                                            ? "backup-status-ok"
+                                            : "backup-status-ko"
+                                    }">
+                                        ${statut}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }).join("")}
+
+                    `;
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Erreur historique sauvegardes :",
+                        error
+                    );
+
+
+                    backupHistory.innerHTML = `
+                        <div class="backup-history-empty">
+                            Impossible de charger l'historique.
+                        </div>
+                    `;
+
+                }
+
+            }
+
+
+            chargerHistorique();
 
             // =========================================
             // SAUVEGARDE
@@ -257,6 +427,8 @@
 
                             backupMessage.textContent =
                                 "✓ Sauvegarde créée avec succès.";
+
+                            await chargerHistorique();
 
                             backupMessage.style.display =
                                 "block";

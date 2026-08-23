@@ -1029,3 +1029,104 @@
     line-height: 1;
 
 }
+/* ==========================================================
+   HISTORIQUE DES SAUVEGARDES
+   ========================================================== */
+
+.backup-history {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+}
+
+
+.backup-history-header,
+.backup-history-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1.4fr
+        2.5fr
+        1fr
+        0.8fr;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.backup-history-header {
+
+    padding:
+        12px
+        18px;
+
+    font-weight: bold;
+
+    color: #604832;
+
+    border-bottom:
+        1px solid
+        #b89b6a;
+
+}
+
+
+.backup-history-row {
+
+    padding:
+        14px
+        18px;
+
+    color: #604832;
+
+    border-bottom:
+        1px solid
+        rgba(184, 155, 106, 0.35);
+
+}
+
+
+.backup-history-row span {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.backup-status-ok {
+
+    font-weight: bold;
+
+    color: #6F9B78;
+
+}
+
+
+.backup-status-ko {
+
+    font-weight: bold;
+
+    color: #9A5A4A;
+
+}
+
+
+.backup-history-empty {
+
+    padding: 25px;
+
+    text-align: center;
+
+    font-style: italic;
+
+    color: #9a8060;
+
+}
