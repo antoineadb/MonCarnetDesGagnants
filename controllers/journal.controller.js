@@ -28,7 +28,7 @@ exports.getHistory = (req, res) => {
         FROM journal
         WHERE user_id = ?
         ORDER BY  updated_at DESC
-    `).all();
+    `).all(userId);
 
     res.json(rows);
 

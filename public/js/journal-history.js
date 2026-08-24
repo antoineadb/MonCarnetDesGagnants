@@ -228,7 +228,7 @@ async function deleteSelectedEntry() {
         title: "Supprimer le journal",
         message: "Voulez-vous vraiment supprimer ce journal ?",
         confirmText: "Supprimer",
-        cancelText: "Annuler",       ≈
+        cancelText: "Annuler",       
     });
 
     if (!ok) return;
