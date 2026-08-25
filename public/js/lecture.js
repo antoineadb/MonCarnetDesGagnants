@@ -106,6 +106,22 @@ class Lecture {
         this.backToJournal =
             document.getElementById("backToJournal");
 
+        this.readingStats =
+            document.querySelectorAll(
+                ".reading-stats-preview .stat-value"
+            );
+
+        this.statBooksRead =
+            document.getElementById("statBooksRead");
+
+        this.statLifeBooks =
+            document.getElementById("statLifeBooks");
+
+        this.statQuotes =
+            document.getElementById("statQuotes");
+
+        this.statIdeas =
+            document.getElementById("statIdeas");
     }
 
 
@@ -256,7 +272,7 @@ class Lecture {
         // Fermer la fenêtre de détail
         this.bookDetailModal.hidden = true;
 
-        // Remplir le formulaire
+                // Remplir le formulaire
         document.getElementById("bookTitle").value =
             book.title || "";
 
@@ -270,10 +286,10 @@ class Lecture {
             book.format || "paper";
 
         document.getElementById("bookStartDate").value =
-            book.start_date || "";
+            book.startDate || "";
 
         document.getElementById("bookEndDate").value =
-            book.end_date || "";
+            book.endDate || "";
 
         document.getElementById("bookPages").value =
             book.pages || 0;
@@ -291,11 +307,34 @@ class Lecture {
             book.lifeBook === "true";
 
         document.getElementById("bookReadCount").value =
-            book.read_count || 0;
+            book.readCount || 0;
 
         document.getElementById("bookLifeImpact").value =
-            book.life_impact || 0;
+            book.lifeImpact || 0;
 
+        document.getElementById("bookSummary").value =
+            book.summary || "";
+
+        document.getElementById("bookWhatILiked").value =
+            book.whatILiked || "";
+
+        document.getElementById("bookWhatIDidNotLike").value =
+            book.whatIDidNotLike || "";
+
+        document.getElementById("bookWhatILearned").value =
+            book.whatILearned || "";
+
+        document.getElementById("bookBeforeReading").value =
+            book.beforeReading || "";
+
+        document.getElementById("bookAfterReading").value =
+            book.afterReading || "";
+
+        document.getElementById("bookWhyThisBook").value =
+            book.whyThisBook || "";
+
+        document.getElementById("bookReread").value =
+            book.reread || "";
     }
 
     async deleteCurrentBook() {
@@ -919,12 +958,91 @@ class Lecture {
 
     }
 
+    /*=========================================================
+    STATISTIQUES DE LECTURE
+    =========================================================*/
+
+    updateReadingStats() {
+
+        const books = this.books || [];
+
+        const booksRead =
+            books.filter(
+                book => book.status === "finished"
+            ).length;
+
+        const lifeBooks =
+            books.filter(
+                book => book.lifeBook === true
+            ).length;
+
+        const ideasRetained =
+            books.filter(
+                book =>
+                    book.whatILearned &&
+                    book.whatILearned.trim() !== ""
+            ).length;
+
+        if (this.readingStats.length >= 4) {
+
+            this.readingStats[0].textContent =
+                booksRead;
+
+            this.readingStats[1].textContent =
+                lifeBooks;
+
+            this.readingStats[2].textContent =
+                0;
+
+            this.readingStats[3].textContent =
+                ideasRetained;
+
+        }
+
+    }
+    /*=========================================================
+    STATISTIQUES DE LECTURE
+    =========================================================*/
+
+    updateStatistics() {
+
+        const booksRead =
+            this.books.filter(book =>
+                book.status === "finished"
+            ).length;
+
+
+        const lifeBooks =
+            this.books.filter(book =>
+                book.lifeBook === true
+            ).length;
+
+
+        const ideasRetained =
+            this.books.filter(book =>
+                book.whatILearned &&
+                book.whatILearned.trim() !== ""
+            ).length;
+
+
+        this.statBooksRead.textContent =
+            booksRead;
+
+        this.statLifeBooks.textContent =
+            lifeBooks;
+
+        this.statIdeas.textContent =
+            ideasRetained;
+
+    }
 
     /*=========================================================
         AFFICHAGE
     =========================================================*/
 
     render() {
+
+        this.updateReadingStats();
 
         this.bookshelf.setBooks(
             this.books
@@ -940,6 +1058,7 @@ class Lecture {
             )
 
         );
+        this.updateStatistics();
 
     }
 
