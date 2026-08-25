@@ -1054,4 +1054,44 @@ CREATE TABLE IF NOT EXISTS backup_history (
 `);
 
 console.log("✔ Table backup_history vérifiée");
+
+// ======================================================
+// TABLE EXERCICES PHYSIQUES
+// LE STADE DES GAGNANTS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS exercises (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    exercise_date TEXT NOT NULL,
+
+    exercise_time TEXT,
+
+    exercise_type TEXT NOT NULL,
+
+    duration INTEGER DEFAULT 0,
+
+    distance REAL DEFAULT 0,
+
+    notes TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id)
+
+);
+
+`);
+
+console.log("✔ Table exercises vérifiée");
+
+
 module.exports = db;

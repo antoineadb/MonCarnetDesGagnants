@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Le Stade des Gagnants</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/exercices.css">
+
+</head>
+
+<main class="stadium-page">
+
+    <body>
+    <button
+    type="button"
+    id="backToHome"
+    class="exercise-back-button">
+    ← Retour à l'accueil
+</button>
+<script src="../js/navigation.js"></script>
+    <!-- =====================================================
+         EN-TÊTE
+    ====================================================== -->
+
+    <header class="stadium-header">
+
+        <div class="stadium-symbol">
+            🏛️
+        </div>
+
+        <h1>
+            Le Stade des Gagnants
+        </h1>
+
+        <p>
+            Chaque entraînement est une victoire.
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         CALENDRIER
+    ====================================================== -->
+
+    <section class="exercise-calendar-section">
+
+        <div class="calendar-navigation">
+
+            <button
+                type="button"
+                id="previousMonth"
+                class="calendar-button">
+
+                ◀
+
+            </button>
+
+            <div>
+
+                <h2 id="calendarMonth">
+                    Août 2026
+                </h2>
+
+                <p id="calendarSubtitle">
+                    Vos entraînements
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="nextMonth"
+                class="calendar-button">
+
+                ▶
+
+            </button>
+
+        </div>
+
+
+        <!-- Jours de la semaine -->
+
+        <div
+            id="calendarWeekdays"
+            class="calendar-weekdays">
+
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mer</div>
+            <div>Jeu</div>
+            <div>Ven</div>
+            <div>Sam</div>
+            <div>Dim</div>
+
+        </div>
+
+
+        <!-- Cases du calendrier -->
+
+        <div
+            id="exerciseCalendar"
+            class="exercise-calendar">
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         JOUR SÉLECTIONNÉ
+    ====================================================== -->
+
+    <section
+        id="selectedDay"
+        class="selected-day"
+        hidden>
+
+        <div class="selected-day-header">
+
+            <span class="selected-day-icon">
+                🏅
+            </span>
+
+            <div>
+
+                <h2 id="selectedDayTitle">
+                    Journée
+                </h2>
+
+                <p id="selectedDaySubtitle">
+                    Vos entraînements
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="exerciseHours"
+            class="exercise-hours">
+
+        </div>
+
+
+        <button
+            type="button"
+            id="addExerciseButton"
+            class="primary-button">
+
+            ＋ Ajouter un entraînement
+
+        </button>
+
+    </section>
+<!-- =====================================================
+     POPUP — NOUVEL ENTRAÎNEMENT
+====================================================== -->
+
+<div
+    id="exerciseFormSection"
+    class="exercise-modal"
+    hidden>
+
+    <div
+        class="exercise-modal-overlay"
+        id="exerciseModalOverlay">
+    </div>
+
+    <section class="exercise-form-section">
+
+        <div class="exercise-form-header">
+
+            <span class="exercise-form-icon">
+                🏅
+            </span>
+
+            <div>
+                <h2>Nouvelle séance</h2>
+
+                <p>
+                    Inscrivez votre victoire du jour.
+                </p>
+            </div>
+
+        </div>
+
+        <form id="exerciseForm">
+
+            <div class="form-group">
+
+                <label for="exerciseDate">
+                    📅 Date
+                </label>
+
+                <input
+                    type="date"
+                    id="exerciseDate"
+                    name="exercise_date"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exerciseTime">
+                    🕐 Heure
+                </label>
+
+                <input
+                    type="time"
+                    id="exerciseTime"
+                    name="exercise_time">
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exerciseType">
+                    🏃 Type d'exercice
+                </label>
+
+                <select
+                    id="exerciseType"
+                    name="exercise_type"
+                    required>
+
+                    <option value="">
+                        Choisir un exercice
+                    </option>
+
+                    <option value="Course">🏃 Course</option>
+                    <option value="Marche">🚶 Marche</option>
+                    <option value="Vélo">🚴 Vélo</option>
+                    <option value="Natation">🏊 Natation</option>
+                    <option value="Randonnée">🥾 Randonnée</option>
+                    <option value="Musculation">🏋️ Musculation</option>
+                    <option value="Fitness">🤸 Fitness</option>
+                    <option value="Autre">⚡ Autre</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exerciseDuration">
+                    ⏱️ Durée
+                </label>
+
+                <div class="input-with-unit">
+
+                    <input
+                        type="number"
+                        id="exerciseDuration"
+                        name="duration"
+                        min="0"
+                        step="1"
+                        placeholder="45">
+
+                    <span>minutes</span>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exerciseDistance">
+                    📏 Distance
+                </label>
+
+                <div class="input-with-unit">
+
+                    <input
+                        type="number"
+                        id="exerciseDistance"
+                        name="distance"
+                        min="0"
+                        step="0.1"
+                        placeholder="7.2">
+
+                    <span>km</span>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exerciseNotes">
+                    📝 Notes
+                </label>
+
+                <textarea
+                    id="exerciseNotes"
+                    name="notes"
+                    rows="4"
+                    placeholder="Comment s'est passée votre séance ?">
+                </textarea>
+
+            </div>
+
+            <div class="exercise-form-actions">
+
+                <button
+                    type="button"
+                    id="cancelExerciseButton"
+                    class="secondary-button">
+                    Annuler
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveExerciseButton"
+                    class="primary-button">
+                    🏛️ Enregistrer la séance
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+</main>
+
+
+<script
+    type="module"
+    src="/js/exercices.js">
+</script>
+
+<script>
+    document.getElementById("backToHome")
+        ?.addEventListener("click", () => {
+            Navigation.accueil();
+        });
+</script>
+
+</body>
+
+</html>

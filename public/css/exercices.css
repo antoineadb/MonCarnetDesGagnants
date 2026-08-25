@@ -1,0 +1,1296 @@
+/* =========================================================
+   LE STADE DES GAGNANTS
+   CALENDRIER
+========================================================= */
+
+:root {
+
+    --stone: #e8dfcf;
+    --stone-dark: #c9baa0;
+
+    --bronze: #9b6b32;
+    --bronze-dark: #70491f;
+
+    --olive: #68724b;
+
+    --ink: #30281f;
+
+    --paper: #f7f1e5;
+
+    --white: #fffdf8;
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: var(--ink);
+
+    background:
+        linear-gradient(
+            135deg,
+            #e5dccb,
+            #f5efe3
+        );
+
+}
+
+
+.stadium-page {
+
+    width: min(
+        1100px,
+        calc(100% - 32px)
+    );
+
+    margin: 0 auto;
+
+    padding: 40px 0 70px;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.stadium-header {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+}
+
+
+.stadium-symbol {
+
+    font-size: 42px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.stadium-header h1 {
+
+    margin: 0;
+
+    font-size: clamp(
+        2rem,
+        5vw,
+        3.5rem
+    );
+
+    color: var(--bronze-dark);
+
+    letter-spacing: 1px;
+
+}
+
+
+.stadium-header p {
+
+    margin-top: 10px;
+
+    font-style: italic;
+
+    color: #665b4c;
+
+}
+
+
+/* =========================================================
+   CALENDRIER
+========================================================= */
+
+.exercise-calendar-section {
+
+    background: var(--paper);
+
+    border: 2px solid var(--bronze);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(
+            70,
+            50,
+            25,
+            0.15
+        );
+
+}
+
+
+.calendar-navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.calendar-navigation h2 {
+
+    margin: 0;
+
+    font-size: 2rem;
+
+    color: var(--bronze-dark);
+
+}
+
+
+.calendar-navigation p {
+
+    margin: 5px 0 0;
+
+    color: #756957;
+
+}
+
+
+.calendar-button {
+
+    width: 46px;
+
+    height: 46px;
+
+    border: 2px solid var(--bronze);
+
+    border-radius: 50%;
+
+    background: var(--white);
+
+    color: var(--bronze-dark);
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+
+.calendar-button:hover {
+
+    background: var(--stone);
+
+}
+
+
+/* =========================================================
+   JOURS
+========================================================= */
+
+.calendar-weekdays,
+.exercise-calendar {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 7px;
+
+}
+
+
+.calendar-weekdays {
+
+    margin-bottom: 7px;
+
+}
+
+
+.calendar-weekdays div {
+
+    text-align: center;
+
+    font-weight: bold;
+
+    color: var(--bronze-dark);
+
+    padding: 8px 0;
+
+}
+
+
+/* =========================================================
+   CASE JOUR
+========================================================= */
+
+.calendar-day {
+
+    min-height: 95px;
+
+    padding: 8px;
+
+    border: 1px solid var(--stone-dark);
+
+    border-radius: 10px;
+
+    background: var(--white);
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+
+}
+
+
+.calendar-day:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 10px rgba(
+            70,
+            50,
+            25,
+            0.15
+        );
+
+}
+
+
+.calendar-day.empty {
+
+    background: transparent;
+
+    border: none;
+
+    cursor: default;
+
+}
+
+
+.calendar-day-number {
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+}
+
+
+.calendar-day.today {
+
+    border: 2px solid var(--bronze);
+
+}
+
+
+.calendar-day.selected {
+
+    background: #eee4d2;
+
+    border: 2px solid var(--olive);
+
+}
+
+
+/* =========================================================
+   SÉANCES DANS LE CALENDRIER
+========================================================= */
+
+.calendar-exercises {
+
+    margin-top: 8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.calendar-exercise {
+
+    padding: 4px 5px;
+
+    border-radius: 5px;
+
+    background: #e8dfcf;
+
+    font-size: 11px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.calendar-exercise strong {
+
+    color: var(--bronze-dark);
+
+}
+
+
+/* =========================================================
+   JOUR SÉLECTIONNÉ
+========================================================= */
+
+.selected-day {
+
+    margin-top: 25px;
+
+    background: var(--paper);
+
+    border: 2px solid var(--bronze);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+}
+
+
+.selected-day-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.selected-day-icon {
+
+    font-size: 38px;
+
+}
+
+
+.selected-day-header h2 {
+
+    margin: 0;
+
+    color: var(--bronze-dark);
+
+}
+
+
+.selected-day-header p {
+
+    margin: 4px 0 0;
+
+}
+
+
+/* =========================================================
+   HORAIRES
+========================================================= */
+
+.exercise-hours {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.exercise-hour {
+
+    display: grid;
+
+    grid-template-columns: 70px 1fr;
+
+    min-height: 48px;
+
+    border-bottom: 1px solid var(--stone-dark);
+
+}
+
+
+.exercise-hour-time {
+
+    padding: 12px 8px;
+
+    font-weight: bold;
+
+    color: var(--bronze-dark);
+
+}
+
+
+.exercise-hour-content {
+
+    padding: 8px 12px;
+
+}
+
+
+.exercise-session {
+
+    background: #e8dfcf;
+
+    border-left: 4px solid var(--olive);
+
+    border-radius: 6px;
+
+    padding: 7px 10px;
+
+}
+
+
+.exercise-session strong {
+
+    color: var(--bronze-dark);
+
+}
+
+
+.exercise-session span {
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   BOUTON
+========================================================= */
+
+.primary-button {
+
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    border: 2px solid var(--bronze-dark);
+
+    border-radius: 8px;
+
+    background: var(--bronze);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+
+.primary-button:hover {
+
+    background: var(--bronze-dark);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    .stadium-page {
+
+        width:
+            calc(100% - 16px);
+
+        padding-top: 20px;
+
+    }
+
+
+    .exercise-calendar-section {
+
+        padding: 12px;
+
+    }
+
+
+    .calendar-weekdays,
+    .exercise-calendar {
+
+        gap: 3px;
+
+    }
+
+
+    .calendar-day {
+
+        min-height: 70px;
+
+        padding: 5px;
+
+    }
+
+
+    .calendar-exercise {
+
+        font-size: 9px;
+
+    }
+
+
+    .calendar-weekdays div {
+
+        font-size: 12px;
+
+    }
+
+}
+/* =========================================================
+   BOUTON RETOUR À L'ACCUEIL
+========================================================= */
+
+.exercise-back-button {
+
+    background: #7b4b27;
+    color: #fff3dc;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 18px;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+.exercise-back-button:hover {
+
+    transform: translateY(-1px);
+    opacity: 0.9;
+
+}
+
+/* =========================================================
+   POPUP FORMULAIRE EXERCICE
+========================================================= */
+
+.exercise-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+
+/* Fond derrière la fenêtre */
+
+.exercise-modal-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(50, 35, 20, 0.55);
+
+    backdrop-filter: blur(3px);
+
+}
+
+
+/* Fenêtre */
+
+.exercise-modal .exercise-form-section {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: min(620px, 95vw);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    margin: 0;
+
+    padding: 30px;
+
+    background: #f7f0e2;
+
+    border: 2px solid #a66b2d;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.30);
+
+}
+/* =========================================================
+   POPUP MASQUÉE PAR DÉFAUT
+========================================================= */
+
+.exercise-form-section[hidden] {
+    display: none;
+}
+
+
+/* Titre */
+
+.exercise-modal .exercise-form-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* Icône */
+
+.exercise-modal .exercise-form-icon {
+
+    font-size: 2rem;
+
+}
+
+
+/* Formulaire */
+
+.exercise-modal #exerciseForm {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+
+/* Groupes */
+
+.exercise-modal .form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+/* Labels */
+
+.exercise-modal label {
+
+    font-weight: 600;
+
+}
+
+
+/* Champs */
+
+.exercise-modal input,
+.exercise-modal select,
+.exercise-modal textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #c9b18e;
+
+    border-radius: 8px;
+
+    background: #fffaf0;
+
+    font-family: inherit;
+
+    font-size: 1rem;
+
+}
+
+
+/* Focus */
+
+.exercise-modal input:focus,
+.exercise-modal select:focus,
+.exercise-modal textarea:focus {
+
+    outline: none;
+
+    border-color: #a66b2d;
+
+    box-shadow:
+        0 0 0 2px rgba(166, 107, 45, 0.15);
+
+}
+
+
+/* Unités */
+
+.exercise-modal .input-with-unit {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.exercise-modal .input-with-unit input {
+
+    flex: 1;
+
+}
+
+
+.exercise-modal .input-with-unit span {
+
+    min-width: 65px;
+
+}
+
+
+/* Boutons */
+
+.exercise-modal .exercise-form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 8px;
+
+}
+
+
+.exercise-modal .exercise-form-actions button {
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+}
+
+
+/* Annuler */
+
+.exercise-modal .secondary-button {
+
+    background: #d8c9b2;
+
+    color: #4b3825;
+
+}
+
+
+.exercise-modal .secondary-button:hover {
+
+    background: #c9b89e;
+
+}
+
+
+/* Enregistrer */
+
+.exercise-modal .primary-button {
+
+    background: #a66b2d;
+
+    color: #fff8ed;
+
+}
+
+
+.exercise-modal .primary-button:hover {
+
+    background: #8e5722;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .exercise-modal {
+
+        padding: 15px;
+
+    }
+
+    .exercise-modal .exercise-form-section {
+
+        padding: 22px;
+
+        max-height: 92vh;
+
+    }
+
+    .exercise-modal .exercise-form-actions {
+
+        flex-direction: column;
+
+    }
+
+    .exercise-modal .exercise-form-actions button {
+
+        width: 100%;
+
+    }
+
+}
+/* =========================================================
+   POPUP NOUVEL ENTRAÎNEMENT
+========================================================= */
+
+.exercise-form-section {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(45, 30, 15, 0.65);
+
+    backdrop-filter: blur(4px);
+
+}
+
+
+/* =========================================================
+   CONTENEUR DU FORMULAIRE
+========================================================= */
+
+.exercise-form-section form {
+
+    width: min(620px, 92vw);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 35px;
+
+    background: #f7efdf;
+
+    border: 2px solid #a87532;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        0 0 0 6px rgba(168, 117, 50, 0.12);
+
+}
+
+
+/* =========================================================
+   EN-TÊTE
+========================================================= */
+
+.exercise-form-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #d7c3a2;
+
+}
+
+
+.exercise-form-icon {
+
+    font-size: 2.4rem;
+
+}
+
+
+.exercise-form-header h2 {
+
+    margin: 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 2rem;
+
+    color: #6f431f;
+
+}
+
+
+.exercise-form-header p {
+
+    margin: 4px 0 0;
+
+    color: #7c6852;
+
+}
+
+
+/* =========================================================
+   FORMULAIRE
+========================================================= */
+
+.exercise-form-section .form-group {
+
+    margin-bottom: 18px;
+
+}
+
+
+.exercise-form-section label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: 600;
+
+    color: #68431f;
+
+}
+
+
+.exercise-form-section input,
+.exercise-form-section select,
+.exercise-form-section textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #cdbb9e;
+
+    border-radius: 8px;
+
+    background: #fffaf0;
+
+    color: #4d3925;
+
+    font-family: inherit;
+
+    font-size: 1rem;
+
+}
+
+
+.exercise-form-section input:focus,
+.exercise-form-section select:focus,
+.exercise-form-section textarea:focus {
+
+    outline: none;
+
+    border-color: #a87532;
+
+    box-shadow:
+        0 0 0 3px rgba(168, 117, 50, 0.15);
+
+}
+
+
+/* =========================================================
+   UNITÉS
+========================================================= */
+
+.input-with-unit {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.input-with-unit input {
+
+    flex: 1;
+
+}
+
+
+.input-with-unit span {
+
+    min-width: 70px;
+
+    color: #7c6852;
+
+}
+
+
+/* =========================================================
+   BOUTONS
+========================================================= */
+
+.exercise-form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #d7c3a2;
+
+}
+
+
+.exercise-form-actions button {
+
+    padding: 11px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+}
+
+
+.exercise-form-actions .primary-button {
+
+    background: #a87532;
+
+    color: #fff8e9;
+
+}
+
+
+.exercise-form-actions .primary-button:hover {
+
+    background: #895d28;
+
+}
+
+
+.exercise-form-actions .secondary-button {
+
+    background: #ded1bd;
+
+    color: #5b432a;
+
+}
+
+
+.exercise-form-actions .secondary-button:hover {
+
+    background: #cdbda5;
+
+}
+
+
+/* =========================================================
+   PAGE BLOQUÉE DERRIÈRE LA POPUP
+========================================================= */
+
+body.exercise-modal-open {
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .exercise-form-section {
+
+        padding: 15px;
+
+    }
+
+    .exercise-form-section form {
+
+        padding: 24px;
+
+        max-height: 92vh;
+
+    }
+
+    .exercise-form-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .exercise-form-actions button {
+
+        width: 100%;
+
+    }
+
+}
+/* =========================================================
+   FORMULAIRE EXERCICE — ÉTAT MASQUÉ
+========================================================= */
+
+.exercise-form-section[hidden] {
+    display: none !important;
+}
+/* =========================================================
+   POPUP — MASQUÉE
+========================================================= */
+
+.exercise-modal[hidden] {
+    display: none !important;
+}
+
+/* =========================================================
+   POPUP — CONTENEUR
+========================================================= */
+
+.exercise-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+/* =========================================================
+   FOND
+========================================================= */
+
+.exercise-modal-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(45, 30, 15, 0.65);
+
+    backdrop-filter: blur(4px);
+}
+
+/* =========================================================
+   FORMULAIRE
+========================================================= */
+
+.exercise-modal .exercise-form-section {
+    position: relative;
+    z-index: 1;
+
+    width: min(620px, 92vw);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 35px;
+
+    background: #f7efdf;
+
+    border: 2px solid #a87532;
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        0 0 0 6px rgba(168, 117, 50, 0.12);
+}

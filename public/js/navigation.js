@@ -26,6 +26,10 @@ const Navigation = {
         Navigation.go("lecture.html");
     },
 
+    stade() {
+        Navigation.go("exercices.html");
+    },
+
     progression() {
         Navigation.go("progression.html");
     },
@@ -38,6 +42,10 @@ const Navigation = {
 
         window.location.href = "administration.html";
 
-    }
+    },
+    
+    accueil() {
+        Navigation.go("app.html");
+    },
 
 };

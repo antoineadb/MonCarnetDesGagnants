@@ -14,10 +14,9 @@ const adminRoutes = require("./routes/admin.routes");
 const { router: historyRoutes } = require("./routes/history.routes");
 const loginHistoryRoutes = require("./routes/login-history.routes");
 const booksRoutes = require("./routes/books.routes");
-const categoriesObjectifsRoutes =
-    require("./routes/categories-objectifs.routes");
-const objectifsRoutes =
-    require("./routes/objectifs.routes");
+const exercisesRoutes = require("./routes/exercise.routes");
+const categoriesObjectifsRoutes =  require("./routes/categories-objectifs.routes");
+const objectifsRoutes = require("./routes/objectifs.routes");
 
 // Route principale
 app.get("/", (req, res) => {
@@ -82,6 +81,7 @@ app.use(
 app.use("/api/history", historyRoutes);
 app.use("/api/login-history", loginHistoryRoutes);
 app.use("/api/books", booksRoutes);
+app.use("/api/exercises",exercisesRoutes );
 app.use("/api/admin", (req, res, next) => {
 
     console.log("➡️ ADMIN :", req.method, req.url);

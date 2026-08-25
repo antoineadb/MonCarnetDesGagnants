@@ -63,6 +63,9 @@ class Dashboard {
         document.getElementById("cardLecture")
             ?.addEventListener("click", Navigation.lecture);
 
+        document.getElementById("cardStade")
+            ?.addEventListener("click", Navigation.stade);
+
         document.getElementById("cardParametres")
             ?.addEventListener("click", Navigation.parametres);
 
@@ -496,6 +499,16 @@ document.getElementById("menuLecture")
         Navigation.lecture();
 
     });
+
+document.getElementById("menuStade")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.stade();
+
+    });
+
 document.getElementById("menuJournal")
     ?.addEventListener("click", e => {
 
