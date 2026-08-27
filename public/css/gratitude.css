@@ -1209,3 +1209,43 @@
     opacity: 0;
     pointer-events: none;
 }
+@media (max-width: 700px) {
+
+    #gratitudePostcard {
+        padding: 20px;
+    }
+
+    #gratitudePostcard .postcard.expand {
+        width: calc(100vw - 40px);
+        max-width: 500px;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
+
+}
+@media (max-width: 900px) {
+
+    #gratitudePostcard .postcard.expand {
+        width: calc(100vw - 80px);
+        max-width: 680px;
+    }
+
+}
+/* ==========================================================
+   ÉCRAN COURT — clavier iPad / téléphone
+   ========================================================== */
+
+@media (max-height: 700px) {
+
+    #gratitudePostcard {
+        align-items: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    #gratitudePostcard .postcard.expand {
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
+
+}
