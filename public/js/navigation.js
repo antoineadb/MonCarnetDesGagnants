@@ -22,6 +22,14 @@ const Navigation = {
         Navigation.go("gratitude.html");
     },
 
+    meditations() {
+        Navigation.go("meditations.html");
+    },
+
+    anals() {
+        Navigation.go("anals.html");
+    },
+
     lecture() {
         Navigation.go("lecture.html");
     },

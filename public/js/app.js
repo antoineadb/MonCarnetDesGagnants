@@ -63,6 +63,12 @@ class Dashboard {
         document.getElementById("cardLecture")
             ?.addEventListener("click", Navigation.lecture);
 
+        document.getElementById("cardMeditations")
+            ?.addEventListener("click", Navigation.meditations);
+
+        document.getElementById("cardAnals")
+            ?.addEventListener("click", Navigation.anals);
+
         document.getElementById("cardStade")
             ?.addEventListener("click", Navigation.stade);
 
