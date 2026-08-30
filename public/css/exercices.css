@@ -766,6 +766,12 @@ body {
 
 }
 
+.exercise-modal textarea,
+.exercise-form-section textarea {
+
+    vertical-align: top;
+
+}
 
 /* Focus */
 
@@ -827,7 +833,7 @@ body {
 
 .exercise-modal .exercise-form-actions button {
 
-    padding: 11px 18px;
+    padding: 11px 8px;
 
     border: none;
 
@@ -1147,8 +1153,20 @@ body {
 
     font-weight: 600;
 
+    white-space: nowrap;
+
+}
+.exercise-form-actions .secondary-button {
+
+    min-width: 120px;
+
 }
 
+.exercise-form-actions .primary-button {
+
+    min-width: 220px;
+
+}
 
 .exercise-form-actions .primary-button {
 
@@ -1373,5 +1391,13 @@ body.exercise-modal-open {
         color: var(--ink, #4b3929);
 
     }
+
+}
+
+/* Position du texte dans le champ Notes */
+
+#exerciseNotes {
+
+    vertical-align: top;
 
 }
