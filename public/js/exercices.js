@@ -24,6 +24,7 @@ class Exercices {
 
         this.selectedDate = null;
 
+        this.editingExerciseId = null;
 
         this.calendar =
             document.getElementById(
@@ -240,6 +241,8 @@ class Exercices {
 
 
         this.selectedDate = null;
+
+        this.editingExerciseId = null;
 
         this.selectedDay.hidden = true;
 
@@ -620,25 +623,77 @@ class Exercices {
                         "exercise-session";
 
 
-                    session.innerHTML = `
+            session.innerHTML = `
+                <strong>
+                    🏅 ${exercise.exercise_type}
+                </strong>
 
-                        <strong>
-                            🏅 ${exercise.exercise_type}
-                        </strong>
+                <br>
 
-                        <br>
+                <span>
+                    ⏱️ ${exercise.duration || 0} min
+                    ·
+                    📏 ${exercise.distance || 0} km
+                </span>
 
-                        <span>
-                            ⏱️ ${exercise.duration || 0} min
-                            ·
-                            📏 ${exercise.distance || 0} km
-                        </span>
+                <div class="exercise-session-actions">
 
-                    `;
+                    <button
+                        type="button"
+                        class="exercise-edit-button"
+                        data-id="${exercise.id}">
+                        ✏️ Modifier
+                    </button>
+
+                    <button
+                        type="button"
+                        class="exercise-delete-button"
+                        data-id="${exercise.id}">
+                        🗑️ Supprimer
+                    </button>
+
+                </div>
+            `;
 
 
                     content.appendChild(
                         session
+                    );
+
+                    const editButton =
+                        session.querySelector(
+                            ".exercise-edit-button"
+                        );
+
+                    const deleteButton =
+                        session.querySelector(
+                            ".exercise-delete-button"
+                        );
+
+                    editButton?.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            this.editExercise(
+                                Number(event.currentTarget.dataset.id)
+                            );
+
+                        }
+                    );
+
+                    deleteButton?.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            this.deleteExercise(
+                                Number(event.currentTarget.dataset.id)
+                            );
+
+                        }
                     );
 
                 }
@@ -671,6 +726,8 @@ class Exercices {
 ====================================================== */
 
 openExerciseForm() {
+
+    this.editingExerciseId = null;
 
     if (!this.selectedDate) {
 
@@ -711,6 +768,32 @@ closeExerciseForm() {
 
     this.exerciseForm.reset();
 
+    this.editingExerciseId = null;
+
+    const title =
+        this.exerciseFormSection.querySelector(
+            ".exercise-form-header h2"
+        );
+
+    if (title) {
+
+        title.textContent =
+            "Nouvelle séance";
+
+    }
+
+    const saveButton =
+        document.getElementById(
+            "saveExerciseButton"
+        );
+
+    if (saveButton) {
+
+        saveButton.textContent =
+            "🏛️ Enregistrer la séance";
+
+    }
+
     this.exerciseFormSection.hidden = true;
 
     document.body.classList.remove(
@@ -719,7 +802,87 @@ closeExerciseForm() {
 
 }
 
+async editExercise(id) {
 
+    const exercise =
+        this.exercises.find(
+            item => Number(item.id) === Number(id)
+        );
+
+    if (!exercise) {
+
+        alert(
+            "Impossible de retrouver cet exercice."
+        );
+
+        return;
+    }
+
+    this.editingExerciseId =
+        Number(id);
+
+    document.getElementById(
+        "exerciseDate"
+    ).value =
+        exercise.exercise_date || "";
+
+    document.getElementById(
+        "exerciseTime"
+    ).value =
+        exercise.exercise_time || "";
+
+    document.getElementById(
+        "exerciseType"
+    ).value =
+        exercise.exercise_type || "";
+
+    document.getElementById(
+        "exerciseDuration"
+    ).value =
+        exercise.duration || "";
+
+    document.getElementById(
+        "exerciseDistance"
+    ).value =
+        exercise.distance || "";
+
+    document.getElementById(
+        "exerciseNotes"
+    ).value =
+        exercise.notes || "";
+
+    const title =
+        this.exerciseFormSection.querySelector(
+            ".exercise-form-header h2"
+        );
+
+    if (title) {
+
+        title.textContent =
+            "Modifier la séance";
+
+    }
+
+    const saveButton =
+        document.getElementById(
+            "saveExerciseButton"
+        );
+
+    if (saveButton) {
+
+        saveButton.textContent =
+            "🏛️ Enregistrer les modifications";
+
+    }
+
+    this.exerciseFormSection.hidden =
+        false;
+
+    document.body.classList.add(
+        "exercise-modal-open"
+    );
+
+}
 /* =====================================================
    ENREGISTRER UN EXERCICE
 ====================================================== */
@@ -789,12 +952,25 @@ async saveExercise() {
 
     try {
 
+        const isEditing =
+            this.editingExerciseId !== null;
+
+        const url =
+            isEditing
+                ? `/api/exercises/${this.editingExerciseId}`
+                : "/api/exercises";
+
+        const method =
+            isEditing
+                ? "PUT"
+                : "POST";
+
         const response =
             await fetch(
-                "/api/exercises",
+                url,
                 {
 
-                    method: "POST",
+                    method,
 
                     credentials: "include",
 
@@ -844,10 +1020,19 @@ async saveExercise() {
         }
 
 
-        console.log(
-            "🏅 Séance enregistrée :",
-            result
-        );
+        if (isEditing) {
+
+            Toast.success(
+                "Séance modifiée."
+            );
+
+        } else {
+
+            Toast.success(
+                "Séance enregistrée."
+            );
+
+        }
 
 
         await this.loadExercises();
@@ -901,6 +1086,117 @@ async saveExercise() {
     }
 
 }
+
+/* =====================================================
+   SUPPRIMER UN EXERCICE
+====================================================== */
+
+async deleteExercise(id) {
+
+    const ok = await Confirm.show({
+
+        icon: "⚠️",
+
+        title: "Supprimer cette séance",
+
+        message:
+            "Voulez-vous vraiment supprimer cette séance ?",
+
+        confirmText: "Supprimer",
+
+        cancelText: "Annuler"
+
+    });
+
+    if (!ok) return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/exercises/${id}`,
+                {
+
+                    method: "DELETE",
+
+                    credentials: "include"
+
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        let result = null;
+
+        if (responseText) {
+
+            try {
+
+                result =
+                    JSON.parse(
+                        responseText
+                    );
+
+            }
+            catch {
+
+                // Réponse non JSON :
+                // on conserve simplement le texte
+
+            }
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result?.error ||
+                responseText ||
+                `Erreur API : ${response.status}`
+            );
+
+        }
+
+
+        Toast.success(
+            "Séance supprimée."
+        );
+
+        await this.loadExercises();
+
+
+        this.renderCalendar();
+
+
+        if (this.selectedDate) {
+
+            this.renderSelectedDay();
+
+        }
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Impossible de supprimer la séance :",
+            error
+        );
+
+
+        alert(
+            `Impossible de supprimer la séance.\n\n${error.message}`
+        );
+
+    }
+
+}
+
     /* =====================================================
        FORMAT DATE
     ====================================================== */
