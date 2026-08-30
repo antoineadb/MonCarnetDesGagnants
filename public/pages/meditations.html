@@ -5,105 +5,362 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Méditations — Le Carnet des Gagnants</title>
+    <title>Méditations & Bien-être — Le Carnet des Gagnants</title>
 
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css">
-
-    <style>
-
-        .construction-page {
-            min-height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .construction-icon {
-            font-size: 100px;
-            margin-bottom: 25px;
-        }
-
-        .construction-page h1 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 48px;
-            margin: 0 0 15px;
-        }
-
-        .construction-page p {
-            font-size: 19px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-
-        .construction-page .subtitle {
-            font-size: 16px;
-            opacity: .7;
-        }
-
-        .btn-retour {
-            display: inline-block;
-
-            padding: 12px 26px;
-
-            border-radius: 25px;
-            border: none;
-
-            background: #8d261c;
-            color: white;
-
-            font-size: 16px;
-            cursor: pointer;
-
-            text-decoration: none;
-        }
-
-        .btn-retour:hover {
-            transform: translateY(-2px);
-        }
-
-    </style>
+    <link rel="stylesheet" href="../css/meditations.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/confirm.css">
 
 </head>
 
 <body>
 
-    <main class="construction-page">
+<main class="meditation-page">
 
-        <div class="construction-icon">
-            🏗️
+    <!-- =====================================================
+         RETOUR
+    ====================================================== -->
+
+    <button
+        type="button"
+        id="backToHome"
+        class="meditation-back-button">
+
+        ← Retour à l'accueil
+
+    </button>
+
+
+    <!-- =====================================================
+         EN-TÊTE
+    ====================================================== -->
+
+    <header class="meditation-header">
+
+        <div class="meditation-symbol">
+            🧘‍♂️
         </div>
 
-        <h1>🧘 Méditations</h1>
+        <h1>
+            Méditations & Bien-être
+        </h1>
 
         <p>
-            Cette nouvelle partie du Carnet des Gagnants
-            est actuellement en construction.
+            Prendre soin de soi, un moment après l'autre.
         </p>
 
-        <p class="subtitle">
-            Elle sera bientôt disponible… ✨
-        </p>
+    </header>
 
-        <a href="app.html" class="btn-retour">
-            ← Retour au Carnet
-        </a>
 
-    </main>
+    <!-- =====================================================
+         CALENDRIER
+    ====================================================== -->
+
+    <section class="meditation-calendar-section">
+
+        <div class="calendar-navigation">
+
+            <button
+                type="button"
+                id="previousMonth"
+                class="calendar-button">
+
+                ◀
+
+            </button>
+
+
+            <div>
+
+                <h2 id="calendarMonth">
+                    Août 2026
+                </h2>
+
+                <p id="calendarSubtitle">
+                    Vos pratiques de bien-être
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="nextMonth"
+                class="calendar-button">
+
+                ▶
+
+            </button>
+
+        </div>
+
+
+        <!-- Jours de la semaine -->
+
+        <div
+            id="calendarWeekdays"
+            class="calendar-weekdays">
+
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mer</div>
+            <div>Jeu</div>
+            <div>Ven</div>
+            <div>Sam</div>
+            <div>Dim</div>
+
+        </div>
+
+
+        <!-- Cases du calendrier -->
+
+        <div
+            id="meditationCalendar"
+            class="meditation-calendar">
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         JOUR SÉLECTIONNÉ
+    ====================================================== -->
+
+    <section
+        id="selectedDay"
+        class="selected-day"
+        hidden>
+
+        <div class="selected-day-header">
+
+            <span class="selected-day-icon">
+                🪷
+            </span>
+
+            <div>
+
+                <h2 id="selectedDayTitle">
+                    Journée
+                </h2>
+
+                <p id="selectedDaySubtitle">
+                    Vos pratiques de bien-être
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Liste des pratiques -->
+
+        <div
+            id="meditationPractices"
+            class="meditation-practices">
+
+        </div>
+
+
+        <!-- Ajouter une pratique -->
+
+        <button
+            type="button"
+            id="addMeditationButton"
+            class="primary-button">
+
+            ＋ Ajouter une pratique
+
+        </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         POPUP — NOUVELLE PRATIQUE
+    ====================================================== -->
+
+    <div
+        id="meditationModal"
+        class="meditation-modal"
+        hidden>
+
+        <div class="meditation-modal-overlay"></div>
+
+
+        <section class="meditation-form-section">
+
+            <div class="meditation-form-header">
+
+                <div class="meditation-form-icon">
+                    🧘‍♂️
+                </div>
+
+                <div>
+
+                    <h2>
+                        Nouvelle pratique
+                    </h2>
+
+                    <p>
+                        Notez ce moment consacré à votre bien-être.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORMULAIRE
+            ================================================== -->
+
+            <form id="meditationForm">
+
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label for="meditationDate">
+                        📅 Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="meditationDate"
+                        name="meditation_date"
+                        required>
+
+                </div>
+
+
+                <!-- Heure -->
+
+                <div class="form-group">
+
+                    <label for="meditationTime">
+                        🕐 Heure
+                    </label>
+
+                    <input
+                        type="time"
+                        id="meditationTime"
+                        name="meditation_time">
+
+                </div>
+
+
+                <!-- Type -->
+
+                <div class="form-group">
+
+                    <label for="meditationType">
+                        🌿 Type de pratique
+                    </label>
+
+                    <select
+                        id="meditationType"
+                        name="type_id"
+                        required>
+
+                        <option value="">
+                            Choisissez une pratique...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Durée -->
+
+                <div class="form-group">
+
+                    <label for="meditationDuration">
+                        ⏱️ Durée
+                    </label>
+
+                    <div class="input-with-unit">
+
+                        <input
+                            type="number"
+                            id="meditationDuration"
+                            name="duration"
+                            min="0"
+                            placeholder="30">
+
+                        <span>
+                            minutes
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Notes -->
+
+                <div class="form-group">
+
+                    <label for="meditationNotes">
+                        📝 Notes
+                    </label>
+
+                    <textarea
+                        id="meditationNotes"
+                        name="notes"
+                        rows="4"
+                        placeholder="Comment s'est passée votre pratique ?"></textarea>
+
+                </div>
+
+
+                <!-- Actions -->
+
+                <div class="meditation-form-actions">
+
+                    <button
+                        type="button"
+                        id="cancelMeditationButton"
+                        class="secondary-button">
+
+                        Annuler
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button">
+
+                        Enregistrer la pratique
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="../js/navigation.js"></script>
+<script src="../js/toast.js"></script>
+<script src="../js/confirm.js"></script>
+<script src="../js/meditations.js"></script>
 
 </body>
 

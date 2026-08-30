@@ -1093,5 +1093,105 @@ CREATE TABLE IF NOT EXISTS exercises (
 
 console.log("✔ Table exercises vérifiée");
 
+// ======================================================
+// TABLE DES TYPES DE PRATIQUES
+// MODULE MÉDITATIONS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS meditation_types (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    name TEXT NOT NULL UNIQUE,
+
+    icon TEXT,
+
+    active INTEGER NOT NULL DEFAULT 1,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+);
+
+`);
+
+console.log("✔ Table meditation_types vérifiée");
+
+
+// ======================================================
+// TABLE DES PRATIQUES
+// MODULE MÉDITATIONS
+// ======================================================
+
+db.exec(`
+
+CREATE TABLE IF NOT EXISTS meditations (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    meditation_date TEXT NOT NULL,
+
+    meditation_time TEXT,
+
+    type_id INTEGER NOT NULL,
+
+    duration INTEGER DEFAULT 0,
+
+    notes TEXT,
+
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id),
+
+    FOREIGN KEY(type_id)
+        REFERENCES meditation_types(id)
+
+);
+
+`);
+
+console.log("✔ Table meditations vérifiée");
+
+// ======================================================
+// TYPES DE PRATIQUES PAR DÉFAUT
+// ======================================================
+
+const defaultMeditationTypes = [
+
+    ["Méditation", "🧘"],
+    ["Yoga", "🧘‍♀️"],
+    ["Yoga Nidra", "🌙"],
+    ["Qi Gong", "☯️"],
+    ["Sophrologie", "🌿"]
+
+];
+
+const insertMeditationType = db.prepare(`
+
+    INSERT OR IGNORE INTO meditation_types (
+        name,
+        icon
+    )
+
+    VALUES (?, ?)
+
+`);
+
+for (const [name, icon] of defaultMeditationTypes) {
+
+    insertMeditationType.run(
+        name,
+        icon
+    );
+
+}
+
+console.log("✔ Types de pratiques vérifiés");
 
 module.exports = db;

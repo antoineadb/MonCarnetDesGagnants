@@ -16,6 +16,7 @@ const loginHistoryRoutes = require("./routes/login-history.routes");
 const booksRoutes = require("./routes/books.routes");
 const exercisesRoutes = require("./routes/exercise.routes");
 const categoriesObjectifsRoutes =  require("./routes/categories-objectifs.routes");
+const meditationRoutes = require("./routes/meditation.routes");
 const objectifsRoutes = require("./routes/objectifs.routes");
 
 // Route principale
@@ -82,6 +83,7 @@ app.use("/api/history", historyRoutes);
 app.use("/api/login-history", loginHistoryRoutes);
 app.use("/api/books", booksRoutes);
 app.use("/api/exercises",exercisesRoutes );
+app.use("/api/meditations",meditationRoutes );
 app.use("/api/admin", (req, res, next) => {
 
     console.log("➡️ ADMIN :", req.method, req.url);
