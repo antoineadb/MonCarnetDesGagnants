@@ -124,6 +124,18 @@
 
     }
 
+    function closeMeditationTypeModal() {
+
+        if (!meditationTypeModal) {
+            return;
+        }
+
+        meditationTypeModal.hidden = true;
+
+        meditationTypeName.value = "";
+        meditationTypeIcon.value = "🌿";
+
+    }
 
     function formatDate(dateString) {
 
@@ -495,6 +507,11 @@ function showTypeActions() {
             "click",
             () => updateMeditationType(type)
         );
+
+    cancelMeditationTypeButton?.addEventListener(
+        "click",
+        closeMeditationTypeModal
+    );
 
     document
         .getElementById(
@@ -1650,6 +1667,11 @@ async function deleteMeditationType(type) {
         }
     );
 
+    
+    cancelMeditationButton?.addEventListener(
+        "click",
+        closeModal
+    );
 
     document
         .getElementById("backToHome")
