@@ -93,6 +93,88 @@ class MeditationModel {
 
     }
 
+    static createType(name, icon = "🌿") {
+
+    const existing = db.prepare(`
+        SELECT id, active
+        FROM meditation_types
+        WHERE name = ?
+    `).get(name.trim());
+
+    // La pratique existe mais est désactivée :
+    // on la réactive au lieu de créer une nouvelle ligne.
+    if (existing && existing.active === 0) {
+
+        db.prepare(`
+            UPDATE meditation_types
+            SET
+                active = 1,
+                icon = ?
+            WHERE id = ?
+        `).run(
+            icon,
+            existing.id
+        );
+
+        return {
+            lastInsertRowid: existing.id,
+            reactivated: true
+        };
+    }
+
+    // La pratique existe déjà et est active.
+    if (existing && existing.active === 1) {
+
+        const error = new Error(
+            "Cette pratique existe déjà."
+        );
+
+        error.code =
+            "SQLITE_CONSTRAINT_UNIQUE";
+
+        throw error;
+    }
+
+    // Nouvelle pratique.
+    return db.prepare(`
+        INSERT INTO meditation_types (
+            name,
+            icon
+        )
+        VALUES (?, ?)
+    `).run(
+        name.trim(),
+        icon
+    );
+
+   }
+
+        static updateType(id, name, icon = "🌿") {
+
+        return db.prepare(`
+            UPDATE meditation_types
+            SET
+                name = ?,
+                icon = ?
+            WHERE id = ?
+        `).run(
+            name.trim(),
+            icon,
+            id
+        );
+
+    }
+
+
+    static deleteType(id) {
+
+        return db.prepare(`
+            UPDATE meditation_types
+            SET active = 0
+            WHERE id = ?
+        `).run(id);
+
+    }
 
     /*=========================================================
         CREER UNE PRATIQUE

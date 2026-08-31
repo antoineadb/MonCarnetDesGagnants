@@ -274,6 +274,15 @@
 
                     </select>
 
+                    <button
+                        type="button"
+                        id="addMeditationTypeButton"
+                        class="secondary-button">
+
+                        ＋ Nouvelle pratique
+
+                    </button>
+
                 </div>
 
 
@@ -349,6 +358,96 @@
         </section>
 
     </div>
+
+
+    <!-- =====================================================
+     MODALE — NOUVELLE PRATIQUE
+====================================================== -->
+
+<div
+    id="meditationTypeModal"
+    class="meditation-type-modal"
+    hidden>
+
+    <div class="meditation-type-modal-overlay"></div>
+
+    <section class="meditation-type-form-section">
+
+        <div class="meditation-form-header">
+
+            <div class="meditation-form-icon">
+                🌿
+            </div>
+
+            <div>
+                <h2>Nouvelle pratique</h2>
+
+                <p>
+                    Ajoutez une pratique à votre liste.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="meditationTypeName">
+                📝 Nom de la pratique
+            </label>
+
+            <input
+                type="text"
+                id="meditationTypeName"
+                placeholder="Ex. Méditation pleine conscience"
+                maxlength="100"
+                autocomplete="off">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="meditationTypeIcon">
+                😊 Icône
+            </label>
+
+            <input
+                type="text"
+                id="meditationTypeIcon"
+                value="🌿"
+                maxlength="4"
+                autocomplete="off">
+
+        </div>
+
+
+        <div class="meditation-form-actions">
+
+            <button
+                type="button"
+                id="cancelMeditationTypeButton"
+                class="secondary-button">
+
+                Annuler
+
+            </button>
+
+
+            <button
+                type="button"
+                id="saveMeditationTypeButton"
+                class="primary-button">
+
+                ＋ Ajouter
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
 
 </main>
 

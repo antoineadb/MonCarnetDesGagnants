@@ -57,6 +57,24 @@
 
     const addMeditationButton =
         document.getElementById("addMeditationButton");
+    
+    const addMeditationTypeButton =
+        document.getElementById("addMeditationTypeButton");
+
+    const meditationTypeModal =
+    document.getElementById("meditationTypeModal");
+
+    const meditationTypeName =
+        document.getElementById("meditationTypeName");
+
+    const meditationTypeIcon =
+        document.getElementById("meditationTypeIcon");
+
+    const cancelMeditationTypeButton =
+        document.getElementById("cancelMeditationTypeButton");
+
+    const saveMeditationTypeButton =
+        document.getElementById("saveMeditationTypeButton");
 
     const meditationModal =
         document.getElementById("meditationModal");
@@ -387,41 +405,357 @@ async function confirmAction(
     /*=========================================================
         TYPES
     =========================================================*/
+function populateTypes() {
 
-    function populateTypes() {
+    if (!meditationType) {
+        return;
+    }
 
-        if (!meditationType) {
-            return;
+    meditationType.innerHTML = `
+        <option value="">
+            Choisissez une pratique...
+        </option>
+    `;
+
+    meditationTypes.forEach(type => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = type.id;
+
+        option.textContent =
+            `${type.icon || "🌿"} ${type.name}`;
+
+        meditationType.appendChild(
+            option
+        );
+
+    });
+
+}
+function showTypeActions() {
+
+    const selectedId =
+        Number(meditationType.value);
+
+    const type =
+        meditationTypes.find(
+            item => item.id === selectedId
+        );
+
+    const oldActions =
+        document.getElementById(
+            "meditationTypeActions"
+        );
+
+    if (oldActions) {
+        oldActions.remove();
+    }
+
+    if (!type) {
+        return;
+    }
+
+    const actions =
+        document.createElement("div");
+
+    actions.id =
+        "meditationTypeActions";
+
+    actions.style.display = "flex";
+    actions.style.gap = "8px";
+    actions.style.marginTop = "8px";
+
+    actions.innerHTML = `
+        <button
+            type="button"
+            id="editMeditationTypeButton"
+            class="secondary-button">
+            ✏️ Modifier
+        </button>
+
+        <button
+            type="button"
+            id="deleteMeditationTypeButton"
+            class="secondary-button">
+            🗑 Supprimer
+        </button>
+    `;
+
+    meditationType
+        .parentElement
+        .appendChild(actions);
+
+    document
+        .getElementById(
+            "editMeditationTypeButton"
+        )
+        .addEventListener(
+            "click",
+            () => updateMeditationType(type)
+        );
+
+    document
+        .getElementById(
+            "deleteMeditationTypeButton"
+        )
+        .addEventListener(
+            "click",
+            () => deleteMeditationType(type)
+        );
+}
+/*=========================================================
+    GESTION DES TYPES DE PRATIQUES
+=========================================================*/
+async function createMeditationType() {
+
+    if (!meditationTypeModal) {
+        return;
+    }
+
+    meditationTypeName.value = "";
+
+    meditationTypeIcon.value = "🌿";
+
+    meditationTypeModal.hidden = false;
+
+    setTimeout(
+        () => {
+            meditationTypeName.focus();
+        },
+        50
+    );
+}
+
+async function saveNewMeditationType() {
+
+    const name =
+        meditationTypeName.value.trim();
+
+    const icon =
+        meditationTypeIcon.value.trim() || "🌿";
+
+
+    if (!name) {
+
+        showMessage(
+            "Le nom de la pratique est obligatoire.",
+            "error"
+        );
+
+        meditationTypeName.focus();
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/meditations/types",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: name,
+                        icon: icon
+                    })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Impossible de créer la pratique."
+            );
+
         }
 
 
-        meditationType.innerHTML = `
-            <option value="">
-                Choisissez une pratique...
-            </option>
-        `;
+        meditationTypeModal.hidden =
+            true;
 
 
-        meditationTypes.forEach(type => {
-
-            const option =
-                document.createElement("option");
+        await loadMeditationTypes();
 
 
-            option.value = type.id;
-
-            option.textContent =
-                `${type.icon || "🌿"} ${type.name}`;
+        meditationType.value =
+            String(result.id);
 
 
-            meditationType.appendChild(
-                option
-            );
+        showTypeActions();
 
-        });
+
+        showMessage(
+            "Nouvelle pratique ajoutée."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur création pratique :",
+            error
+        );
+
+
+        showMessage(
+            error.message,
+            "error"
+        );
 
     }
 
+}
+
+
+
+/*=========================================================
+    MODIFIER UN TYPE DE PRATIQUE
+=========================================================*/
+
+async function updateMeditationType(type) {
+
+    const name = prompt(
+        "Nom de la pratique :",
+        type.name
+    );
+
+    if (!name || !name.trim()) {
+        return;
+    }
+
+    const icon = prompt(
+        "Icône de la pratique :",
+        type.icon || "🌿"
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/meditations/types/${type.id}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: name.trim(),
+                        icon: icon?.trim() || "🌿"
+                    })
+                }
+            );
+
+        const result =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Impossible de modifier la pratique."
+            );
+
+        }
+
+        await loadMeditationTypes();
+
+        showMessage(
+            "Pratique modifiée avec succès."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Erreur modification pratique :",
+            error
+        );
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/*=========================================================
+    SUPPRIMER UN TYPE DE PRATIQUE
+=========================================================*/
+
+async function deleteMeditationType(type) {
+
+    const confirmed =
+        await confirmAction(
+            `Voulez-vous vraiment supprimer la pratique « ${type.name} » ?`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/meditations/types/${type.id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        const result =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Impossible de supprimer la pratique."
+            );
+
+        }
+
+        await loadMeditationTypes();
+
+        showMessage(
+            "Pratique supprimée."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Erreur suppression pratique :",
+            error
+        );
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
 
     /*=========================================================
         CALENDRIER
@@ -1236,16 +1570,36 @@ async function confirmAction(
         openModal
     );
 
-
-    cancelMeditationButton?.addEventListener(
+    addMeditationTypeButton?.addEventListener(
         "click",
-        closeModal
+        createMeditationType
+    );
+
+
+    cancelMeditationTypeButton?.addEventListener(
+        "click",
+        () => {
+
+            meditationTypeModal.hidden = true;
+
+        }
+    );
+
+
+    saveMeditationTypeButton?.addEventListener(
+        "click",
+        saveNewMeditationType
     );
 
 
     meditationForm?.addEventListener(
         "submit",
         handleSubmit
+    );
+
+    meditationType?.addEventListener(
+        "change",
+        showTypeActions
     );
 
 
@@ -1263,7 +1617,18 @@ async function confirmAction(
             closeModal
         );
 
+    document
+        .querySelector(
+            ".meditation-type-modal-overlay"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
 
+                meditationTypeModal.hidden = true;
+
+            }
+        );
     /*
      * Touche Échap.
      */

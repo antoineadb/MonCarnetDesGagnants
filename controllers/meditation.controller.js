@@ -74,7 +74,301 @@ exports.getTypes = (req, res) => {
 
 };
 
+/*=========================================================
+    CREER UN TYPE DE PRATIQUE
+=========================================================*/
 
+exports.createType = (req, res) => {
+
+    const {
+        name,
+        icon
+    } = req.body;
+
+    if (!name || !name.trim()) {
+
+        return res.status(400).json({
+            error: "Le nom de la pratique est obligatoire."
+        });
+
+    }
+
+    try {
+
+        const result =
+            MeditationModel.createType(
+                name,
+                icon || "🌿"
+            );
+
+        res.status(201).json({
+            id: result.lastInsertRowid,
+            name: name.trim(),
+            icon: icon || "🌿"
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur création type :",
+            error
+        );
+
+        if (
+            error.code ===
+            "SQLITE_CONSTRAINT_UNIQUE"
+        ) {
+
+            return res.status(409).json({
+                error:
+                    "Cette pratique existe déjà."
+            });
+
+        }
+
+        res.status(500).json({
+            error:
+                "Impossible de créer la pratique."
+        });
+
+    }
+
+};
+
+/*=========================================================
+    MODIFIER UN TYPE DE PRATIQUE
+=========================================================*/
+
+exports.updateType = (req, res) => {
+
+    const { id } = req.params;
+
+    const {
+        name,
+        icon
+    } = req.body;
+
+    if (!name || !name.trim()) {
+
+        return res.status(400).json({
+            error:
+                "Le nom de la pratique est obligatoire."
+        });
+
+    }
+
+    try {
+
+        const result =
+            MeditationModel.updateType(
+                id,
+                name,
+                icon || "🌿"
+            );
+
+        if (result.changes === 0) {
+
+            return res.status(404).json({
+                error:
+                    "Pratique introuvable."
+            });
+
+        }
+
+        res.json({
+            id: Number(id),
+            name: name.trim(),
+            icon: icon || "🌿"
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur modification type :",
+            error
+        );
+
+        if (
+            error.code ===
+            "SQLITE_CONSTRAINT_UNIQUE"
+        ) {
+
+            return res.status(409).json({
+                error:
+                    "Cette pratique existe déjà."
+            });
+
+        }
+
+        res.status(500).json({
+            error:
+                "Impossible de modifier la pratique."
+        });
+
+    }
+
+};
+
+
+/*=========================================================
+    SUPPRIMER UN TYPE DE PRATIQUE
+=========================================================*/
+
+exports.deleteType = (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+
+        const result =
+            MeditationModel.deleteType(id);
+
+        if (result.changes === 0) {
+
+            return res.status(404).json({
+                error:
+                    "Pratique introuvable."
+            });
+
+        }
+
+        res.json({
+            message:
+                "Pratique supprimée."
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur suppression type :",
+            error
+        );
+
+        res.status(500).json({
+            error:
+                "Impossible de supprimer la pratique."
+        });
+
+    }
+
+};
+
+/*=========================================================
+    MODIFIER UN TYPE DE PRATIQUE
+=========================================================*/
+
+exports.updateType = (req, res) => {
+
+    const { id } = req.params;
+
+    const {
+        name,
+        icon
+    } = req.body;
+
+    if (!name || !name.trim()) {
+
+        return res.status(400).json({
+            error:
+                "Le nom de la pratique est obligatoire."
+        });
+
+    }
+
+    try {
+
+        const result =
+            MeditationModel.updateType(
+                id,
+                name,
+                icon || "🌿"
+            );
+
+        if (result.changes === 0) {
+
+            return res.status(404).json({
+                error:
+                    "Pratique introuvable."
+            });
+
+        }
+
+        res.json({
+            id: Number(id),
+            name: name.trim(),
+            icon: icon || "🌿"
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur modification type :",
+            error
+        );
+
+        if (
+            error.code ===
+            "SQLITE_CONSTRAINT_UNIQUE"
+        ) {
+
+            return res.status(409).json({
+                error:
+                    "Cette pratique existe déjà."
+            });
+
+        }
+
+        res.status(500).json({
+            error:
+                "Impossible de modifier la pratique."
+        });
+
+    }
+
+};
+
+
+/*=========================================================
+    SUPPRIMER UN TYPE DE PRATIQUE
+=========================================================*/
+
+exports.deleteType = (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+
+        const result =
+            MeditationModel.deleteType(id);
+
+        if (result.changes === 0) {
+
+            return res.status(404).json({
+                error:
+                    "Pratique introuvable."
+            });
+
+        }
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur suppression type :",
+            error
+        );
+
+        res.status(500).json({
+            error:
+                "Impossible de supprimer la pratique."
+        });
+
+    }
+
+};
 /*=========================================================
     CREATION
 =========================================================*/

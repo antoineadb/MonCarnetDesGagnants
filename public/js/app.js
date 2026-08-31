@@ -506,6 +506,15 @@ document.getElementById("menuLecture")
 
     });
 
+document.getElementById("menuMeditations")
+    ?.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        Navigation.meditations();
+
+    });
+
 document.getElementById("menuStade")
     ?.addEventListener("click", e => {
 

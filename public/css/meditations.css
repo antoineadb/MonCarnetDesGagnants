@@ -658,7 +658,192 @@ body {
 
 }
 
+/* =========================================================
+   MODALE — TYPES DE PRATIQUES
+========================================================= */
 
+.meditation-type-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+.meditation-type-modal[hidden] {
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   FOND
+========================================================= */
+
+.meditation-type-modal-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(
+            40,
+            50,
+            35,
+            0.55
+        );
+
+    backdrop-filter: blur(3px);
+
+}
+
+
+/* =========================================================
+   FENÊTRE
+========================================================= */
+
+.meditation-type-form-section {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: min(
+        460px,
+        95vw
+    );
+
+    box-sizing: border-box;
+
+    padding: 30px;
+
+    background: #f7f5ed;
+
+    border: 2px solid var(--wellness-green);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(
+            0,
+            0,
+            0,
+            0.30
+        );
+
+}
+
+
+/* =========================================================
+   CHAMPS
+========================================================= */
+
+.meditation-type-form-section
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.meditation-type-form-section
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: 600;
+
+    color: var(--wellness-green-dark);
+
+}
+
+
+.meditation-type-form-section
+.form-group input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #c9c5b8;
+
+    border-radius: 8px;
+
+    background: white;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+}
+
+
+.meditation-type-form-section
+.form-group input:focus {
+
+    outline: none;
+
+    border-color: var(--wellness-green);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            100,
+            130,
+            95,
+            0.15
+        );
+
+}
+
+
+/* =========================================================
+   ICÔNE
+========================================================= */
+
+#meditationTypeIcon {
+
+    width: 80px;
+
+    text-align: center;
+
+    font-size: 24px;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.meditation-type-form-section
+.meditation-form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+}
 .meditation-form-header {
 
     display: flex;

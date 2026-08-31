@@ -36,7 +36,23 @@ router.get(
     meditation.getTypes
 );
 
+// Créer un nouveau type de pratique
+router.post(
+    "/types",
+    meditation.createType
+);
 
+// Modifier un type de pratique
+router.put(
+    "/types/:id",
+    meditation.updateType
+);
+
+// Supprimer un type de pratique
+router.delete(
+    "/types/:id",
+    meditation.deleteType
+);
 /*=========================================================
     PRATIQUES
 =========================================================*/
