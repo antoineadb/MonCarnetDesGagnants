@@ -1,0 +1,355 @@
+/* =========================================================
+   LES ARCHIVES INTERDITES
+   ========================================================= */
+
+.archives-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 42px 24px 55px;
+    background: radial-gradient(circle at center, rgba(255,255,255,.10), transparent 60%);
+}
+
+.archives-container {
+    width: min(100%, 1000px);
+    margin: 0 auto;
+}
+
+.archives-header {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.archives-icon {
+    font-size: 60px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.archives-page h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(42px, 5vw, 58px);
+    line-height: 1;
+    margin: 0 0 8px;
+}
+
+.archives-page .subtitle {
+    margin: 0;
+    font-size: 19px;
+    font-style: italic;
+    opacity: .78;
+}
+
+/* =========================================================
+   MANUSCRIT
+   ========================================================= */
+
+.archives-manuscript {
+    padding: 30px 38px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.18);
+    box-shadow: 0 12px 35px rgba(0,0,0,.12);
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.archives-manuscript h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 31px;
+    line-height: 1.15;
+    margin: 0 0 18px;
+}
+
+.archives-manuscript > p {
+    margin: 0 0 10px;
+    text-align: left;
+}
+
+.archives-warning {
+    margin: 17px 0;
+    padding: 14px 20px;
+    border-left: 5px solid #a93624;
+    background: rgba(191,91,48,.18);
+    font-style: italic;
+}
+
+.archives-warning > strong {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 18px;
+}
+
+.archives-warning p {
+    margin: 0 0 8px;
+    line-height: 1.45;
+}
+
+.archives-warning p:last-child {
+    margin-bottom: 0;
+}
+
+.archives-final-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 15px;
+    margin: 15px 0 0 !important;
+    font-style: italic;
+}
+
+.archives-final-text span {
+    text-align: right;
+}
+
+/* =========================================================
+   BOUTONS
+   ========================================================= */
+
+.archives-tools {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 16px;
+}
+
+.archives-action-button {
+    border: 1px solid rgba(92,45,24,.28);
+    border-radius: 22px;
+    padding: 10px 18px;
+    background: rgba(255,245,225,.82);
+    color: #3e2418;
+    font: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,.10);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.archives-action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0,0,0,.15);
+    background: rgba(255,248,232,.98);
+}
+
+/* =========================================================
+   PANNEAUX
+   ========================================================= */
+
+.archives-panel {
+    margin: 16px auto;
+    padding: 23px 28px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.16);
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
+    text-align: left;
+}
+
+.archives-panel.hidden {
+    display: none;
+}
+
+.archives-panel h2,
+.archives-list-section h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    margin: 0 0 16px;
+}
+
+.archives-panel > p {
+    margin: 0 0 15px;
+}
+
+.archives-panel input,
+.archives-panel select,
+.archives-panel textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(92,45,24,.28);
+    border-radius: 5px;
+    padding: 10px 12px;
+    background: rgba(255,248,235,.92);
+    color: #2e1b13;
+    font: inherit;
+}
+
+.archives-panel textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+
+.archive-form-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr .75fr;
+    gap: 14px;
+}
+
+.archive-form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.archive-notes {
+    grid-column: 1 / -1;
+}
+
+.anal-sensitive {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-weight: 600;
+}
+
+.anal-sensitive input {
+    width: auto;
+}
+
+.archives-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.primary-button,
+.secondary-button {
+    border-radius: 22px;
+    padding: 10px 18px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.primary-button {
+    border: none;
+    background: #8d261c;
+    color: white;
+}
+
+.secondary-button {
+    border: 1px solid rgba(92,45,24,.25);
+    background: rgba(255,245,225,.82);
+    color: #3e2418;
+}
+
+/* =========================================================
+   DOCUMENTS
+   ========================================================= */
+
+.document-dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 80px;
+    border: 2px dashed rgba(92,45,24,.35);
+    border-radius: 8px;
+    background: rgba(255,248,235,.35);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.document-dropzone:hover {
+    background: rgba(255,248,235,.55);
+}
+
+.document-dropzone-icon {
+    font-size: 24px;
+}
+
+/* =========================================================
+   DOSSIERS
+   ========================================================= */
+
+.archives-list-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.archives-list-section h2 {
+    margin-bottom: 8px;
+}
+
+.archives-empty {
+    padding: 16px;
+    opacity: .72;
+}
+
+.archives-empty > div {
+    font-size: 28px;
+}
+
+.archives-empty h3 {
+    margin: 6px 0 3px;
+}
+
+.archives-empty p {
+    margin: 0;
+}
+
+/* =========================================================
+   RETOUR
+   ========================================================= */
+
+.archives-button {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 11px 24px;
+    border-radius: 24px;
+    background: #8d261c;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.archives-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,.15);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .archives-page {
+        padding: 28px 14px 45px;
+    }
+
+    .archives-manuscript {
+        padding: 24px 20px;
+    }
+
+    .archive-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .archive-notes {
+        grid-column: auto;
+    }
+
+    .archives-final-text {
+        display: block;
+    }
+
+    .archives-final-text span {
+        display: block;
+        margin-top: 8px;
+        text-align: left;
+    }
+
+    .archives-form-actions {
+        flex-direction: column;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
+}

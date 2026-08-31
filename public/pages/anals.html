@@ -1,110 +1,130 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Mes "Anals" — Le Carnet des Gagnants</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Archives interdites — Le Carnet des Gagnants</title>
 
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/anals.css">
     <link rel="stylesheet" href="../css/components.css">
-
-    <style>
-
-        .construction-page {
-            min-height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .construction-icon {
-            font-size: 100px;
-            margin-bottom: 25px;
-        }
-
-        .construction-page h1 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 48px;
-            margin: 0 0 15px;
-        }
-
-        .construction-page p {
-            font-size: 19px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-
-        .construction-page .subtitle {
-            font-size: 16px;
-            opacity: .7;
-        }
-
-        .btn-retour {
-            display: inline-block;
-
-            padding: 12px 26px;
-
-            border-radius: 25px;
-            border: none;
-
-            background: #8d261c;
-            color: white;
-
-            font-size: 16px;
-            cursor: pointer;
-
-            text-decoration: none;
-        }
-
-        .btn-retour:hover {
-            transform: translateY(-2px);
-        }
-
-    </style>
-
 </head>
 
 <body>
+<main class="archives-page">
+    <div class="archives-container">
 
-    <main class="construction-page">
+        <header class="archives-header">
+            <div class="archives-icon">📜😈</div>
+            <h1>Les Archives interdites</h1>
+            <p class="subtitle">Les histoires qu'on ne raconte pas dans le Journal.</p>
+        </header>
 
-        <div class="construction-icon">
-            🏗️
-        </div>
+        <section class="archives-manuscript">
+            <h2>🕯️ Le registre des affaires particulières</h2>
 
-        <h1>📖 Mes "Anals"</h1>
+            <p>Des massages qui commencent normalement… et dérapent rapidement.</p>
+            <p>Drague, propositions sexuelles, négociations, manipulations ou comportements déplacés.</p>
+            <p>Ces affaires trouvent ici leur propre registre, à l'écart du Journal.</p>
 
-        <p>
-            Cette nouvelle partie du Carnet des Gagnants
-            est actuellement en construction.
-        </p>
+            <div class="archives-warning">
+                <strong>😈 Ici, on garde aussi les histoires embarrassantes.</strong>
+                <p>Clients insistants, fantasmes, mensonges, demandes déplacées ou situations franchement malsaines…</p>
+                <p><strong>Ce qui mérite d'être archivé reste dans les archives.</strong></p>
+            </div>
 
-        <p class="subtitle">
-            Elle sera bientôt disponible… ✨
-        </p>
+            <p class="archives-final-text">
+                « C'est juste pour un massage… »
+                <span>…et parfois, ça mérite <strong>une page entière.</strong> 😏</span>
+            </p>
+        </section>
 
-        <a href="app.html" class="btn-retour">
-            ← Retour au Carnet
-        </a>
+        <section class="archives-tools">
+            <button type="button" id="newAnalButton" class="archives-action-button">📝 Nouvelle affaire</button>
+            <button type="button" id="documentsButton" class="archives-action-button">📎 Documents</button>
+            <button type="button" id="searchArchivesButton" class="archives-action-button">🔍 Fouiller les archives</button>
+        </section>
 
-    </main>
+        <section id="archivesSearch" class="archives-panel hidden">
+            <h2>🔍 Fouiller les archives</h2>
+            <input type="search" id="archivesSearchInput" placeholder="Rechercher dans les dossiers…">
+            <div id="archivesSearchResults" class="archives-results"></div>
+        </section>
 
+        <section id="newAnalPanel" class="archives-panel hidden">
+            <h2>📝 Nouvelle affaire</h2>
+
+            <div class="archive-form-grid">
+                <label>
+                    <span>Titre du dossier</span>
+                    <input type="text" id="analTitle" placeholder="Ex. Le client du mardi soir">
+                </label>
+
+                <label>
+                    <span>Catégorie</span>
+                    <select id="analCategory">
+                        <option value="">Choisir une catégorie</option>
+                        <option value="proposition">😈 Proposition déplacée</option>
+                        <option value="seduction">💋 Séduction insistante</option>
+                        <option value="manipulation">🎭 Manipulation</option>
+                        <option value="comportement">⚠️ Comportement inquiétant</option>
+                        <option value="fantasme">🔥 Fantasme / demande particulière</option>
+                        <option value="autre">📜 Autre affaire</option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>Date</span>
+                    <input type="date" id="analDate">
+                </label>
+
+                <label class="archive-notes">
+                    <span>Notes</span>
+                    <textarea id="analContent" rows="8" placeholder="Raconter l'affaire, les paroles ou les comportements observés…"></textarea>
+                </label>
+            </div>
+
+            <label class="anal-sensitive">
+                <input type="checkbox" id="analSensitive">
+                🔒 Dossier sensible
+            </label>
+
+            <div class="archives-form-actions">
+                <button type="button" id="cancelAnalButton" class="secondary-button">Annuler</button>
+                <button type="button" id="saveAnalButton" class="primary-button">📜 Archiver l'affaire</button>
+            </div>
+        </section>
+
+        <section id="documentsPanel" class="archives-panel hidden">
+            <h2>📎 Documents des archives</h2>
+            <p>PDF, textes, images et autres documents associés aux dossiers.</p>
+
+            <label class="document-dropzone">
+                <span class="document-dropzone-icon">📎</span>
+                <span>Choisir un fichier</span>
+                <input type="file" id="analDocumentInput" hidden>
+            </label>
+
+            <div id="documentsList" class="documents-list"></div>
+        </section>
+
+        <section class="archives-list-section">
+            <h2>🗃️ Dossiers archivés</h2>
+            <div id="archivesList" class="archives-list">
+                <div class="archives-empty">
+                    <div>📜</div>
+                    <h3>Les archives sont encore vierges</h3>
+                    <p>La première affaire n'attend que vous.</p>
+                </div>
+            </div>
+        </section>
+
+        <a href="app.html" class="archives-button">← Retour au Carnet</a>
+    </div>
+</main>
+
+<script src="../js/anals.js"></script>
 </body>
-
 </html>
