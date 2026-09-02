@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/anals.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/confirm.css">     
     <link rel="stylesheet" href="../css/components.css">
 </head>
 
@@ -43,7 +45,6 @@
 
         <section class="archives-tools">
             <button type="button" id="newAnalButton" class="archives-action-button">📝 Nouvelle affaire</button>
-            <button type="button" id="documentsButton" class="archives-action-button">📎 Documents</button>
             <button type="button" id="searchArchivesButton" class="archives-action-button">🔍 Fouiller les archives</button>
         </section>
 
@@ -97,18 +98,7 @@
             </div>
         </section>
 
-        <section id="documentsPanel" class="archives-panel hidden">
-            <h2>📎 Documents des archives</h2>
-            <p>PDF, textes, images et autres documents associés aux dossiers.</p>
-
-            <label class="document-dropzone">
-                <span class="document-dropzone-icon">📎</span>
-                <span>Choisir un fichier</span>
-                <input type="file" id="analDocumentInput" hidden>
-            </label>
-
-            <div id="documentsList" class="documents-list"></div>
-        </section>
+        
 
         <section class="archives-list-section">
             <h2>🗃️ Dossiers archivés</h2>
@@ -124,7 +114,8 @@
         <a href="app.html" class="archives-button">← Retour au Carnet</a>
     </div>
 </main>
-
+<script src="../js/toast.js"></script>
+<script src="../js/confirm.js"></script>
 <script src="../js/anals.js"></script>
 </body>
 </html>

@@ -250,6 +250,49 @@ db.exec(`
 `);
 
 // ======================================================
+// TABLE ANALS
+// ======================================================
+
+db.exec(`
+
+    CREATE TABLE IF NOT EXISTS anals (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        user_id INTEGER NOT NULL,
+
+        title TEXT NOT NULL,
+
+        category TEXT,
+
+        date TEXT,
+
+        content TEXT NOT NULL,
+
+        sensitive INTEGER DEFAULT 0,
+
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+
+    );
+
+`);
+// TABLE DOCUMENTS DES ANALS
+db.exec(`
+  CREATE TABLE IF NOT EXISTS anal_documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    anal_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    original_name TEXT NOT NULL,
+    stored_name TEXT NOT NULL,
+    mime_type TEXT,
+    size INTEGER,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
+// ======================================================
 // MIGRATION JOURNAL
 // ======================================================
 try {

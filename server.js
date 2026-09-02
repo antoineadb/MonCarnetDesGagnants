@@ -8,6 +8,7 @@ const session = require("express-session");
 
 const authRoutes = require("./routes/auth.routes");
 const journalRoutes = require("./routes/journal.routes");
+const analRoutes = require("./routes/anal.routes");
 const progressionRoutes = require("./routes/progression.routes");
 const gratitudeRoutes = require("./routes/gratitude.routes")(db);
 const adminRoutes = require("./routes/admin.routes");
@@ -72,6 +73,7 @@ app.use(
 // Routes API
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
+app.use("/api/anals", analRoutes);
 app.use("/api/progression", progressionRoutes);
 app.use("/api/gratitude", gratitudeRoutes);
 app.use( "/api/categories-objectifs", categoriesObjectifsRoutes);
