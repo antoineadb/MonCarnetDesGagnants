@@ -223,17 +223,101 @@ async function loadDocuments(analId, documentsList) {
                     <strong>${escapeHtml(doc.original_name)}</strong>
                     <small>${Math.round(doc.size / 1024)} Ko</small>
                 </div>
-                <a
-                    href="/uploads/anals/${encodeURIComponent(doc.stored_name)}"
-                    target="_blank"
-                    rel="noopener"
-                    class="document-open-button"
-                >
-                    👁️ Ouvrir
-                </a>
+                <div class="document-actions">
+
+                    <a
+                        href="/uploads/anals/${encodeURIComponent(doc.stored_name)}"
+                        target="_blank"
+                        rel="noopener"
+                        class="document-open-button"
+                    >
+                        👁️ Ouvrir
+                    </a>
+
+                    <button
+                        type="button"
+                        class="document-delete-button"
+                        data-document-id="${doc.id}"
+                        data-document-name="${escapeHtml(doc.original_name)}"
+                        title="Supprimer ce document"
+                    >
+                        🗑️
+                    </button>
+
+                </div>                
             </div>
         `).join("");
+documentsList
+    .querySelectorAll(".document-delete-button")
+    .forEach(button => {
 
+        button.addEventListener("click", async () => {
+
+            const documentId = button.dataset.documentId;
+            const documentName = button.dataset.documentName;
+
+            const confirmed = await Confirm.show({
+
+                icon: "🗑️",
+
+                title: "Supprimer ce document ?",
+
+                message: `Voulez-vous vraiment supprimer « ${documentName} » ?`,
+
+                confirmText: "Supprimer",
+
+                cancelText: "Annuler"
+
+            });
+
+            if (!confirmed) return;
+
+            try {
+
+                const response = await fetch(
+                    `/api/anals/${analId}/documents/${documentId}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.error ||
+                        "Impossible de supprimer le document."
+                    );
+                }
+
+                showMessage(
+                    "Document supprimé.",
+                    "success"
+                );
+
+                await loadDocuments(
+                    analId,
+                    documentsList
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur suppression document :",
+                    error
+                );
+
+                showMessage(
+                    error.message ||
+                    "Impossible de supprimer le document.",
+                    "error"
+                );
+
+            }
+
+        });
+
+    });
     } catch (error) {
         console.error(error);
 
@@ -516,7 +600,13 @@ function renderAnals() {
                                     hidden
                                 >
                             </label>
-
+                                <button
+                                    type="button"
+                                    class="anal-edit-button"
+                                    id="editAnalButton"
+                                >
+                                    ✏️ Modifier
+                                </button>
                         </div>
 
                         <div class="documents-list">
@@ -526,19 +616,6 @@ function renderAnals() {
                         </div>
 
                     </section>
-
-
-                    <div class="anal-modal-actions">
-
-                        <button
-                            type="button"
-                            class="anal-edit-button"
-                            id="editAnalButton"
-                        >
-                            ✏️ Modifier
-                        </button>
-
-                    </div>
 
                 </div>
 

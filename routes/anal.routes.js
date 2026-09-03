@@ -25,17 +25,13 @@ router.put("/:id", anal.update);
 router.delete("/:id", anal.remove);
 
 // Upload d'un document pour une affaire
-router.post(
-    "/:id/documents",
-    uploadAnal.single("file"),
-    analDocuments.upload
+router.post( "/:id/documents",uploadAnal.single("file"),analDocuments.upload
 );
 
+router.delete("/:id/documents/:documentId", analDocuments.remove);
+
 // Récupérer les documents d'une affaire
-router.get(
-    "/:id/documents",
-    analDocuments.getAll
-);
+router.get("/:id/documents",analDocuments.getAll);
 
 
 module.exports = router;

@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const db = require("../database/database");
 
 exports.upload = (req, res) => {
@@ -106,5 +108,79 @@ exports.getAll = (req, res) => {
     `).all(id, userId);
 
     res.json(documents);
+    };
+
+    /* =====================================================
+   SUPPRIMER UN DOCUMENT
+===================================================== */
+
+exports.remove = (req, res) => {
+
+    try {
+
+        const { id, documentId } = req.params;
+        const userId = req.session.user.id;
+
+        // Vérifie que le document appartient bien
+        // à l'affaire et à l'utilisateur
+        const document = db.prepare(`
+            SELECT *
+            FROM anal_documents
+            WHERE id = ?
+            AND anal_id = ?
+            AND user_id = ?
+        `).get(
+            documentId,
+            id,
+            userId
+        );
+
+        if (!document) {
+
+            return res.status(404).json({
+                error: "Document introuvable."
+            });
+
+        }
+
+        // Supprime le fichier physique
+        const uploadDir =
+            process.env.ANAL_UPLOAD_DIR ||
+            path.join(
+                process.cwd(),
+                "public/uploads/anals"
+            );
+
+        const filePath = path.join(
+            uploadDir,
+            document.stored_name
+        );
+
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        // Supprime l'enregistrement en base
+        db.prepare(`
+            DELETE FROM anal_documents
+            WHERE id = ?
+        `).run(documentId);
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Erreur suppression document :",
+            error
+        );
+
+        res.status(500).json({
+            error: "Impossible de supprimer le document."
+        });
+
+    }
 
 };

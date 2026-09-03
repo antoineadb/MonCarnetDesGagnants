@@ -759,3 +759,48 @@
     font-weight: 600;
     cursor: pointer;
 }
+/* =====================================================
+   BOUTONS — MODIFICATION D'UNE AFFAIRE
+===================================================== */
+
+.anal-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.anal-cancel-edit,
+.anal-save-edit {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Annuler */
+
+.anal-cancel-edit {
+    background: #e5ddd5;
+    color: #5b2c23;
+}
+
+.anal-cancel-edit:hover {
+    background: #d6cbc1;
+}
+
+/* Enregistrer */
+
+.anal-save-edit {
+    background: #a93628;
+    color: #ffffff;
+}
+
+.anal-save-edit:hover {
+    background: #8f2d22;
+    transform: translateY(-1px);
+}
