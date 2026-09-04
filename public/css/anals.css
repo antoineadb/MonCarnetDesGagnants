@@ -804,3 +804,81 @@
     background: #8f2d22;
     transform: translateY(-1px);
 }
+.archives-search-result {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+/* =========================================================
+   NOUVELLE PALETTE — ARCHIVES PLUS CLAIRES
+========================================================= */
+
+/* Fond général */
+.archives-page {
+    background: #B89578;
+}
+
+/* Grand panneau d'introduction */
+.archives-manuscript {
+    background: #C9AA91;
+    box-shadow: 0 12px 35px rgba(70, 45, 30, .14);
+}
+
+/* Panneau de recherche et formulaires */
+.archives-panel {
+    background: #C9AA91;
+    box-shadow: 0 8px 24px rgba(70, 45, 30, .12);
+}
+
+/* Zone d'avertissement */
+.archives-warning {
+    background: #D5A17F;
+    border-left-color: #A84F32;
+}
+
+/* Champs de recherche et formulaires */
+.archives-panel input,
+.archives-panel select,
+.archives-panel textarea {
+    background: #F5EBDD;
+    border-color: rgba(92, 45, 24, .25);
+    color: #2D211B;
+}
+
+/* Boutons */
+.archives-action-button {
+    background: #F5EBDD;
+    color: #3E2418;
+    border-color: rgba(92, 45, 24, .22);
+}
+
+.archives-action-button:hover {
+    background: #FFF8EC;
+}
+
+/* Résultats de recherche */
+.archives-search-result {
+    background: #F5EBDD;
+    color: #2D211B;
+}
+
+/* Tableau des dossiers */
+.archives-table {
+    background: #F5EBDD;
+}
+
+.archives-table thead {
+    background: #9A4F32;
+    color: #FFFFFF;
+}
+
+.archives-table tbody tr {
+    background: #F5EBDD;
+}
+
+.archives-table tbody tr:hover {
+    background: #EEDFD0;
+}

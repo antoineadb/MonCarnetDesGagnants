@@ -67,7 +67,113 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+const archivesSearchInput =
+    document.getElementById("archivesSearchInput");
 
+const archivesSearchResults =
+    document.getElementById("archivesSearchResults");
+
+archivesSearchInput?.addEventListener("input", () => {
+
+    const search = archivesSearchInput.value
+        .trim()
+        .toLowerCase();
+
+    if (!search) {
+
+        archivesSearchResults.innerHTML = `
+            <p class="archives-search-empty">
+                Commencez à taper pour fouiller les archives…
+            </p>
+        `;
+
+        return;
+    }
+
+ const normalize = text =>
+    (text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+const searchWords = normalize(search)
+    .split(/\s+/)
+    .filter(Boolean);
+
+const results = allAnals.filter(anal => {
+
+    const text = normalize([
+        anal.title,
+        anal.category,
+        anal.content
+    ]
+        .filter(Boolean)
+        .join(" "));
+
+    return searchWords.every(word => {
+
+        // Recherche normale
+        if (text.includes(word)) {
+            return true;
+        }
+
+        // Autorise notamment feuille ↔ feuilles
+        if (
+            word.length >= 4 &&
+            text.includes(word + "s")
+        ) {
+            return true;
+        }
+
+        return false;
+    });
+
+});
+ 
+    if (!results.length) {
+
+        archivesSearchResults.innerHTML = `
+            <p class="archives-search-empty">
+                Aucun résultat trouvé.
+            </p>
+        `;
+
+        return;
+    }
+
+    archivesSearchResults.innerHTML = results.map(anal => `
+        <button
+            type="button"
+            class="archives-search-result"
+            data-anal-id="${anal.id}"
+        >
+            <strong>${escapeHtml(anal.title || "Sans titre")}</strong>
+
+            <span>
+                ${escapeHtml(anal.category || "Sans catégorie")}
+            </span>
+        </button>
+    `).join("");
+
+});
+
+archivesSearchResults?.addEventListener("click", (event) => {
+
+    const result = event.target.closest(".archives-search-result");
+
+    if (!result) return;
+
+    const analId = Number(result.dataset.analId);
+
+    const anal = allAnals.find(
+        item => Number(item.id) === analId
+    );
+
+    if (!anal) return;
+
+    openAnalModal(anal);
+
+});
     /* =====================================================
        ANNULER UNE NOUVELLE AFFAIRE
     ===================================================== */
@@ -719,6 +825,8 @@ function renderAnals() {
         });
 
     }
+
+    window.openAnalModal = openAnalModal;
 
 /* =====================================================
    MODIFIER UNE AFFAIRE
