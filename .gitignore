@@ -7,3 +7,4 @@ database/*.db-shm
 public/.DS_Store
 public/components/.DS_Store
 public/js/.DS_Store
+public/uploads/
