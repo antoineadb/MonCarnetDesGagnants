@@ -501,6 +501,8 @@
     line-height: 1.15;
 
     color: var(--ink);
+    padding-top: 11px;
+    padding-bottom: 7px;
 }
 /* ===========================================================
    BAS DE CARTE
@@ -761,6 +763,8 @@
 
     flex: 1;
 
+    min-height: 0;
+
     width: 100%;
 
     box-sizing: border-box;
@@ -826,7 +830,9 @@
     white-space: pre-wrap;
 
     padding: 0 8px;
-
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 
@@ -945,4 +951,77 @@
     z-index: 1000;
 
     pointer-events: none;
+}
+
+/* ===========================================================
+   BOUTON CHANGER L'IMAGE
+   =========================================================== */
+
+.postcard-image-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 18px;
+
+    border: 1px solid #bca98b;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        180deg,
+        #fffaf0,
+        #e8dcc5   
+    );
+
+    color: #5a4939;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.12);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+
+    transform: translateY(2px);
+
+    padding-top: 11px;
+    padding-bottom: 7px;   
+
+}
+
+
+.postcard-image-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 12px rgba(0,0,0,.16);
+
+    filter: brightness(1.03);
+ 
+
+}
+
+
+.postcard-image-button:active {
+
+    transform: translateY(0);
+
 }

@@ -1,6 +1,6 @@
 import Component from "/js/core/Component.js";
 import EventBus from "/js/core/EventBus.js";
-
+console.log("POSTCARD.JS CHARGÉ - TEST IMAGE");
 export default class Postcard extends Component {
 
     constructor(container, options = {}){
@@ -26,6 +26,12 @@ export default class Postcard extends Component {
         this.card = this.$("#postcard");
 
         this.inner = this.$(".postcard-inner");
+
+        this.image = this.$(".postcard-image img");
+        
+        this.imageInput = this.$("#postcardImageInput");
+
+        this.imageSelector = this.$(".postcard-image-selector");
 
         this.text = this.$(".gratitude-text");
 
@@ -58,6 +64,69 @@ export default class Postcard extends Component {
     }
 
     bindEvents() {
+
+        this.imageInput.addEventListener("change", event => {
+
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                Toast.error("Veuillez choisir une image.");
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = () => {
+
+                const img = new Image();
+
+                img.onload = () => {
+
+                    const maxSize = 1200;
+
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxSize || height > maxSize) {
+
+                        if (width > height) {
+                            height = Math.round(height * maxSize / width);
+                            width = maxSize;
+                        } else {
+                            width = Math.round(width * maxSize / height);
+                            height = maxSize;
+                        }
+
+                    }
+
+                    const canvas = document.createElement("canvas");
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedImage =
+                        canvas.toDataURL("image/jpeg", 0.75);
+
+                    this.image.src = compressedImage;
+
+                    this.cardData = this.cardData || {};
+                    this.cardData.image = compressedImage;
+
+                };
+
+                img.src = reader.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+        });        
 
         this.saveButton.addEventListener(
 
@@ -308,15 +377,21 @@ export default class Postcard extends Component {
 
     getData(){
 
-        return {
+        const data = {
 
             ...this.cardData,
 
             title: this.title.value.trim(),
 
-            message: this.message.value.trim()
+            message: this.message.value.trim(),
+
+            image: this.image.src
 
         };
+
+        console.log("IMAGE ENVOYÉE :", data.image);
+
+        return data;
 
     }
 
@@ -372,6 +447,8 @@ export default class Postcard extends Component {
 
         this.actionsView.classList.add("hidden");
 
+        this.imageSelector.classList.remove("hidden");
+
     }
 
     initViewMode(){
@@ -384,22 +461,25 @@ export default class Postcard extends Component {
 
         this.actionsView.classList.remove("hidden");
 
+        this.imageSelector.classList.add("hidden");
+
     }
 
     fill(card){
-
         this.cardData = card;
 
-        // Champs du mode édition
         this.title.value = card.title;
         this.message.value = card.message;
 
-        // Champs du mode lecture
         this.titleView.textContent = card.title;
         this.messageView.textContent = card.message;
 
-        this.refreshFavorite();
+        // Restaurer l'image de la carte
+        this.image.src =
+            card.image ||
+            "/assets/images/postcards/france/bordeaux_1908.png";
 
+        this.refreshFavorite();
     }
 
     clear(){
