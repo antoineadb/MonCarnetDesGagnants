@@ -316,7 +316,7 @@ async loadJournalCount() {
     try {
 
         const response =
-            await fetch("/api/journal");
+            await fetch("/api/journal/history");
 
         if (!response.ok) {
 
